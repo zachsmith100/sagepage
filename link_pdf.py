@@ -12,7 +12,7 @@ import math
 import csv
 import html
 from html.parser import HTMLParser
-from scrap import *
+from pdfutil.pdf import *
 
 ################################################################################
 # Command line
@@ -30,15 +30,19 @@ pdf_out_path = sys.argv[4]
 ################################################################################
 # Load CSV Links
 ################################################################################
+print("Reading links...")
 links = {}
 
 with open(csv_path, 'r') as csv_file:
   csv_reader = csv.reader(csv_file)
-  links = {link[0].strip():link[1].strip() for link in csv_reader}
+  links = {'{0}.{1}'.format(link[0].strip(), link[1].strip()):link[3].strip() for link in csv_reader}
+
+print(links)
 
 ################################################################################
 # Load SVG Rects
 ################################################################################
+print("Loading SVG rects from file: {0}".format(svg_path))
 svg_rects = {}
 
 class SVGHTMLParser(HTMLParser):
@@ -48,7 +52,7 @@ class SVGHTMLParser(HTMLParser):
       if rect_data['id'] in links:
         svg_rects[rect_data['id']] = rect_data
         svg_rects[rect_data['id']]['x'] = float(svg_rects[rect_data['id']]['x'])
-        svg_rects[rect_data['id']]['y'] = float(svg_rects[rect_data['id']]['y']) 
+        svg_rects[rect_data['id']]['y'] = float(svg_rects[rect_data['id']]['y'])
 
   def handle_endtag(self, tag):
     pass
@@ -63,6 +67,7 @@ with open(svg_path, 'r') as svg_file:
 ################################################################################
 # Process Rects
 ################################################################################
+print("Extracting rects from PDF...")
 in_pdf = None
 
 def set_pdf(pdf):
@@ -134,7 +139,7 @@ class PDFLinkRectsUtils:
     decompressed = obj.stream_data
     if 'Filter' in obj.named_values:
       if obj.named_values['Filter'].value == 'FlateDecode':
-        decompressed = zlib.decompress(obj.stream_data)
+        decompressed = zlib.decompress(obj.stream_data).decode()
       else:
         return Result("Unsupported Filter type '{0}'".format(obj.named_values['Filter']))
     return Result(None, decompressed)
@@ -144,7 +149,7 @@ class PDFLinkRectsUtils:
     if 'Filter' in obj.named_values:
       if obj.named_values['Filter'].value == 'FlateDecode':
         #del obj.named_values['Filter']
-        compressed = zlib.compress(str(obj.stream_data).encode())
+        compressed = zlib.compress(obj.stream_data)
       else:
         return Result("Unsupported Filter type '{0}'".format(obj.named_values['Filter']))
     return Result(None, compressed)
@@ -155,7 +160,7 @@ class PDFLinkRectsUtils:
         commands.append(cmd)
     reader = ParserReader()
     parser = PDFContentStreamParser(append_command)
-    result = reader.read_string(parser.begin, str(content_stream).replace("\\n", "\n"))
+    result = reader.read_string(parser.begin, content_stream)
     if result:
       return Result(None, commands)
     return Result("Content stream parsing failed", commands)
@@ -195,28 +200,24 @@ class PDFLinkRects:
         else:
           output_commands.append(cmd)
 
-      print("\n".join([str(cmd) for cmd in output_commands]))
+      obj.stream_data = "\n".join([str(cmd) for cmd in output_commands]).encode()
 
-      obj.stream_data = "\n".join([str(cmd) for cmd in output_commands])
-      print(obj.stream_data)
-      
       result = PDFLinkRectsUtils.recompress_content_stream(obj)
       if result.is_error():
         return result
       obj.stream_data = result.value
       obj.named_values['Length'] = PDFValue(PDFValue.INT, len(obj.stream_data))
-
       selected_coords.extend([(cmd.params[0].value, cmd.params[1].value) for cmd in selected_commands])
          
     return Result(None, selected_coords)
         
 result = PDFLinkRects.pull_rects(PDFDeviceRGBColor(1.0, 0, 1.0), in_pdf)
-print(result)
 pdf_rects = result.value
 
 ################################################################################
 # Match Rects
 ################################################################################
+print("Matching rects...")
 
 svg_top_x = -1
 svg_top_y = -1
@@ -251,7 +252,6 @@ svg_pdf_x_offset = svg_top_x - pdf_top_x
 svg_pdf_y_offset = svg_top_y - pdf_top_y
 
 for svg_rect_id in svg_rects:
-  print(svg_rect_id)
   for pdf_rect in pdf_rects:
     if 'pdf_rect' in svg_rects[svg_rect_id]:
       cur_pdf_x = float(svg_rects[svg_rect_id]['pdf_rect'][0])
@@ -269,9 +269,12 @@ for svg_rect_id in svg_rects:
     else:
       svg_rects[svg_rect_id]['pdf_rect'] = pdf_rect
 
+print(svg_rects)
+
 ###############################
 # Verify all expected pdf rects
 ###############################
+print("Verifying expected rects")
 missing_rects = len(svg_rects)
 
 for svg_id in svg_rects:
@@ -287,6 +290,8 @@ if missing_rects > 0:
 ###############
 # Gen PDF links
 ###############
+print("Generating PDF Links...")
+
 pdf_links = []
 annot_refs = []
 
@@ -303,10 +308,10 @@ for svg_id in svg_rects:
   rect_array.append(PDFValue(PDFValue.FLOAT, svg_rect['pdf_rect'][0] + float(svg_rect['width'])))
   rect_array.append(PDFValue(PDFValue.FLOAT, svg_rect['pdf_rect'][1] - float(svg_rect['height'])))
   border_array = []
-  border_array.append(PDFValue(PDFValue.INT, 0))
-  border_array.append(PDFValue(PDFValue.INT, 0))
-  border_array.append(PDFValue(PDFValue.INT, 0))
-  border_array.append(PDFValue(PDFValue.INT, 0))
+  border_array.append(PDFValue(PDFValue.INT, 2))
+  border_array.append(PDFValue(PDFValue.INT, 2))
+  border_array.append(PDFValue(PDFValue.INT, 2))
+  border_array.append(PDFValue(PDFValue.INT, 2))
   link_obj.named_values['Rect'] = PDFValue(PDFValue.ARRAY, rect_array)
   link_obj.named_values['Subtype'] = PDFValue(PDFValue.NAME, 'Link')
   link_obj.named_values['Type'] = PDFValue(PDFValue.NAME, 'Annot')

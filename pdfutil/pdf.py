@@ -146,6 +146,8 @@ class PDFValue:
       s = "{0} {1} R".format(self.value.name, self.value.version)
     elif self.type == PDFValue.STRING:
       s = "({0})".format(self.value)
+    elif self.type == PDFValue.HEXSTRING:
+      s = '<{0}>'.format(self.value)
     elif self.type == PDFValue.NAME:
       s = '/{0}'.format(self.value)
     else:
@@ -215,7 +217,22 @@ class PDFContentStreamCommand:
     self.params = params
 
   def __str__(self):
-    return "{0} {1}".format(' '.join([param.default_value_str() for param in self.params]), self.name)
+    first = True
+    out = ''
+    last_param = None
+    need_space_types = {PDFValue.INT, PDFValue.FLOAT, PDFValue.TOKEN, PDFValue.REFERENCE, PDFValue.NULL, PDFValue.NAME}
+    for param in self.params:
+      if first:
+        first = False
+      elif param.type in need_space_types or last_param.type in need_space_types:
+        out = out + ' '
+      out = out + param.default_value_str()
+      last_param = param
+    if last_param is not None and last_param.type in need_space_types:
+      out = out + ' '
+    out = out + self.name
+    return out
+    #return "{0} {1}".format(' '.join([param.default_value_str() for param in self.params]), self.name)
 
   def __repr__(self):
     return self.__str__()
@@ -339,7 +356,7 @@ class PDFArrayParser(ParserBase):
     if self.last_token is not None and self.last_token.value == ']':
       self.array.pop()
       self.set_value(PDFValue(PDFValue.ARRAY, self.array))
-      return PDFParseResult(None, None, None)
+      return PDFParseResult(None, None, None, [b])
     return PDFParseResult(None, PDFValueParser(self.append_array_value).begin, self.read_value)
 
 #################
@@ -359,17 +376,17 @@ class PDFStringParser(ParserBase):
     if chr(b) == '(':
       self.stack.append('(')
       return PDFParseResult(None, None, self.read)
-
     return PDFParseResult("Expected '(', received '{0}'".format(chr(b)), None, None)
 
   def read(self, b, n):
-    if self.escaped == True:
+    if self.escaped is True:
       self.escaped = False
       self.string.append(chr(b))      
-      return PDFParseResult(None, None, self.begin)
+      return PDFParseResult(None, None, self.read)
     
     if chr(b) == '\\':
-      self.esacped = True
+      self.escaped = True
+      self.string.append(chr(b))
       return PDFParseResult(None, None, self.read)
 
     if chr(b) == '(':
@@ -379,12 +396,12 @@ class PDFStringParser(ParserBase):
     
     if chr(b) == ')':
       self.stack.pop()
-      if len(self.stack) > 0:
-        self.string.append(')')
-        return PDFParseResult(None, None, self.read)
-      else:
+      if len(self.stack) < 1:
         self.set_value(PDFValue(PDFValue.STRING, ''.join(self.string)))
         return PDFParseResult(None, None, None)
+      else:
+        self.string.append(')')
+        return PDFParseResult(None, None, self.read)
 
     self.string.append(chr(b))
     return PDFParseResult(None, None, self.read)
@@ -440,7 +457,7 @@ class PDFValueParser(ParserBase):
         return PDFParseResult(None, None, PDFArrayParser(self.set_array).begin, '[{0}'.format(chr(b)).encode())
       elif value.value == '/':
         return PDFParseResult(None, PDFTokenParser(self.set_token).begin, self.process_name_token)
-    if value.type == PDFValue.INT:
+    if value.type == PDFValue.INT and str(chr(b)).isspace():
       self.reference_value_1 = value
       return PDFParseResult(None, PDFTokenParser(self.set_token).begin, self.check_reference_value_2)
     self.set_value(value)
@@ -457,7 +474,7 @@ class PDFValueParser(ParserBase):
 
   def check_reference_value_2(self, b, n):
     value = self.create_value_from_token(self.token)
-    if value.type == PDFValue.INT:
+    if value.type == PDFValue.INT and str(chr(b)).isspace():
       self.reference_value_2 = value
       return PDFParseResult(None, PDFTokenParser(self.set_token).begin, self.check_reference_value_3)
     self.set_value(self.reference_value_1)

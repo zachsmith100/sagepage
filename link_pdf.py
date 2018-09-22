@@ -260,10 +260,15 @@ for svg_rect in svg_rects:
   if 'pdf_rect' not in svg_rect:
     continue
 
+  url = links[svg_rect['id']]
+
+  if url is None or len(url.strip()) < 1:
+    continue
+
   link_obj = in_pdf.create_new_object()
   annotation_values = {}
   annotation_values['S'] = PDFValue(PDFValue.NAME, 'URI')
-  annotation_values['URI'] = PDFValue(PDFValue.STRING, links[svg_rect['id']])
+  annotation_values['URI'] = PDFValue(PDFValue.STRING, url)
   link_obj.named_values['A'] = PDFValue(PDFValue.DICTIONARY, annotation_values)
   rect_array = []
   rect_array.append(PDFValue(PDFValue.FLOAT, svg_rect['pdf_rect'][0]))

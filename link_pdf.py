@@ -47,6 +47,8 @@ class SVGHTMLParser(HTMLParser):
   def handle_starttag(self, tag, attrs):
     if tag.lower() == "rect":
       rect_data = {i[0]:i[1] for i in attrs}
+      if 'id' not in rect_data:
+        return
       if rect_data['id'] in links:
         r = dict(rect_data)
         r['x'] = float(r['x'])
@@ -189,6 +191,8 @@ class PDFLinkRects:
     stream_data = PDFLinkRectsUtils.decompress_content_stream(content_object)
     commands = PDFLinkRectsUtils.parse_content_stream(stream_data)
 
+    print(stream_data)
+
     # Filter Commands
     #################
     output_commands = []
@@ -202,6 +206,7 @@ class PDFLinkRects:
         else:
           selected_paths = False
       if selected_paths and cmd.name == 're':
+        print("adding re cmd: {0}".format(cmd))
         selected_commands.append(cmd)
       else:
         output_commands.append(cmd)
@@ -243,9 +248,7 @@ for svg_rect in svg_rects:
     missing_rects = missing_rects - 1
 
 if missing_rects > 0:
-  print('''
-    Expected at least {0} rects in PDF '{1}', found {2} instead.
-  '''.format(len(svg_rects), pdf_in_path, len(svg_rects) - missing_rects))
+  print("WARNING: Expected at least {0} rects in PDF '{1}', found {2} instead".format(len(svg_rects), pdf_in_path, len(svg_rects) - missing_rects))
   #exit(-1)
 
 ###############
@@ -258,7 +261,9 @@ annot_refs = []
 
 for svg_rect in svg_rects:
   if 'pdf_rect' not in svg_rect:
+    print("PDF rect missing: {0}".format(svg_rect['id']))
     continue
+  print("PDF rect found for {0}".format(svg_rect['id']))
 
   url = links[svg_rect['id']]
 

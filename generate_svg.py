@@ -837,7 +837,11 @@ class PySyntaxParser(ParserBase):
   def __init__(self, set_value):
     ParserBase.__init__(self, set_value)
     self.fragments = []
-    self.keywords = {'def', 'as', 'for', 'while', 'pass', 'del', 'if', 'in'}
+    self.keywords = {
+      'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 
+      'def', 'del', 'elif', 'else', 'except', 'False', 'finally', 'for', 'from',
+      'global', 'if', 'import', 'in', 'is', 'lambda', 'None', 'nonlocal',
+      'not', 'or', 'pass', 'raise', 'return', 'True', 'try', 'while', 'with', 'yield'}
 
   def set_last_token(self, token):
     self.last_token = token
@@ -899,11 +903,11 @@ class PythonSyntaxSVGHilighter:
     style = HTMLStyleBuilder().set('font-name', self.font_name).set('font-size', self.font_size).set('fill', self.font_color)
     cur_token_span.set_attr('style', str(style))
     for frag in parser.fragments:
+      normalized = frag.value.replace(' ', '&#160;')
       if frag.type == PyFragment.TOKEN:
-        cur_token_span.text = cur_token_span.text + frag.value
+        cur_token_span.text = cur_token_span.text + normalized
         continue
 
-      cur_token_span.text = cur_token_span.text.replace(' ', '&#160;')
       spans.append(cur_token_span)
       cur_token_span = HTMLElement('tspan')
       style.set('fill', self.font_color)
@@ -913,19 +917,19 @@ class PythonSyntaxSVGHilighter:
         style.set('fill', 'rgb(0,0,255)')
         span = HTMLElement('tspan')
         span.set_attr('style', str(style))
-        span.set_text(frag.value)
+        span.set_text(normalized)
         spans.append(span)        
       elif frag.type == PyFragment.STRING:
         style.set('fill', 'rgb(255,0,0)')
         span = HTMLElement('tspan')
         span.set_attr('style', str(style))
-        span.set_text(frag.value)
+        span.set_text(normalized)
         spans.append(span)
       elif frag.type == PyFragment.COMMENT:
         style.set('fill', 'rgb(128,0,128)')
         span = HTMLElement('tspan')
         span.set_attr('style', str(style))
-        span.set_text(frag.value)
+        span.set_text(normalized)
         spans.append(span)
 
     if len(cur_token_span.text) > 0:
@@ -996,7 +1000,7 @@ class CodeletLayout(Configurable):
     for line in lines:
       normalized = line.strip()
       text_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size, False, normalized)
-      test_width = text_extents.width + text_extents.x_bearing
+      test_width = text_extents.x_advance + text_extents.x_bearing
       if test_width > width:
         width = test_width
     height = (text_extents.font_height * len(lines)) + ((len(lines) - 1) * self.line_spacing)
@@ -1100,7 +1104,8 @@ class CodeletLayout(Configurable):
         if len(subtitle) > 0:
           title_y = y + self.header_border_width + title_extents.font_ascent
         else:
-          title_y = y + self.header_border_width + (header_height / 2) - title_extents.font_descent
+          title_y = y + (header_height / 2) + title_extents.font_descent
+
 
         style = HTMLStyleBuilder().set('fill', self.header_font_color).set('font-weight', 'bold')
         style.set('font-name', self.header_font_name).set('font-size', self.header_font_size)

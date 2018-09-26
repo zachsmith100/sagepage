@@ -241,3 +241,44 @@ a.remove(0)
 a.sort(key=str.lower,reverse=false)
 for i in range(len(a)): pass
 for v in a: pass",
+codelets,tuple,"a = (100, 'asdf', 2.3)
+for i in range(len(a)): pass
+for v in a: pass",
+codelets,set,"a = {1,2,3}
+b = {3,4,5}
+print(a|b)  # a.union(b)
+print(a&b) # a.intersection(b)
+print(a-b) # a.difference(b)
+print(a^b) # a.difference_symmetric(b)",
+codelets,functions,"def listArgs(*args):
+  for v in args: pass
+listArgs(1, 2, 3)
+def keywordArgs(**kwargs):
+    for k in kwargs: pass
+keywordArgs(red=1, green=2, blue=3)
+def f(op, x, y): return op(x, y)
+def add(x, y): return x + y
+print(f(add, 10, 7))
+e = lambda x,y: x**2 + y + 7",
+codelets,comprehensions,"[char for char in 'Hello, World!']
+[x for x in range(50) if x % 3 == 0 if x % 9]
+{v: foo(v) for v in sequence if bar(v)}
+[await fun() for fun in funcs]
+[i async for i in agen()]",
+codelets,classes,"class A:
+  a = 1.1 # class scope
+  def __init__(self, a): pass
+  def f(self): pass
+test = A('Apples')
+test.f()",
+codelets,slicing,"a[start:end] # from start to end-1
+a[start:] # all from start
+a[:end] # beginning to end-1",
+codelets,with,"with open('out.txt', 'w') as f:
+     f.write('Hello, World!') # File closed after",
+codelets,imports,"import X
+from X import a, b, c 
+from X import *",
+codelets,strings,"# Comment
+"""""" Multiline String """"""
+""{0} {1} {2}"".format(100,'abc',2.0)",

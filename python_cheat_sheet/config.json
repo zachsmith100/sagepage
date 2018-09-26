@@ -42,7 +42,7 @@
   "codelets":
   {
     "layout_class":"CodeletLayout",
-    "col_count":0,
+    "col_count":1,
     "header_border_width":0,
     "line_spacing":2,
     "entries":
@@ -58,6 +58,69 @@
       {
         "title":"LIST",
         "subtitle":"Ordered, Mutable",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "tuple":
+      {
+        "title":"TUPLE (Array)",
+        "subtitle":"Ordered, Immutable",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "set":
+      {
+        "title":"SET (Hashtable)",
+        "subtitle":"Unordered, Mutable",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "functions":
+      {
+        "title":"Functions",
+        "subtitle":"",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "comprehensions":
+      {
+        "title":"COMPREHENSIONS",
+        "subtitle":"",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "classes":
+      {
+        "title":"CLASSES",
+        "subtitle":"",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "slicing":
+      {
+        "title":"SLICING",
+        "subtitle":"",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "with":
+      {
+        "title":"WITH",
+        "subtitle":"",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "imports":
+      {
+        "title":"IMPORT",
+        "subtitle":"",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "strings":
+      {
+        "title":"STRINGS",
+        "subtitle":"",
         "glyph":"{}",
         "syntax_hilighter":"python"
       }

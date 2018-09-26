@@ -42,8 +42,9 @@
   "codelets":
   {
     "layout_class":"CodeletLayout",
-    "col_count": 1,
-    "header_border_width":5,
+    "col_count":0,
+    "header_border_width":0,
+    "line_spacing":2,
     "entries":
     {
       "dictionary":

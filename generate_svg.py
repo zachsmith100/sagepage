@@ -73,11 +73,29 @@ class HTMLStyleBuilder:
   def __repr__(self):
     return self.__str__()
 
+#############
+# TextExtents
+#############
+class TextExtents:
+  def __init__(self):
+    self.x_bearing = 0
+    self.y_bearing = 0
+    self.width = 0
+    self.height = 0
+    self.x_advance = 0
+    self.y_advance = 0
+    self.font_ascent = 0
+    self.font_descent = 0
+    self.font_height = 0
+    self.font_max_x_advance = 0
+    self.font_max_y_advance = 0
+
 ###########
 # TextUtils
 ###########
 class TextUtils:
-  def get_text_dimensions(text, font_name, font_size, bold=False):
+  def get_text_dimensions(font_name, font_size, bold=False, text=None):
+    extents = TextExtents()
     WIDTH, HEIGHT = 1024, 1024
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, WIDTH, HEIGHT)
     ctx = cairo.Context(surface)
@@ -88,24 +106,21 @@ class TextUtils:
     else:
       ctx.select_font_face(font_name, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
     ctx.set_font_size(font_size)
-    extents = ctx.text_extents(text)
+    if text is not None and len(text) > 0:
+      text_extents = ctx.text_extents(text)
+      extents.x_bearing = text_extents.x_bearing
+      extents.y_bearing = text_extents.y_bearing
+      extents.width = text_extents.width
+      extents.height = text_extents.height
+      extents.x_advance = text_extents.x_advance
+      extents.y_advance = text_extents.y_advance
     font_extents = ctx.font_extents()
-    return (extents.width, extents.height, font_extents[0], font_extents[1], font_extents[2])
-
-  def get_font_extents(font_name, font_size, bold=False):
-    WIDTH, HEIGHT = 1024, 1024
-    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, WIDTH, HEIGHT)
-    ctx = cairo.Context(surface)
-    ctx.scale(WIDTH, HEIGHT)  # Normalizing the canvas
-    ctx.set_source_rgb(0.1, 0.1, 0.1)            
-    if bold:
-      ctx.select_font_face(font_name, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-    else:
-      ctx.select_font_face(font_name, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-    ctx.set_font_size(font_size)
-    extents = ctx.font_extents()
+    extents.font_ascent = font_extents[0]
+    extents.font_descent = font_extents[1]
+    extents.font_height = font_extents[2]
+    extents.font_max_x_advance = font_extents[3]
+    extents.font_max_y_advance = font_extents[4]
     return extents
-
 
 ###########
 # LinkEntry
@@ -159,7 +174,6 @@ class OptimizableRange:
     self.end = int(end)
     self.step = int(step)
     self.current = int(start)
-    print(self.start, self.end)
 
   def next(self):
     if self.current >= self.end:
@@ -197,19 +211,15 @@ class SimpleWordListLayout(Configurable):
     height = 0
     first = True
     for entry in column:
-      size = TextUtils.get_text_dimensions(entry.text, self.font_name, self.font_size)
-      if size[0] > width:
-        width = size[0]
+      text_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size, False, entry.text)
+      if text_extents.width > width:
+        width = text_extents.width
       if first:
         first = False
       else:
         height = height + self.row_spacing
-      height = height + size[4]
+      height = height + text_extents.font_height
     return (width, height)
-
-  def get_row_height(self, group, row_entries):
-    extents = TextUtils.get_text_dimensions(entry.text, self.font_name, self.font_size)
-    return extents[4]
 
   def get_group_rect(self, group, col_sizes):
     width = (2*self.border_width)
@@ -251,10 +261,7 @@ class SimpleWordListLayout(Configurable):
     layout_rect_size = self.get_group_rect(group, col_sizes)
     # Get Font Extents
     ##################
-    font_extents = TextUtils.get_font_extents(self.font_name, self.font_size)
-    font_height = font_extents[2]
-    font_ascent = font_extents[0]
-    font_descent = font_extents[1]
+    font_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size)
     # Get text coords
     ###################
     text_coords = []
@@ -262,14 +269,14 @@ class SimpleWordListLayout(Configurable):
     for col_index in range(len(columns)):
       col_entries = columns[col_index]
       col_width = col_sizes[col_index][0]
-      y = self.border_width + font_ascent
+      y = self.border_width + font_extents.font_ascent
       coord_col = []
       for row_index in range(len(col_entries)):
         entry = col_entries[row_index]
-        text_rect = TextUtils.get_text_dimensions(entry.text, self.font_name, self.font_size)
-        coord = (x, y, text_rect[0], text_rect[1])
+        text_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size, False, entry.text)
+        coord = (x, y, text_extents.width, text_extents.height)
         coord_col.append(coord)
-        y = y + self.row_spacing + font_height
+        y = y + self.row_spacing + font_extents.font_height
       x = x + col_width + self.col_spacing
       text_coords.append(coord_col)
     # Output SVG
@@ -299,8 +306,8 @@ class SimpleWordListLayout(Configurable):
         style = HTMLStyleBuilder().add('fill', 'rgb(255,0,255)').add('fill-opacity', '0.25')
         rect_element = HTMLElement('rect')
         rect_element.add_attr('id', '{0}.{1}'.format(entry.group, entry.identifier))
-        rect_element.add_attr('x', str(coord[0])).add_attr('y', str(coord[1]-font_ascent))
-        rect_element.add_attr('width', str(coord[2])).add_attr('height', font_height).add_attr('style', style)
+        rect_element.add_attr('x', str(coord[0])).add_attr('y', str(coord[1] - font_extents.font_ascent))
+        rect_element.add_attr('width', str(coord[2])).add_attr('height', font_extents.font_height).add_attr('style', style)
         html.add_child(rect_element)
     return html
 
@@ -339,7 +346,8 @@ class GlossaryLayout(Configurable):
   def get_area_params(self, group):
     params = []
     if self.col_count < 1:
-      params.append(OptimizableRange('col_count', 1, int(len(group) / 2), 1))
+      entries = self.get_glossary_entries(group)
+      params.append(OptimizableRange('col_count', 1, int(len(entries) / 2), 1))
     return params
 
   def get_glossary_entries(self, group):
@@ -362,13 +370,13 @@ class GlossaryLayout(Configurable):
     for i in range(self.col_count):
       column = []
       for j in range(row_count):
+        if idx == len(glossary_entries):
+          break
         if (j + 1) == row_count and glossary_entries[idx].bold:
           # Letter header can't be last entry of column
           continue
         column.append(glossary_entries[idx])
         idx = idx + 1
-        if idx == len(glossary_entries):
-          break
       columns.append(column)
     return columns 
 
@@ -377,19 +385,15 @@ class GlossaryLayout(Configurable):
     height = 0
     first = True
     for entry in column:
-      size = TextUtils.get_text_dimensions(entry.text, self.font_name, entry.font_size, entry.bold)
-      if size[0] > width:
-        width = size[0]
+      text_extents = TextUtils.get_text_dimensions(self.font_name, entry.font_size, entry.bold, entry.text)
+      if text_extents.width > width:
+        width = text_extents.width
       if first:
         first = False
       else:
         height = height + self.row_spacing
-      height = height + size[4]
+      height = height + text_extents.font_height
     return (width, height)
-
-  def get_row_height(self, group, row_entries):
-    extents = TextUtils.get_text_dimensions(entry.text, self.font_name, self.font_size)
-    return extents[4]
 
   def get_group_rect(self, group, col_sizes):
     width = (2*self.border_width)
@@ -428,11 +432,11 @@ class GlossaryLayout(Configurable):
       coord_col = []
       for row_index in range(len(col_entries)):
         entry = col_entries[row_index]
-        text_rect = TextUtils.get_text_dimensions(entry.text, self.font_name, entry.font_size)
-        y = y + text_rect[2]
-        coord = (x, y, text_rect[0], text_rect[1])
+        text_extents = TextUtils.get_text_dimensions(self.font_name, entry.font_size, False, entry.text)
+        y = y + text_extents.font_ascent
+        coord = (x, y, text_extents.width, text_extents.height)
         coord_col.append(coord)
-        y = y + self.row_spacing + text_rect[3]
+        y = y + self.row_spacing + text_extents.font_descent
       x = x + col_width + self.col_spacing
       text_coords.append(coord_col)
     # Output SVG
@@ -460,9 +464,7 @@ class GlossaryLayout(Configurable):
         entry = col_entries[row_index]
         if entry.url is None or len(entry.url.strip()) < 1:
           continue
-        font_extents = TextUtils.get_font_extents(self.font_name, entry.font_size, entry.bold)
-        font_ascent = font_extents[0]
-        font_height = font_extents[2]
+        extents = TextUtils.get_text_dimensions(self.font_name, entry.font_size, entry.bold, entry.text)
         coord = coord_col[row_index]
         style = HTMLStyleBuilder().add('fill', 'rgb(255,0,255)').add('fill-opacity', '0.25')
         rect_element = HTMLElement('rect')
@@ -470,8 +472,8 @@ class GlossaryLayout(Configurable):
           rect_element.add_attr('id', Globals.get_next_element_id())
         else:
           rect_element.add_attr('id', entry.identifier)
-        rect_element.add_attr('x', str(coord[0])).add_attr('y', str(coord[1]-font_ascent))
-        rect_element.add_attr('width', str(coord[2])).add_attr('height', font_height).add_attr('style', style)
+        rect_element.add_attr('x', str(coord[0])).add_attr('y', str(coord[1]- extents.font_ascent))
+        rect_element.add_attr('width', str(coord[2])).add_attr('height', extents.font_height).add_attr('style', style)
         html.add_child(rect_element)
     return html
 
@@ -506,19 +508,15 @@ class SimpleWordTableLayout(Configurable):
     height = 0
     first = True
     for entry in column:
-      size = TextUtils.get_text_dimensions(entry.text, self.font_name, self.font_size)
-      if size[0] > width:
-        width = size[0]
+      extents = TextUtils.get_text_dimensions(self.font_name, self.font_size, False, entry.text)
+      if extents.width > width:
+        width = extents.width
       if first:
         first = False
       else:
         height = height + self.row_spacing
-      height = height + size[4]
+      height = height + extents.font_height
     return (width, height)
-
-  def get_row_height(self, group, row_entries):
-    extents = TextUtils.get_text_dimensions(entry.text, self.font_name, self.font_size)
-    return extents[4]
 
   def get_group_rect(self, group, col_sizes):
     width = (2*self.border_width)
@@ -560,10 +558,7 @@ class SimpleWordTableLayout(Configurable):
     layout_rect_size = self.get_group_rect(group, col_sizes)
     # Get Font Extents
     ##################
-    font_extents = TextUtils.get_font_extents(self.font_name, self.font_size)
-    font_height = font_extents[2]
-    font_ascent = font_extents[0]
-    font_descent = font_extents[1]
+    font_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size)
     # Get text coords
     ###################
     text_coords = []
@@ -571,14 +566,14 @@ class SimpleWordTableLayout(Configurable):
     for col_index in range(len(columns)):
       col_entries = columns[col_index]
       col_width = col_sizes[col_index][0]
-      y = self.border_width + font_ascent
+      y = self.border_width + font_extents.font_ascent
       coord_col = []
       for row_index in range(len(col_entries)):
         entry = col_entries[row_index]
-        text_rect = TextUtils.get_text_dimensions(entry.text, self.font_name, self.font_size)
-        coord = (x, y, text_rect[0], text_rect[1])
+        text_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size, False, entry.text)
+        coord = (x, y, text_extents.width, text_extents.height)
         coord_col.append(coord)
-        y = y + self.row_spacing + font_height
+        y = y + self.row_spacing + font_extents.font_height
       x = x + col_width + self.col_spacing
       text_coords.append(coord_col)
     # Output SVG
@@ -620,10 +615,10 @@ class SimpleWordTableLayout(Configurable):
       if first:
           first = False
       else:
-        y = y + font_height + self.row_spacing
+        y = y + font_extents.font_height + self.row_spacing
       if i % 2:
         width = layout_rect_size[0] - (2 * self.border_width)
-        height = font_height
+        height = font_extents.font_height
         rect = HTMLElement('rect').add_attr('id', '{0}.row_alt{1}'.format(group_name, i))
         rect.add_attr('x', str(x))
         rect.add_attr('y', str(y))  
@@ -652,10 +647,245 @@ class SimpleWordTableLayout(Configurable):
         style = HTMLStyleBuilder().add('fill', 'rgb(255,0,255)').add('fill-opacity', '0.25')
         rect_element = HTMLElement('rect')
         rect_element.add_attr('id', '{0}.{1}'.format(entry.group, entry.identifier))
-        rect_element.add_attr('x', str(coord[0])).add_attr('y', str(coord[1]-font_ascent))
-        rect_element.add_attr('width', str(coord[2])).add_attr('height', font_height).add_attr('style', style)
+        rect_element.add_attr('x', str(coord[0])).add_attr('y', str(coord[1] - font_extents.font_ascent))
+        rect_element.add_attr('width', str(coord[2])).add_attr('height', font_extents.font_height).add_attr('style', style)
         html.add_child(rect_element)
     return html
+
+###############
+# CodeletLayout
+###############
+class CodeletLayout(Configurable):
+  def __init__(self):
+    Configurable.__init__(self)
+    self.col_count = 0
+    self.border_width = 0
+    self.row_spacing = 0
+    self.col_spacing = 10
+    self.header_border_width = 3
+    self.header_title_spacing = 3
+    self.header_font_name = 'sans-serif'
+    self.header_font_size = 10
+    self.header_font_color = 'rgb(255,255,255)'
+    self.header_background_color = 'rgb(77,77,77)'
+    self.header_transparency = 1.0
+    self.font_name = 'sans-serif'
+    self.font_color = 'rgb(0,0,0)'
+    self.font_size = 10
+    self.background_color = 'rgb(236,236,236)'
+    self.background_transparency = 1.0
+    self.line_spacing = 3
+    self.entries = {}
+
+  def get_area_params(self, group):
+    params = []
+    if self.col_count < 1:
+      params.append(OptimizableRange('col_count', 1, int(len(group) / 2), 1))
+    return params
+
+  def get_col_size(self, column):
+    width = 100
+    height = 4 * self.border_width + self.get_header_height()
+    first = True
+    for entry in column:
+      lines = entry.text.split('\n')
+      for line in lines:
+        normalized = line.strip()
+        text_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size, False, normalized)
+        if text_extents.width > width:
+          width = text_extents.width
+        if first:
+          first = False
+        else:
+          height = height + self.line_spacing
+        height = height + text_extents.font_height
+    width = width + (2 * self.border_width)
+    return (width, height)
+
+  def get_header_height(self):
+    title_extents = TextUtils.get_text_dimensions(self.header_font_name, self.header_font_size, True)
+    subtitle_extents = TextUtils.get_text_dimensions(self.header_font_name, self.header_font_size, False)
+    height = (title_extents.font_height + subtitle_extents.font_height) + (2 * self.header_border_width) + self.header_title_spacing
+    return height
+
+  def get_col_size_(self, column):
+    width = self.get_width(column)
+    height = self.get_header_height() + (2*self.border_width)
+    first = True
+    for entry in column:
+      extents = TextUtils.get_text_dimensions(self.font_name, self.font_size)
+      if first:
+        first = False
+      else:
+        height = height + self.row_spacing
+      lines = entry.text.split('\n')
+      height = height + extents.font_height
+    return (width, height)
+
+  def get_group_rect(self, group, col_sizes):
+    width = (2*self.border_width)
+    height = 0
+    first = True
+    for size in col_sizes:
+      if first:
+        first = False
+      else:
+        width = width + self.col_spacing
+      width = width + size[0]
+      if size[1] > height:
+        height = size[1]
+    height = height + (2*self.border_width) + self.get_header_height()
+    return (width, height)
+
+  def get_svg(self, group_name, group):
+    # Init Entries
+    ##############
+    row_count = int(len(group) / self.col_count)
+    if len(group) % self.col_count:
+      row_count = row_count + 1
+    columns = [group[i:i+row_count] for i in range(0, len(group), row_count)]
+    rows = []
+    for i in range(row_count):
+      row = []
+      for j in range(len(columns)):
+        next_index = (j*row_count) + i
+        if next_index < len(group):
+          row.append(group[next_index])
+      rows.append(row)
+    # Get col sizes
+    ###############
+    col_sizes = []
+    for column in columns:
+      col_sizes.append(self.get_col_size(column))
+    # Get Group Rect
+    ################
+    layout_rect_size = self.get_group_rect(group, col_sizes)
+    # Get Font Extents
+    ##################
+    font_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size)
+
+    # Build HTML
+    ############
+    html = HTMLElement('svg')
+    x = 0
+    header_height = self.get_header_height()
+    for i in range(len(columns)):
+      column = columns[i]
+      col_size = col_sizes[i]
+      y = 0
+      for entry in column:
+        bg_rect = HTMLElement('rect').add_attr('id', '{0}.{1}.bg_rect'.format(entry.group, entry.identifier))
+        bg_rect.add_attr('width', str(col_size[0])).add_attr('height', str(col_size[1]))
+        bg_rect.add_attr('x', str(x)).add_attr('y', str(y))
+        bg_rect.add_attr('style', HTMLStyleBuilder().add('fill', self.background_color))
+        html.add_child(bg_rect)
+
+        header_rect = HTMLElement('rect').add_attr('id', '{0}.{1}.header_rect'.format(entry.group, entry.identifier))
+        header_rect.add_attr('width', str(col_size[0])).add_attr('height', str(header_height))
+        header_rect.add_attr('x', str(x)).add_attr('y', str(y))
+        header_rect.add_attr('style', HTMLStyleBuilder().add('fill', self.header_background_color))
+        html.add_child(header_rect)
+
+        title = self.entries[entry.identifier]['title']
+        subtitle = self.entries[entry.identifier]['subtitle']
+        title_extents = TextUtils.get_text_dimensions(self.header_font_name, self.header_font_size, True, title)
+        title_x = x + (col_size[0] / 2) - (title_extents.width / 2)
+
+        if len(subtitle) > 0:
+          title_y = y + self.header_border_width + title_extents.font_ascent
+        else:
+          title_y = y + self.header_border_width + (header_height / 2) - title_extents.font_descent
+
+        style = HTMLStyleBuilder().add('fill', self.header_font_color).add('font-weight', 'bold')
+        style.add('font-name', self.header_font_name).add('font-size', self.header_font_size)
+        title_element = HTMLElement('text').add_attr('x', str(title_x)).add_attr('y', str(title_y)).add_attr('style', style)
+        title_element.set_text(title)
+        html.add_child(title_element)
+
+        if len(subtitle) > 0:
+          subtitle_extents = TextUtils.get_text_dimensions(self.header_font_name, self.header_font_size, False, subtitle)
+          subtitle_x = x + (col_size[0] / 2) - (subtitle_extents.width / 2)
+          subtitle_y = title_y + title_extents.font_descent + self.header_title_spacing + subtitle_extents.font_ascent  
+          style = HTMLStyleBuilder().add('fill', self.header_font_color)
+          style.add('font-name', self.header_font_name).add('font-size', self.header_font_size)
+          subtitle_element = HTMLElement('text').add_attr('x', str(subtitle_x)).add_attr('y', str(subtitle_y)).add_attr('style', style)
+          subtitle_element.set_text(subtitle)
+          html.add_child(subtitle_element)
+
+        font_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size)
+        lines_element = HTMLElement('text') #.add_attr('x', str(x + self.border_width)).add_attr('y', str(y + header_height + self.border_width + font_extents.font_ascent))
+        style = HTMLStyleBuilder().add('font-name', self.font_name).add('font-size', self.font_size).add('fill', self.font_color)
+        lines_element.add_attr('style', str(style))
+        lines = entry.text.split('\n')
+        html.add_child(lines_element)
+        line_x = x + self.border_width
+        line_y = y + header_height
+        first = True
+        for line in lines:
+          if first:
+            first = False
+          else:
+            line_y = line_y + self.line_spacing
+          line_y = line_y + font_extents.font_height
+          line_element = HTMLElement('tspan').add_attr('x', str(line_x)).add_attr('y', str(line_y))
+          line_element.set_text(line)
+          lines_element.add_child(line_element)
+
+        y = y + col_size[1]
+      x = x + col_size[0]
+
+
+    return html
+
+    # Get text coords
+    ###################
+    text_coords = []
+    x = self.border_width
+    for col_index in range(len(columns)):
+      col_entries = columns[col_index]
+      col_width = col_sizes[col_index][0]
+      y = self.border_width + font_extents.font_ascent
+      coord_col = []
+      for row_index in range(len(col_entries)):
+        entry = col_entries[row_index]
+        text_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size, False, entry.text)
+        coord = (x, y, text_extents.width, text_extents.height)
+        coord_col.append(coord)
+        y = y + self.row_spacing + font_extents.font_height
+      x = x + col_width + self.col_spacing
+      text_coords.append(coord_col)
+    # Output SVG
+    ############
+    html = HTMLElement('svg')
+    html.add_attr('width', str(layout_rect_size[0])).add_attr('height', str(layout_rect_size[1]))
+    bg_rect = HTMLElement('rect').add_attr('id', group_name).add_attr('width', str(layout_rect_size[0]))
+    bg_rect.add_attr('height', str(layout_rect_size[1]))
+    bg_rect.add_attr('style', HTMLStyleBuilder().add('fill', self.background_color))
+    html.add_child(bg_rect)
+
+    for col_index in range(len(columns)):
+      col_entries = columns[col_index]
+      coord_col = text_coords[col_index]
+      for row_index in range(len(col_entries)):
+        entry = col_entries[row_index] 
+        coord = coord_col[row_index]
+        style = HTMLStyleBuilder().add('font-name', self.font_name).add('font-size', self.font_size).add('fill', self.font_color)
+        html.add_child(HTMLElement('text').set_text(entry.text).add_attr('x', str(coord[0])).add_attr('y', str(coord[1])).add_attr('style', str(style)))
+    for col_index in range(len(columns)):
+      col_entries = columns[col_index]
+      coord_col = text_coords[col_index]
+      for row_index in range(len(col_entries)):
+        entry = col_entries[row_index] 
+        if entry.url is None or len(entry.url.strip()) < 1:
+          continue
+        coord = coord_col[row_index]
+        style = HTMLStyleBuilder().add('fill', 'rgb(255,0,255)').add('fill-opacity', '0.25')
+        rect_element = HTMLElement('rect')
+        rect_element.add_attr('id', '{0}.{1}'.format(entry.group, entry.identifier))
+        rect_element.add_attr('x', str(coord[0])).add_attr('y', str(coord[1] - font_extents.font_ascent))
+        rect_element.add_attr('width', str(coord[2])).add_attr('height', font_extents.font_height).add_attr('style', style)
+        html.add_child(rect_element)
+    return html    
 
 class OptimizeLayoutParams:
   def __init__(self, layout):
@@ -796,8 +1026,6 @@ def optimize_layout(layout, group_name, group):
       selected_svg = svg
 
     values = generator.next()
-
-  print(str(selected_svg))
 
   return selected_svg
 

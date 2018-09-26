@@ -224,32 +224,21 @@ class PDFLinkRects:
         
 media_box, pdf_rects = PDFLinkRects.pull_rects(PDFDeviceRGBColor(1.0, 0, 1.0), in_pdf)
 
-pdf_rects.sort(key = lambda r: (r[0]*10000) + (media_box[3] - r[1]))
-
 ################################################################################
 # Match Rects
 ################################################################################
 print("Matching rects...")
 
 svg_rects.sort(key = lambda r: (r['x']*10000) + r['y'])
+pdf_rects.sort(key = lambda r: (r[0]*10000) + (media_box[3] - r[1]))
+
+if len(pdf_rects) < len(svg_rects):
+    print("WARNING: Expected {0} rects in PDF '{1}', found {2} instead".format(len(svg_rects), pdf_in_path, len(pdf_rects)))
+    exit(-1)
 
 for i in range(len(svg_rects)):
   svg_rects[i]['pdf_rect'] = pdf_rects[i]
   print(svg_rects[i])
-
-###############################
-# Verify all expected pdf rects
-###############################
-print("Verifying expected rects")
-missing_rects = len(svg_rects)
-
-for svg_rect in svg_rects:
-  if 'pdf_rect' in svg_rect:
-    missing_rects = missing_rects - 1
-
-if missing_rects > 0:
-  print("WARNING: Expected at least {0} rects in PDF '{1}', found {2} instead".format(len(svg_rects), pdf_in_path, len(svg_rects) - missing_rects))
-  #exit(-1)
 
 ###############
 # Gen PDF links

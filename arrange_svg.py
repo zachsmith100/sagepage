@@ -139,7 +139,7 @@ html = HTMLElement("svg")
 
 x = 0
 y = 0
-width = 50
+width = 100
 height = 1.618 * width
 style = HTMLStyleBuilder().add('stroke', 'rgb(0,0,255)').add('stroke-width', '2').add('fill-opacity', '0')
 rect_element = HTMLElement('rect')

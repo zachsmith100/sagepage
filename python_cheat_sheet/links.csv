@@ -1,0 +1,243 @@
+builtins,1,abs(),library/functions.html#abs
+builtins,2,delattr(),library/functions.html#delattr
+builtins,3,hash(),library/functions.html#hash
+builtins,4,memoryview(),library/functions.html#func-memoryview
+builtins,5,set(),library/functions.html#func-set
+builtins,6,all(),library/functions.html#all
+builtins,7,dict(),library/functions.html#func-dict
+builtins,8,help(),library/functions.html#help
+builtins,9,min(),library/functions.html#min
+builtins,10,setattr(),library/functions.html#setattr
+builtins,11,any(),library/functions.html#any
+builtins,12,dir(),library/functions.html#dir
+builtins,13,hex(),library/functions.html#hex
+builtins,14,next(),library/functions.html#next
+builtins,15,slice(),library/functions.html#slice
+builtins,16,ascii(),library/functions.html#ascii
+builtins,17,divmod(),library/functions.html#divmod
+builtins,18,id(),library/functions.html#id
+builtins,19,object(),library/functions.html#object
+builtins,20,sorted(),library/functions.html#sorted
+builtins,21,bin(),library/functions.html#bin
+builtins,22,enumerate(),library/functions.html#enumerate
+builtins,23,input(),library/functions.html#input
+builtins,24,oct(),library/functions.html#oct
+builtins,25,staticmethod(),library/functions.html#staticmethod
+builtins,26,bool(),library/functions.html#bool
+builtins,27,eval(),library/functions.html#eval
+builtins,28,int(),library/functions.html#int
+builtins,29,open(),library/functions.html#open
+builtins,30,str(),library/functions.html#func-str
+builtins,31,breakpoint(),library/functions.html#breakpoint
+builtins,32,exec(),library/functions.html#exec
+builtins,33,isinstance(),library/functions.html#isinstance
+builtins,34,ord(),library/functions.html#ord
+builtins,35,sum(),library/functions.html#sum
+builtins,36,bytearray(),library/functions.html#func-bytearray
+builtins,37,filter(),library/functions.html#filter
+builtins,38,issubclass(),library/functions.html#issubclass
+builtins,39,pow(),library/functions.html#pow
+builtins,40,super(),library/functions.html#super
+builtins,41,bytes(),library/functions.html#func-bytes
+builtins,42,float(),library/functions.html#float
+builtins,43,iter(),library/functions.html#iter
+builtins,44,print(),library/functions.html#print
+builtins,45,tuple(),library/functions.html#func-tuple
+builtins,46,callable(),library/functions.html#callable
+builtins,47,format(),library/functions.html#format
+builtins,48,len(),library/functions.html#len
+builtins,49,property(),library/functions.html#property
+builtins,50,type(),library/functions.html#type
+builtins,51,chr(),library/functions.html#chr
+builtins,52,frozenset(),library/functions.html#func-frozenset
+builtins,53,list(),library/functions.html#func-list
+builtins,54,range(),library/functions.html#func-range
+builtins,55,vars(),library/functions.html#vars
+builtins,56,classmethod(),library/functions.html#classmethod
+builtins,57,getattr(),library/functions.html#getattr
+builtins,58,locals(),library/functions.html#locals
+builtins,59,repr(),library/functions.html#repr
+builtins,60,zip(),library/functions.html#zip
+builtins,61,compile(),library/functions.html#compile
+builtins,62,globals(),library/functions.html#globals
+builtins,63,map(),library/functions.html#map
+builtins,64,reversed(),library/functions.html#reversed
+builtins,65,__import__(),library/functions.html#__import__
+builtins,66,complex(),library/functions.html#complex
+builtins,67,hasattr(),library/functions.html#hasattr
+builtins,68,max(),library/functions.html#max
+builtins,69,round(),library/functions.html#round
+builtins,70,abs(),library/functions.html#abs
+builtins,71,delattr(),library/functions.html#delattr
+builtins,72,hash(),library/functions.html#hash
+builtins,73,memoryview(),library/functions.html#func-memoryview
+builtins,74,set(),library/functions.html#func-set
+builtins,75,all(),library/functions.html#all
+builtins,76,dict(),library/functions.html#func-dict
+keywords,and,and,library/stdtypes.html#boolean-operations-and-or-not
+keywords,as,as,reference/compound_stmts.html#index-16
+keywords,assert,assert,reference/simple_stmts.html#assert
+keywords,async,async,reference/compound_stmts.html#index-33
+keywords,await,await,reference/compound_stmts.html#index-33
+keywords,break,break,reference/simple_stmts.html#break
+keywords,class,class,reference/compound_stmts.html#class-definitions
+keywords,continue,continue,reference/simple_stmts.html#the-continue-statement
+keywords,def,def,reference/compound_stmts.html#function-definitions
+keywords,del,del,library/stdtypes.html#index-22
+keywords,elif,elif,reference/compound_stmts.html#the-if-statement
+keywords,else,else,reference/compound_stmts.html#the-if-statement
+keywords,except,except,reference/compound_stmts.html#the-try-statement
+keywords,False,False,library/constants.html#False
+keywords,finally,finally,reference/compound_stmts.html#the-try-statement
+keywords,for,for,reference/compound_stmts.html#the-for-statement
+keywords,from,from,reference/simple_stmts.html#the-import-statement
+keywords,global,global,reference/simple_stmts.html#the-global-statement
+keywords,if,if,reference/compound_stmts.html#the-if-statement
+keywords,import,import,reference/import.html
+keywords,in,in,reference/expressions.html#membership-test-operations
+keywords,is,is,reference/expressions.html#is-not
+keywords,lambda,lambda,reference/expressions.html#lambda
+keywords,None,None,library/constants.html#None
+keywords,nonlocal,nonlocal,reference/simple_stmts.html#the-nonlocal-statement
+keywords,not,not,reference/expressions.html#boolean-operations
+keywords,or,or,reference/expressions.html#boolean-operations
+keywords,pass,pass,reference/simple_stmts.html#the-pass-statement
+keywords,raise,raise,reference/simple_stmts.html#the-raise-statement
+keywords,return,return,reference/simple_stmts.html#the-return-statement
+keywords,True,True,library/constants.html#True
+keywords,try,try,reference/compound_stmts.html#the-try-statement
+keywords,while,while,reference/compound_stmts.html#the-while-statement
+keywords,with,with,reference/compound_stmts.html#the-with-statement
+keywords,yield,yield,reference/simple_stmts.html#the-yield-statement
+glossary,0,>>>,glossary.html#term
+glossary,1,...,glossary.html#term-1
+glossary,2,2to3,glossary.html#term-2to3
+glossary,3,abstract base class,glossary.html#term-abstract-base-class
+glossary,4,annotation,glossary.html#term-annotation
+glossary,5,argument,glossary.html#term-argument
+glossary,6,asynchronous context manager,glossary.html#term-asynchronous-context-manager
+glossary,7,asynchronous generator,glossary.html#term-asynchronous-generator
+glossary,8,asynchronous generator iterator,glossary.html#term-asynchronous-generator-iterator
+glossary,9,asynchronous iterable,glossary.html#term-asynchronous-iterable
+glossary,10,asynchronous iterator,glossary.html#term-asynchronous-iterator
+glossary,11,attribute,glossary.html#term-attribute
+glossary,12,awaitable,glossary.html#term-awaitable
+glossary,13,BDFL,glossary.html#term-bdfl
+glossary,14,binary file,glossary.html#term-binary-file
+glossary,15,bytes-like object,glossary.html#term-bytes-like-object
+glossary,16,bytecode,glossary.html#term-bytecode
+glossary,17,class,glossary.html#term-class
+glossary,18,class variable,glossary.html#term-class-variable
+glossary,19,coercion,glossary.html#term-coercion
+glossary,20,complex number,glossary.html#term-complex-number
+glossary,21,context manager,glossary.html#term-context-manager
+glossary,22,contiguous,glossary.html#term-contiguous
+glossary,23,coroutine,glossary.html#term-coroutine
+glossary,24,coroutine function,glossary.html#term-coroutine-function
+glossary,25,CPython,glossary.html#term-cpython
+glossary,26,decorator,glossary.html#term-decorator
+glossary,27,descriptor,glossary.html#term-descriptor
+glossary,28,dictionary,glossary.html#term-dictionary
+glossary,29,dictionary view,glossary.html#term-dictionary-view
+glossary,30,docstring,glossary.html#term-docstring
+glossary,31,duck-typing,glossary.html#term-duck-typing
+glossary,32,EAFP,glossary.html#term-eafp
+glossary,33,expression,glossary.html#term-expression
+glossary,34,extension module,glossary.html#term-extension-module
+glossary,35,f-string,glossary.html#term-f-string
+glossary,36,file object,glossary.html#term-file-object
+glossary,37,file-like object,glossary.html#term-file-like-object
+glossary,38,finder,glossary.html#term-finder
+glossary,39,floor division,glossary.html#term-floor-division
+glossary,40,function,glossary.html#term-function
+glossary,41,function annotation,glossary.html#term-function-annotation
+glossary,42,__future__,glossary.html#term-future
+glossary,43,garbage collection,glossary.html#term-garbage-collection
+glossary,44,generator iterator,glossary.html#term-generator-iterator
+glossary,45,generic function,glossary.html#term-generic-function
+glossary,46,GIL,glossary.html#term-gil
+glossary,47,global interpreter lock,glossary.html#term-global-interpreter-lock
+glossary,48,hash-based pyc,glossary.html#term-hash-based-pyc
+glossary,49,hashable,glossary.html#term-hashable
+glossary,50,IDLE,glossary.html#term-idle
+glossary,51,immutable,glossary.html#term-immutable
+glossary,52,import path,glossary.html#term-import-path
+glossary,53,importing,glossary.html#term-importing
+glossary,54,importer,glossary.html#term-importer
+glossary,55,interactive,glossary.html#term-interactive
+glossary,56,interpreted,glossary.html#term-interpreted
+glossary,57,interpreter shutdown,glossary.html#term-interpreter-shutdown
+glossary,58,iterable,glossary.html#term-iterable
+glossary,59,iterator,glossary.html#term-iterator
+glossary,60,key function,glossary.html#term-key-function
+glossary,61,keyword argument,glossary.html#term-keyword-argument
+glossary,62,lambda,glossary.html#term-lambda
+glossary,63,LBYL,glossary.html#term-lbyl
+glossary,64,list,glossary.html#term-list
+glossary,65,list comprehension,glossary.html#term-list-comprehension
+glossary,66,loader,glossary.html#term-loader
+glossary,67,mapping,glossary.html#term-mapping
+glossary,68,meta path finder,glossary.html#term-meta-path-finder
+glossary,69,metaclass,glossary.html#term-metaclass
+glossary,70,method,glossary.html#term-method
+glossary,71,method resolution order,glossary.html#term-method-resolution-order
+glossary,72,module,glossary.html#term-module
+glossary,73,module spec,glossary.html#term-module-spec
+glossary,74,MRO,glossary.html#term-mro
+glossary,75,mutable,glossary.html#term-mutable
+glossary,76,named tuple,glossary.html#term-named-tuple
+glossary,77,namespace,glossary.html#term-namespace
+glossary,78,namespace package,glossary.html#term-namespace-package
+glossary,79,nested scope,glossary.html#term-nested-scope
+glossary,80,new-style class,glossary.html#term-new-style-class
+glossary,81,object,glossary.html#term-object
+glossary,82,package,glossary.html#term-package
+glossary,83,parameter,glossary.html#term-parameter
+glossary,84,path entry,glossary.html#term-path-entry
+glossary,85,path entry finder,glossary.html#term-path-entry-finder
+glossary,86,path entry hook,glossary.html#term-path-entry-hook
+glossary,87,path based finder,glossary.html#term-path-based-finder
+glossary,88,path-like object,glossary.html#term-path-like-object
+glossary,89,PEP,glossary.html#term-pep
+glossary,90,portion,glossary.html#term-portion
+glossary,91,positional argument,glossary.html#term-positional-argument
+glossary,92,provisional API,glossary.html#term-provisional-api
+glossary,93,provisional package,glossary.html#term-provisional-package
+glossary,94,Python 3000,glossary.html#term-python-3000
+glossary,95,Pythonic,glossary.html#term-pythonic
+glossary,96,qualified name,glossary.html#term-qualified-name
+glossary,97,reference count,glossary.html#term-reference-count
+glossary,98,regular package,glossary.html#term-regular-package
+glossary,99,__slots__,glossary.html#term-slots
+glossary,100,sequence,glossary.html#term-sequence
+glossary,101,single dispatch,glossary.html#term-single-dispatch
+glossary,102,slice,glossary.html#term-slice
+glossary,103,special method,glossary.html#term-special-method
+glossary,104,statement,glossary.html#term-statement
+glossary,105,struct sequence,glossary.html#term-struct-sequence
+glossary,106,text encoding,glossary.html#term-text-encoding
+glossary,107,text file,glossary.html#term-text-file
+glossary,108,triple-quoted string,glossary.html#term-triple-quoted-string
+glossary,109,type,glossary.html#term-type
+glossary,110,type alias,glossary.html#term-type-alias
+glossary,111,type hint,glossary.html#term-type-hint
+glossary,112,universal newlines,glossary.html#term-universal-newlines
+glossary,113,variable annotation,glossary.html#term-variable-annotation
+glossary,114,virtual environment,glossary.html#term-virtual-environment
+glossary,115,virtual machine,glossary.html#term-virtual-machine
+glossary,116,Zen of Python,glossary.html#term-zen-of-python
+glossary,117,>>>,glossary.html#term
+glossary,118,...,glossary.html#term-1
+codelets,dictionary,"a = {'A':100, 'B':200, 'C':300}
+a['lettuce'] = 900
+del a['two']
+for k in a: pass
+for k,v in a.items(): pass
+if 'apples' in a: print(""a as in apple"")",tutorial/datastructures.html?highlight=dictionary#dictionaries
+codelets,list,"a = [100, 'asdf', 2.3]
+a.append(400)
+a.insert(0, 500)
+a.remove(0)
+a.sort(key=str.lower,reverse=false)
+for i in range(len(a)): pass
+for v in a: pass",

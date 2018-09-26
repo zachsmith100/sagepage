@@ -1,0 +1,65 @@
+{
+  "glossary":
+  {
+    "layout_class":"GlossaryLayout",
+    "col_count":1,
+    "font_name":"sans-serif",
+    "font_size":10,
+    "border_width":3,
+    "row_spacing":1,
+    "col_spacing":14,
+    "background_color":"rgb(236,236,236)",
+    "font_color":"rgb(0,0,255)"
+  },
+  "keywords":
+  {
+    "layout_class":"SimpleWordListLayout",
+    "col_count":1,
+    "font_name":"sans-serif",
+    "font_size":10,
+    "border_width":3,
+    "row_spacing":1,
+    "col_spacing":14,
+    "background_color":"rgb(236,236,236)",
+    "font_color":"rgb(0,0,255)"
+  },
+  "builtins":
+  {
+    "layout_class":"SimpleWordTableLayout",
+    "col_count":1,
+    "font_name":"sans-serif",
+    "font_size":10,
+    "border_width":3,
+    "row_spacing":1,
+    "col_spacing":14,
+    "background_color":"rgb(236,236,236)",
+    "font_color":"rgb(0,0,255)",
+    "column_colors":["rgb(255,0,0)","rgb(0,0,255)","rgb(0,255,0)"],
+    "column_transparencies":[0.05, 0.05, 0.05],
+    "row_alt_color":"rgb(0,0,0)",
+    "row_alt_transparency":0.05
+  },
+  "codelets":
+  {
+    "layout_class":"CodeletLayout",
+    "col_count": 1,
+    "header_border_width":5,
+    "entries":
+    {
+      "dictionary":
+      {
+        "title":"DICTIONARY (Hashtable)",
+        "subtitle":"Unordered, Mutable",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      },
+      "list":
+      {
+        "title":"LIST",
+        "subtitle":"Ordered, Mutable",
+        "glyph":"{}",
+        "syntax_hilighter":"python"
+      }
+    }
+  }
+}

@@ -36,7 +36,7 @@ class HTMLElement:
     self.children = []
     self.text = ''
 
-  def add_attr(self, n, v):
+  def set_attr(self, n, v):
     self.attributes.append(HTMLAttribute(n,v))
     return self
 
@@ -62,14 +62,14 @@ class HTMLElement:
 ##################
 class HTMLStyleBuilder:
   def __init__(self):
-    self.styles = []
+    self.styles = {}
 
-  def add(self, name, value):
-    self.styles.append((name,value))
+  def set(self, name, value):
+    self.styles[name] =value
     return self
 
   def __str__(self):
-    return ';'.join(['{0}:{1}'.format(style[0],style[1]) for style in self.styles])
+    return ';'.join(['{0}:{1}'.format(name, self.styles[name]) for name in self.styles])
 
   def __repr__(self):
     return self.__str__()
@@ -104,6 +104,7 @@ class SVGHTMLParser(HTMLParser):
   def handle_data(self, data):
     pass
 
+'''
 for filename in os.listdir(input_dir):
   if filename.endswith(".svg") is not True:
     continue
@@ -113,73 +114,182 @@ for filename in os.listdir(input_dir):
   with open(full_filename, 'r') as svg_file:
     parser = SVGHTMLParser()
     parser.feed(svg_file.read())
+'''
 
 ################################################################################
 # Arrange
 ################################################################################
-def get_smallest_bounding_golden_rect(rects):
-  area = 0
-  scale_width = 1
-  scale_height = 1.618
+class Rect:
+  def __init__(self, x=0, y=0, width=0, height=0):
+    self.x = x
+    self.y = y
+    self.width = width
+    self.height = height
 
-  for rect in rects:
-    area = area + (rect[0] * rect[1])
+class FreeCell:
+  def __init__(self, free=True, width=0, height=0):
+    self.free = free
+    self.width = width
+    self.height = height
+    self.north = None
+    self.east = None
+    self.south = None
+    self.west = None
 
-  width = scale_width
-  height = scale_height
+  def split_vertically(self, x):
+    new_cell_width = self.width - x
+    self.width = x
 
-  while (width * height) < area:
-    width = width + scale_width
-    height = height + scale_height
+    new_cell = FreeCell(self.free, new_cell_width, self.height)
+    original_east = self.east
+    self.east = new_cell
 
-  return (width, height)
+    if self.north:
+      self.north.south = None
+      new_cell.north = self.north.split_vertically(x)
+      new_cell.north.south = new_cell
+      self.north.south = self
+
+    if self.south:
+      self.south.north = None
+      new_cell.south = self.south.split_vertically(x)
+      new_cell.south.north = new_cell
+      self.south.north = self
+
+    new_cell.east = original_east
+    new_cell.west = self
+
+    return new_cell
+
+  def split_horizontally(self, y):
+    new_cell_height = self.height - y
+    self.height = y
+
+    new_cell = FreeCell(self.free, self.width, new_cell_height)
+    original_south = self.south
+    self.south = new_cell
+
+    if self.west:
+      self.west.east = None
+      new_cell.west = self.west.split_horizontally(y)
+      new_cell.west.east = new_cell
+      self.west.east = self
+
+    if self.east:
+      self.east.west = None
+      new_cell.east = self.east.split_horizontally(y)
+      new_cell.east.west = new_cell
+      self.east.west = self
+
+    new_cell.north = self
+    new_cell.south = original_south
+
+    return new_cell
+
+class AreaMatrix:
+  def __init__(self, width, height):
+    cell = FreeCell(True, width, height)
+    self.rows = []
+    self.columns = []
+
+    self.rows.append(cell)
+    self.columns.append(cell)
 
 
-html = HTMLElement("svg")
+class ArrangeRects:
+  def __init__(self, ratio):
+    self.ratio = ratio
 
+  def get_placement_coord(self, rect):
+    x = 0
+    y = 0
+    
+  def get_enclosing_rect_for_area(self, area):
+    unit_square = area/self.ratio
+    w = math.sqrt(unit_square)
+    h = w * self.ratio
+
+    if ((w*100) % 10) > 0:
+      w = int(w) + 1
+    else:
+      w = int(w)
+
+    if ((h*100) % 10) > 0:
+      h = int(h) + 1
+    else:
+      h = int(h)
+
+    return (w,h)
+
+
+  def arrange(self, rects):
+    self.rows = []
+    self.columns = []
+
+    rects.sort(key=lambda r: (r.width * r.height))
+    width = 0
+    height = 0
+    for rect in rects:
+      if (rect.x + rect.width) > width:
+        width = rect.x + rect.width
+      if (rect.y + rect.height) > height:
+        height = rect.y + rect.height
+    self.enclosing_area = area = width * height
+    print(self.get_enclosing_rect_for_area(area))
+
+
+#arrange_rects = ArrangeRects(ratio)
+
+#arrange_rects.arrange(rects)
+
+rects = []
+ratio = 1.618
+
+cell = FreeCell(True, 1024, 1024)
+cell.split_vertically(150)
+cell.split_horizontally(25)
+cell.east.south.split_horizontally(100)
+cell.east.south.split_vertically(225)
+
+cell.south.south.split_horizontally(25)
+
+
+next_cell = cell
 x = 0
 y = 0
-width = 100
-height = 1.618 * width
-style = HTMLStyleBuilder().add('stroke', 'rgb(0,0,255)').add('stroke-width', '2').add('fill-opacity', '0')
-rect_element = HTMLElement('rect')
-rect_element.add_attr('width', str(width)).add_attr('height', str(height))
-rect_element.add_attr('style', str(style))
-html.add_child(rect_element)
+while next_cell:
+  rect = Rect(x, y, next_cell.width, next_cell.height)
+  rects.append(rect)
 
+  if next_cell.east:
+    x = x + next_cell.width
+    next_cell = next_cell.east
+  elif next_cell.south:
+    x = 0
+    y = y + next_cell.height
+    next_cell = next_cell.south
+    while next_cell.west:
+      next_cell = next_cell.west
+  else:
+    next_cell = None
 
-for i in range(10):
-  prev_width = width
-  prev_height = height
-  width = height
-  height = prev_width + height
+width = 0
+height = 0
+for rect in rects:
+  if (rect.x + rect.width) > width:
+    width = rect.x + rect.width
+  if (rect.y + rect.height) > height:
+    height = rect.y + rect.height
 
-  if i % 4 == 0:
-    x = x + prev_width
-  elif i % 4 == 1:
-    y = y + prev_width
-    x = x + prev_width - width
-  elif i % 4 == 2:
-    x = x - width
-    y = y - (width - prev_width)
-  elif i % 4 == 3:
-    y = y - width
-  
-  print(x, y, width, height)
+html = HTMLElement('svg')
+html.set_attr('x', str(0)).set_attr('y', str(0)).set_attr('width', str(width)).set_attr('height', str(height))
 
-  style = HTMLStyleBuilder().add('stroke', 'rgb(0,0,0)').add('stroke-width', '2').add('fill-opacity', '0')
+for rect in rects:
   rect_element = HTMLElement('rect')
-  rect_element.add_attr('x', str(x)).add_attr('y', str(y))
-  rect_element.add_attr('width', str(width)).add_attr('height', str(width))
-  rect_element.add_attr('style', str(style))
+  rect_element.set_attr('x', str(rect.x)).set_attr('y', str(rect.y)).set_attr('width', str(rect.width)).set_attr('height', str(rect.height))
+  style = HTMLStyleBuilder().set('fill', 'none').set('stroke', 'black').set('stroke-width', '2px')
+  rect_element.set_attr('style', str(style))
   html.add_child(rect_element)
 
 with open(output_file, 'w') as f:
   f.write(str(html))
-
-
-bounding_rect = get_smallest_bounding_golden_rect(rects)
-
-print(bounding_rect)
-
-exit(0)

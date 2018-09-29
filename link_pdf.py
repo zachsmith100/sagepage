@@ -1,18 +1,17 @@
-
-#!/usr/bin/env python
-
-from itertools import count
-from subprocess import call, PIPE, Popen
 import os
 import re
 import sys
-import tempfile
-
 import math
 import csv
 import html
+import zlib
 from html.parser import HTMLParser
-from pdfutil.pdf import *
+from utils.pdf import PDF
+from utils.pdf import PDFParser
+from utils.pdf import ParserReader
+from utils.pdf import PDFValue
+from utils.pdf import PDFContentStreamParser
+from utils.pdf import PDFWriter
 
 ################################################################################
 # Command line

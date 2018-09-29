@@ -12,6 +12,7 @@ import csv
 import html
 from html.parser import HTMLParser
 from pdfutil.pdf import *
+import random
 
 # HTMLAttribute
 ###############
@@ -227,6 +228,9 @@ class AreaMatrix:
     self.next_id = self.next_id + 1
     return next_id
 
+  def mark_cell(self, col_index, row_index, color):
+    self.columns[col_index][row_index].set_color(color)
+
   def split_row(self, row_index, new_height):
     old_height = self.row_heights[row_index]
     self.row_heights[row_index] = new_height
@@ -260,48 +264,89 @@ class AreaMatrix:
     self.columns.insert(col_index + 1, new_col)
     self.column_widths.insert(col_index + 1, new_col_width)
 
-  def get_free_rect(self, origin_col_index, origin_row_index):
-    width = 0
+  def get_column_free_height(self, origin_col_index, origin_row_index, max_height=-1):
     height = 0
-    for col_index in range(origin_col_index, len(self.columns)):
-      cell = self.rows[origin_row_index][col_index]
-      if cell.is_free() is not True:
+    row_index = origin_row_index
+    while row_index < len(self.rows) and self.rows[row_index][origin_col_index].is_free():
+      if max_height > -1 and (height + self.row_heights[row_index]) > max_height:
         break
-      width = width + self.column_widths[col_index]
+      height = height + self.row_heights[row_index]
+      row_index = row_index + 1
+    return height
 
-    if width == 0:
-      return None
+  def list_free_rects_for_cell(self, origin_col_index, origin_row_index):
+    rects = []
+    last_height = -1
+    width = 0
+    next_col_index = origin_col_index
+    while next_col_index < len(self.columns) and self.columns[next_col_index][origin_row_index].is_free():
+      next_height = self.get_column_free_height(next_col_index, origin_row_index, last_height)
+      width = width + self.column_widths[next_col_index]
+      if next_height != last_height and last_height > -1:    
+        next_height = min(last_height, next_height)
+        rects.append(Rect(None, origin_col_index, origin_row_index, width, last_height))
+      last_height = next_height
+      next_col_index = next_col_index + 1
 
-    origin_y = 0
-    for row_index in range(origin_row_index):
-      origin_y = origin_y + self.row_heights[row_index]
+    if last_height > 0:
+      rects.append(Rect(None, origin_col_index, origin_row_index, width, last_height))      
 
-    height = self.height - origin_y
-    return Rect(None, origin_col_index, origin_row_index, width, height)
+    return rects
 
 
   def list_free_rects(self):
     free_rects = []
     for row_index in range(len(self.rows)):
       for col_index in range(len(self.columns)):
-        rect = self.get_free_rect(col_index, row_index)
-        if rect is not None:
-          free_rects.append(rect)
+        cell_free_rects = self.list_free_rects_for_cell(col_index, row_index)
+        if cell_free_rects is not None:
+          free_rects.extend(cell_free_rects)
     return free_rects
 
   def select_leftmost_fit(self, test_rect, trial_rects):
     leftmost_rect = None
     for rect in trial_rects:
-      if rect.width >= test_rect.width and rect.height >= test_rect.height:
-        if leftmost_rect is None:
-          leftmost_rect = rect
-        elif rect.x < leftmost_rect.x:
-          leftmost_rect = rect
+      if rect.width < test_rect.width or rect.height < test_rect.height:
+        continue
+      if leftmost_rect is None:
+        leftmost_rect = rect
+      elif rect.x < leftmost_rect.x:
+        leftmost_rect = rect
     return leftmost_rect
 
-  def mark_cell(self, col_index, row_index, color):
-    self.columns[col_index][row_index].set_color(color)
+  def place_rect(self, origin_col_index, origin_row_index, rect):
+    remaining_width = rect.width
+    remaining_height = rect.height
 
+    # Split col
+    ###########
+    split_col_index = origin_col_index
+    next_width = self.column_widths[split_col_index]
+    while remaining_width > next_width:
+      remaining_width = remaining_width - next_width
+      split_col_index = split_col_index + 1
+      next_width = self.column_widths[split_col_index]
+
+    if remaining_width > 0:
+      self.split_column(split_col_index, remaining_width)
+
+    # Split row
+    ###########
+    split_row_index = origin_row_index
+    next_height = self.row_heights[split_row_index]
+    while remaining_height > next_height:
+      remaining_height = remaining_height - next_height
+      split_row_index = split_row_index + 1
+      next_height = self.row_heights[split_row_index]
+
+    if remaining_height > 0:
+      self.split_row(split_row_index, remaining_height)
+
+    # Mark
+    ######
+    for col_index in range(origin_col_index, split_col_index + 1):
+      for row_index in range(origin_row_index, split_row_index + 1):
+        self.rows[row_index][col_index].color = rect.get_color()
 
   def dump_svg(self, filename):
     rects = []
@@ -340,8 +385,8 @@ class ArrangeRects:
     
   def get_enclosing_rect_for_area(self, area):
     unit_square = area/self.ratio
-    w = math.sqrt(unit_square)
-    h = w * self.ratio
+    h = math.sqrt(unit_square)
+    w = h * self.ratio
 
     if ((w*100) % 10) > 0:
       w = int(w) + 1
@@ -356,19 +401,24 @@ class ArrangeRects:
     return Size(w,h)
 
 
-  def attempt_arrangement(self, cell, rects):
-    for rect_id in range(len(rects)):
-      if self.place_rect(cell, rect_id, rects[rect_id]) is not True:
-        print("Failed", rects[rect_id])
+  def attempt_arrangement(self, matrix, rects):
+    for rect in rects:
+      free_rects = matrix.list_free_rects()
+      #print(free_rects)
+      leftmost_rect = matrix.select_leftmost_fit(rect, free_rects)
+
+      if leftmost_rect is None:
         return False
-      else:
-        print("Passed", rects[rect_id])
+
+      matrix.place_rect(leftmost_rect.x, leftmost_rect.y, rect)
+
     return True
 
   def arrange(self, rects, ratio):
     self.ratio = ratio
 
     rects.sort(key=lambda r: (r.width * r.height), reverse=True)
+
     width = 0
     height = 0
     for rect in rects:
@@ -381,9 +431,10 @@ class ArrangeRects:
     while True:
       enclosing_rect = self.get_enclosing_rect_for_area(area)
       print("Attempting enclosing rect", enclosing_rect.width, enclosing_rect.height)
-      self.matrix = AreaMatrix(enclosing_rect.width, enclosing_rect.height)
-      if self.attempt_arrangement(rects):
+      matrix = AreaMatrix(enclosing_rect.width, enclosing_rect.height)
+      if self.attempt_arrangement(matrix, rects):
         print("Found arrangement", enclosing_rect)
+        matrix.dump_svg(output_file)
         break
       area = area + int(area * 0.1)
 
@@ -394,13 +445,35 @@ rects = []
 ratio = 1.618
 
 input_rects = []
-input_rects.append(Rect(0, 0,0,100,200, 'red'))
-input_rects.append(Rect(1, 0,0,20,20, 'green'))
-input_rects.append(Rect(2,0,75,235, 'blue'))
-input_rects.append(Rect(3,0,120,235, 'gray'))
-#input_rects.append(Rect(0,0,120,10, 'magenta'))
-#input_rects.append(Rect(0,0,12,23, 'purple'))
-#input_rects.append(Rect(0,0,1200,235))
+
+class NextColor:
+  def __init__(self):
+    self.colors = ['red', 'green', 'blue', 'yellow', 'purple', 'gray', 'black']
+    self.index = 0
+
+  def next_color(self):
+    if self.index >= len(self.colors):
+      self.index = 0
+    c = self.colors[self.index]
+    self.index = self.index + 1
+    r = random.randint(0,255)
+    g = random.randint(0,255)
+    b = random.randint(0,255)
+    c = 'rgb({0},{1},{2})'.format(r,b,b)
+    return c
+
+next_color = NextColor()
+
+for i in range(150):
+  input_rects.append(Rect(None, 0, 0, random.randint(15, 300), random.randint(15, 300), next_color.next_color()))
+
+#input_rects.append(Rect(0,0,0,100,200, 'red'))
+#input_rects.append(Rect(1,0,0,20,20, 'green'))
+#input_rects.append(Rect(2,0,0,75,235, 'blue'))
+#input_rects.append(Rect(3,0,0,120,200, 'gray'))
+#input_rects.append(Rect(4,0,0,120,100, 'magenta'))
+#input_rects.append(Rect(5,0,0,12,23, 'purple'))
+#input_rects.append(Rect(6,0,0,1200,235, 'yellow'))
 
 #arrange_rects = ArrangeRects()
 #arrange_rects.arrange(input_rects, ratio)
@@ -414,26 +487,30 @@ input_rects.append(Rect(3,0,120,235, 'gray'))
 #cell.south.south.split_horizontally(25)
 
 
-matrix = AreaMatrix(1024, 1024)
-print(matrix)
-matrix.split_row(0, 100)
-matrix.split_column(0, 100)
-matrix.split_column(1, 300)
+#matrix = AreaMatrix(1024, 1024)
+#print(matrix)
+#matrix.split_row(0, 100)
+#matrix.split_column(0, 100)
+#matrix.split_column(1, 300)
 #matrix.split_column(2, 100)
 #matrix.split_row(1, 100)
 #matrix.split_row(2, 100)
 
-matrix.mark_cell(0,0,'red')
-matrix.mark_cell(0,1,'red')
-matrix.mark_cell(1,0,'red')
-free_rects = matrix.list_free_rects()
-print(free_rects)
+#matrix.mark_cell(0,0,'red')
+#matrix.mark_cell(0,1,'red')
+#matrix.mark_cell(1,0,'red')
+#free_rects = matrix.list_free_rects()
+#print(free_rects)
 
-rect = matrix.select_leftmost_fit(Rect(None, 0, 0, 800, 800), free_rects)
-matrix.mark_cell(rect.x, rect.y, 'green')
-print("leftmost fit:", rect)
+#rect = matrix.select_leftmost_fit(Rect(None, 0, 0, 800, 800), free_rects)
 
-matrix.dump_svg(output_file)
+arrange_rects = ArrangeRects()
+arrange_rects.arrange(input_rects, ratio)
+
+#matrix.mark_cell(rect.x, rect.y, 'green')
+#print("leftmost fit:", rect)
+
+#matrix.dump_svg(output_file)
 
 
 #write_svg(output_file, input_rects)

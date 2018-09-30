@@ -43,15 +43,28 @@ print("Loading SVG rects from file: {0}".format(svg_path))
 svg_rects = []
 
 class SVGHTMLParser(HTMLParser):
+  def __init__(self):
+    HTMLParser.__init__(self)
+    self.origin_x = 0
+    self.origin_y = 0
+
   def handle_starttag(self, tag, attrs):
+    if tag.lower() == 'svg':
+      data = {i[0]:i[1] for i in attrs}
+      if 'x' in data:
+        self.origin_x = float(data['x'])
+      if 'y' in data:
+        self.origin_y = float(data['y'])
+      print(self.origin_x, self.origin_y)
+
     if tag.lower() == "rect":
       rect_data = {i[0]:i[1] for i in attrs}
       if 'id' not in rect_data:
         return
       if rect_data['id'] in links:
         r = dict(rect_data)
-        r['x'] = float(r['x'])
-        r['y'] = float(r['x'])
+        r['x'] = float(r['x']) + self.origin_x
+        r['y'] = float(r['y']) + self.origin_y
         svg_rects.append(r)
 
   def handle_endtag(self, tag):
@@ -190,8 +203,6 @@ class PDFLinkRects:
     stream_data = PDFLinkRectsUtils.decompress_content_stream(content_object)
     commands = PDFLinkRectsUtils.parse_content_stream(stream_data)
 
-    print(stream_data)
-
     # Filter Commands
     #################
     output_commands = []
@@ -205,7 +216,6 @@ class PDFLinkRects:
         else:
           selected_paths = False
       if selected_paths and cmd.name == 're':
-        print("adding re cmd: {0}".format(cmd))
         selected_commands.append(cmd)
       else:
         output_commands.append(cmd)
@@ -228,16 +238,24 @@ media_box, pdf_rects = PDFLinkRects.pull_rects(PDFDeviceRGBColor(1.0, 0, 1.0), i
 ################################################################################
 print("Matching rects...")
 
-svg_rects.sort(key = lambda r: (r['x']*10000) + r['y'])
-pdf_rects.sort(key = lambda r: (r[0]*10000) + (media_box[3] - r[1]))
+svg_rects.sort(key = lambda r: ( int(r['x']) << 10) & int(r['y']))
+pdf_rects.sort(key = lambda r: (int(r[0]) << 10) & int(media_box[3] - r[1]) )
+
+for r in svg_rects:
+  print(r['x'], r['y'], 'key', str(r['x']) + str(r['y']))
 
 if len(pdf_rects) < len(svg_rects):
     print("WARNING: Expected {0} rects in PDF '{1}', found {2} instead".format(len(svg_rects), pdf_in_path, len(pdf_rects)))
     exit(-1)
 
 for i in range(len(svg_rects)):
+  svg_ratio = float(svg_rects[i]['width']) / float(svg_rects[i]['height'])
+  pdf_ratio = pdf_rects[i][0] / pdf_rects[i][1]
+
+  if abs(svg_ratio - pdf_ratio) > 0.1:
+    print("WARNING: expected link rect ratio: {0} received: {1}".format(svg_ratio, pdf_ratio))
+
   svg_rects[i]['pdf_rect'] = pdf_rects[i]
-  print(svg_rects[i])
 
 ###############
 # Gen PDF links
@@ -251,8 +269,6 @@ for svg_rect in svg_rects:
   if 'pdf_rect' not in svg_rect:
     print("PDF rect missing: {0}".format(svg_rect['id']))
     continue
-  print("PDF rect found for {0}".format(svg_rect['id']))
-
   url = links[svg_rect['id']]
 
   if url is None or len(url.strip()) < 1:
@@ -277,9 +293,6 @@ for svg_rect in svg_rects:
   link_obj.named_values['Subtype'] = PDFValue(PDFValue.NAME, 'Link')
   link_obj.named_values['Type'] = PDFValue(PDFValue.NAME, 'Annot')
   link_obj.named_values['Border'] = PDFValue(PDFValue.ARRAY, border_array)
-
-  if svg_rect['id'] == 'builtins.bin':
-    print(link_obj)
 
   annot_refs.append(PDFValue(PDFValue.REFERENCE, link_obj.get_ref()))
 

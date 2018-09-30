@@ -25,6 +25,11 @@ class HTMLElement:
     self.attributes[n] = HTMLAttribute(n,v)
     return self
 
+  def get_attr(self, name, default_value=''):
+    if name in self.attributes:
+      return self.attributes[name].value
+    return default_value
+
   def add_child(self, e):
     self.children.append(e)
     return e

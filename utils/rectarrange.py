@@ -124,16 +124,16 @@ class AreaMatrix:
           free_rects.extend(cell_free_rects)
     return free_rects
 
-  def select_leftmost_fit(self, test_rect, trial_rects):
-    leftmost_rect = None
+  def select_topmost_fit(self, test_rect, trial_rects):
+    selected_rect = None
     for rect in trial_rects:
       if rect.width < test_rect.width or rect.height < test_rect.height:
         continue
-      if leftmost_rect is None:
-        leftmost_rect = rect
-      elif rect.x < leftmost_rect.x:
-        leftmost_rect = rect
-    return leftmost_rect
+      if selected_rect is None:
+        selected_rect = rect
+      elif rect.y < selected_rect.y:
+        selected_rect = rect
+    return selected_rect
 
   def place_rect(self, origin_col_index, origin_row_index, rect):
     remaining_width = rect.width
@@ -237,12 +237,12 @@ class ArrangeRects:
     for rect in rects:
       free_rects = matrix.list_free_rects()
 
-      leftmost_rect = matrix.select_leftmost_fit(rect, free_rects)
+      selected_rect = matrix.select_topmost_fit(rect, free_rects)
 
-      if leftmost_rect is None:
+      if selected_rect is None:
         return False
 
-      matrix.place_rect(leftmost_rect.x, leftmost_rect.y, rect)
+      matrix.place_rect(selected_rect.x, selected_rect.y, rect)
 
     return True
 

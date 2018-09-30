@@ -96,13 +96,12 @@ class LinkEntry:
 # OptimizeLayout
 ################
 class OptimizeLayout:
-  def optimize_layout_for_ratio(layout, group_name, group, ratio):
+  def optimize_layout_for_ratio(layout, group_name, group):
     params = None
     if callable(getattr(layout, "get_area_params", None)):  
       params = layout.get_area_params(group)
       if len(params) < 1:
         params = None
-
     if params == None:
       svg = layout.get_svg(group_name, group)
       return svg
@@ -111,6 +110,7 @@ class OptimizeLayout:
 
     values = generator.next()
 
+    ratio = layout.layout_ratio
     ratio_diff = 0
     selected_svg = None
 
@@ -121,7 +121,7 @@ class OptimizeLayout:
 
       w = float(svg.attributes['width'].value)
       h = float(svg.attributes['height'].value)
-      new_ratio = h/w
+      new_ratio = w/h
       new_ratio_diff = abs(ratio - new_ratio)
       print(w,h, new_ratio, new_ratio_diff)
 
@@ -139,6 +139,7 @@ class OptimizeLayout:
 class SimpleWordListLayout(Configurable):
   def __init__(self):
     Configurable.__init__(self)
+    self.layout_ratio = 0
     self.col_count = 0
     self.border_width = 0
     self.row_spacing = 0
@@ -150,8 +151,8 @@ class SimpleWordListLayout(Configurable):
 
   def get_area_params(self, group):
     params = []
-    if self.col_count < 1:
-      params.append(OptimizableRange('col_count', 1, int(len(group) / 2), 1))
+    if self.layout_ratio > 0:
+      params.append(OptimizableRange('col_count', 1, len(group), 1))
     return params
 
   def get_col_size(self, column):
@@ -290,10 +291,11 @@ class GlossaryLayout(Configurable):
     self.col_spacing = 10
     self.background_color = 'rgb(236,236,236)'
     self.font_color = 'rgb(0,0,255)'
+    self.layout_ratio = 0
 
   def get_area_params(self, group):
     params = []
-    if self.col_count < 1:
+    if self.layout_ratio > 0:
       entries = self.get_glossary_entries(group)
       params.append(OptimizableRange('col_count', 1, int(len(entries) / 2), 1))
     return params
@@ -444,10 +446,11 @@ class SimpleWordTableLayout(Configurable):
     self.column_transparencies = []
     self.row_alt_color = 'rgb(0,0,0)'
     self.row_alt_transparency = 0.1
+    self.layout_ratio = 0
 
   def get_area_params(self, group):
     params = []
-    if self.col_count < 1:
+    if self.layout_ratio > 0:
       params.append(OptimizableRange('col_count', 1, int(len(group) / 2), 1))
     return params
 
@@ -927,11 +930,12 @@ class CodeletLayout(Configurable):
     self.background_color = 'rgb(236,236,236)'
     self.background_transparency = 1.0
     self.line_spacing = 3
+    self.layout_ratio = 0
     self.entries = {}
 
   def get_area_params(self, group):
     params = []
-    if self.col_count < 1:
+    if self.layout_ratio > 0:
       params.append(OptimizableRange('col_count', 1, int(len(group)), 1))
     return params
 
@@ -1083,53 +1087,3 @@ class CodeletLayout(Configurable):
       x = x + col_size[0]
 
     return html
-
-    # Get text coords
-    ###################
-    text_coords = []
-    x = self.border_width
-    for col_index in range(len(columns)):
-      col_entries = columns[col_index]
-      col_width = col_sizes[col_index][0]
-      y = self.border_width + font_extents.font_ascent
-      coord_col = []
-      for row_index in range(len(col_entries)):
-        entry = col_entries[row_index]
-        text_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size, False, entry.text)
-        coord = (x, y, text_extents.width, text_extents.height)
-        coord_col.append(coord)
-        y = y + self.row_spacing + font_extents.font_height
-      x = x + col_width + self.col_spacing
-      text_coords.append(coord_col)
-    # Output SVG
-    ############
-    html = HTMLElement('svg')
-    html.set_attr('width', str(layout_rect_size[0])).set_attr('height', str(layout_rect_size[1]))
-    bg_rect = HTMLElement('rect').set_attr('id', group_name).set_attr('width', str(layout_rect_size[0]))
-    bg_rect.set_attr('height', str(layout_rect_size[1]))
-    bg_rect.set_attr('style', HTMLStyleBuilder().set('fill', self.background_color))
-    html.add_child(bg_rect)
-
-    for col_index in range(len(columns)):
-      col_entries = columns[col_index]
-      coord_col = text_coords[col_index]
-      for row_index in range(len(col_entries)):
-        entry = col_entries[row_index] 
-        coord = coord_col[row_index]
-        style = HTMLStyleBuilder().set('font-name', self.font_name).set('font-size', self.font_size).set('fill', self.font_color)
-        html.add_child(HTMLElement('text').set_text(entry.text).set_attr('x', str(coord[0])).set_attr('y', str(coord[1])).set_attr('style', str(style)))
-    for col_index in range(len(columns)):
-      col_entries = columns[col_index]
-      coord_col = text_coords[col_index]
-      for row_index in range(len(col_entries)):
-        entry = col_entries[row_index] 
-        if entry.url is None or len(entry.url.strip()) < 1:
-          continue
-        coord = coord_col[row_index]
-        style = HTMLStyleBuilder().set('fill', 'rgb(255,0,255)').set('fill-opacity', '0.25')
-        rect_element = HTMLElement('rect')
-        rect_element.set_attr('id', '{0}.{1}'.format(entry.group, entry.identifier))
-        rect_element.set_attr('x', str(coord[0])).set_attr('y', str(coord[1] - font_extents.font_ascent))
-        rect_element.set_attr('width', str(coord[2])).set_attr('height', font_extents.font_height).set_attr('style', style)
-        html.add_child(rect_element)
-    return html    

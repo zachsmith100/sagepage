@@ -37,7 +37,7 @@ for name in groups:
   constructor = globals()[config[name]['layout_class']]
   layout = constructor()
   layout.load_config(config[name])
-  svg = OptimizeLayout.optimize_layout_for_ratio(layout, name, groups[name], 1.618)
+  svg = OptimizeLayout.optimize_layout_for_ratio(layout, name, groups[name])
   svg_outputs[name] = str(svg)
 
 # Output

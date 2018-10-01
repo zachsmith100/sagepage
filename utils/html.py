@@ -1,3 +1,5 @@
+import html
+
 # HTMLAttribute
 ###############
 class HTMLAttribute:
@@ -50,7 +52,9 @@ class HTMLElement:
     f.write(str(self))
 
   def __str__(self):
-    return "<{0} {1}>\n{2}{3}\n</{0}>\n".format(self.name, ' '.join([str(self.attributes[name]) for name in self.attributes]), "\n".join([str(child) for child in self.children]), self.text)
+    escaped = html.escape(self.text)
+    escaped = escaped.replace(' ', '&#160;')
+    return "<{0} {1}>\n{2}{3}\n</{0}>\n".format(self.name, ' '.join([str(self.attributes[name]) for name in self.attributes]), "\n".join([str(child) for child in self.children]), escaped)
 
   def __repr__(self):
     return self.__str__()

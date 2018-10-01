@@ -215,6 +215,8 @@ class PDFLinkRects:
           selected_paths = True
         else:
           selected_paths = False
+      if selected_paths and cmd.name == 'Q':
+        selected_paths = False
       if selected_paths and cmd.name == 're':
         selected_commands.append(cmd)
       else:
@@ -238,22 +240,18 @@ media_box, pdf_rects = PDFLinkRects.pull_rects(PDFDeviceRGBColor(1.0, 0, 1.0), i
 ################################################################################
 print("Matching rects...")
 
-svg_rects.sort(key = lambda r: ( int(r['x']) << 16) & int(r['y']))
+svg_rects.sort(key = lambda r: (int(r['x']) << 16) & int(r['y']))
 pdf_rects.sort(key = lambda r: (int(r[0]) << 16) & int(media_box[3] - r[1]) )
 
-if len(pdf_rects) < len(svg_rects):
+if len(pdf_rects) != len(svg_rects):
+    for r in svg_rects:
+      if r['id'] == 'logo.0':
+        print(r)
     print("WARNING: Expected {0} rects in PDF '{1}', found {2} instead".format(len(svg_rects), pdf_in_path, len(pdf_rects)))
-    exit(-1)
 
 for i in range(len(svg_rects)):
-  svg_ratio = float(svg_rects[i]['width']) / float(svg_rects[i]['height'])
-  pdf_ratio = pdf_rects[i][0] / pdf_rects[i][1]
-
-  if abs(svg_ratio - pdf_ratio) > 0.1:
-    print("WARNING: expected link rect ratio: {0} received: {1}".format(svg_ratio, pdf_ratio))
-
   svg_rects[i]['pdf_rect'] = pdf_rects[i]
-
+  
 ###############
 # Gen PDF links
 ###############
@@ -269,6 +267,7 @@ for svg_rect in svg_rects:
   url = links[svg_rect['id']]
 
   if url is None or len(url.strip()) < 1:
+    print("Skipping", svg_rect)
     continue
 
   link_obj = in_pdf.create_new_object()
@@ -297,7 +296,7 @@ for svg_rect in svg_rects:
 for key, obj in in_pdf.objects.items():
   if 'Type' in obj.named_values and obj.named_values['Type'].value == 'Page':
     obj.named_values['Annots'] = PDFValue(PDFValue.ARRAY, annot_refs)
-
+    
 # Write PDF
 ###########
 PDFWriter.write_file(in_pdf, pdf_out_path)

@@ -1,3 +1,5 @@
+snake,0,./python_cheat_sheet/img/snake.png,https://python.org
+logo,0,./python_cheat_sheet/img/logo.png,https://docs.python.org/3/
 builtins,1,abs(),library/functions.html#abs
 builtins,2,delattr(),library/functions.html#delattr
 builtins,3,hash(),library/functions.html#hash

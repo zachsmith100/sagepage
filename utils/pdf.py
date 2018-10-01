@@ -66,9 +66,9 @@ class PDF:
     return obj
 
   def get_first_obj_id(self):
-    first_id = -1
+    first_id = 0
     for key, obj in self.objects.items():
-      if first_id < 0 or first_id > obj.name:
+      if first_id > obj.name:
         first_id = obj.name
     return first_id
 
@@ -542,7 +542,7 @@ class PDFDictionaryParser(ParserBase):
       return PDFParseResult(None, self.read_value, None) 
     if self.name_token.type == PDFValue.TOKEN and self.name_token.value == '>>':
       self.set_value(PDFValue(PDFValue.DICTIONARY, self.dictionary))
-      return PDFParseResult(None, None, None)
+      return PDFParseResult(None, None, None, [b])
     return PDFParseResult("Dictionary missing name entry (expected name, found '{0}' instead).".format(self.name_token), None, None)
 
   def read_value(self, b, n):
@@ -1017,48 +1017,7 @@ class PDFWriter:
       xref_indexes = {}
       PDFWriterUtils.write_header(pdf, f)
       for key, obj in pdf.objects.items():
-        xref_indexes[obj.get_key()] = f.tell()
+        sort_key = (obj.name * 100000) + obj.version
+        xref_indexes[sort_key] = f.tell()
         PDFWriterUtils.write_object(obj, f)
       PDFWriterUtils.write_footer(pdf, xref_indexes, f)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

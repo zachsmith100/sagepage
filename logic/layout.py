@@ -1,5 +1,8 @@
 import cairo
 import io
+import base64
+import struct
+import imghdr
 import logic.context
 from utils.html import HTMLElement
 from utils.html import HTMLStyleBuilder
@@ -20,6 +23,14 @@ class LayoutUtils:
   def get_next_svg_group():
     svg_group = HTMLElement('g').set_attr('id', str(LayoutUtils.get_next_element_id()))
     return svg_group
+
+  def get_pink_link_rect(group, identifier, x, y, width, height):
+    style = HTMLStyleBuilder().set('fill', 'rgb(255,0,255)').set('fill-opacity', '0.25')
+    rect_element = HTMLElement('rect')
+    rect_element.set_attr('id', '{0}.{1}'.format(group, identifier))
+    rect_element.set_attr('x', str(x)).set_attr('y', str(y))
+    rect_element.set_attr('width', str(width)).set_attr('height', str(height)).set_attr('style', style)
+    return rect_element
 
   def is_iterable(obj):
     try:
@@ -886,7 +897,7 @@ class PythonSyntaxSVGHilighter:
     style = HTMLStyleBuilder().set('font-name', self.font_name).set('font-size', self.font_size).set('fill', self.font_color)
     cur_token_span.set_attr('style', str(style))
     for frag in parser.fragments:
-      normalized = frag.value.replace(' ', '&#160;')
+      normalized = frag.value #frag.value.replace(' ', '&#160;')
       if frag.type == PyFragment.TOKEN:
         cur_token_span.text = cur_token_span.text + normalized
         continue
@@ -1254,3 +1265,91 @@ class CodeletCloudLayout(Configurable):
       results.append(LayoutResult(svg_group, entry_size[0], entry_size[1], self.layout_sort_group))
      
     return results
+
+class SimpleImageLayout(Configurable):
+  def __init__(self):
+    Configurable.__init__(self)
+    self.width = None
+    self.height = None
+
+  def get_image_size(fname):
+    with open(fname, 'rb') as fhandle:
+      head = fhandle.read(24)
+      if len(head) != 24:
+        return
+      if imghdr.what(fname) == 'png':
+        check = struct.unpack('>i', head[4:8])[0]
+        if check != 0x0d0a1a0a:
+          return
+        width, height = struct.unpack('>ii', head[16:24])
+      elif imghdr.what(fname) == 'gif':
+          width, height = struct.unpack('<HH', head[6:10])
+      elif imghdr.what(fname) == 'jpeg':
+        try:
+          fhandle.seek(0) # Read 0xff next
+          size = 2
+          ftype = 0
+          while not 0xc0 <= ftype <= 0xcf:
+            fhandle.seek(size, 1)
+            byte = fhandle.read(1)
+            while ord(byte) == 0xff:
+              byte = fhandle.read(1)
+            ftype = ord(byte)
+            size = struct.unpack('>H', fhandle.read(2))[0] - 2
+          # We are at a SOFn block
+          fhandle.seek(1, 1)  # Skip `precision' byte.
+          height, width = struct.unpack('>HH', fhandle.read(4))
+        except Exception: #IGNORE:W0703
+          return
+      else:
+          return
+      return width, height
+
+  def encode_img_file(self, filename):
+    result = ''
+    with open(filename, 'rb') as f:
+      result = base64.b64encode(f.read())
+    return result.decode()
+
+  def get_svg(self, group_name, group):
+    result = []
+    if len(group) < 1:
+      return result
+
+    entry = group[0]
+    preserveAspectRatio = 'none'
+    img_size = SimpleImageLayout.get_image_size(entry.text)
+    width = img_size[0]
+    height = img_size[1]
+
+    if self.width is not None:
+      if self.height is None:
+        preserveAspectRatio = 'xMinYMin'
+      height = (self.width / width) * height
+      width = self.width
+      print("width", width, "height", height)
+    elif self.height is not None:
+      if self.width is None:
+        preserveAspectRatio = 'xMinYMin'
+      height = self.height
+
+    # Img
+    #####
+    x = 0
+    y = 0
+    img = HTMLElement('image').set_attr('width', width).set_attr('height', height).set_attr('preserveAspectRatio', preserveAspectRatio)
+    img.set_attr('x', str(x)).set_attr('y', str(y))
+    b64 = self.encode_img_file(entry.text)
+    attr_value = 'data:image/png;base64,{0}'.format(b64)
+    img.set_attr('xlink:href', attr_value)
+
+    g = LayoutUtils.get_next_svg_group()
+    g.add_child(img)
+
+    # Pink Link Rect
+    ################
+    g.add_child(LayoutUtils.get_pink_link_rect(entry.group, entry.identifier, x, y, width, height))
+
+    result.append(LayoutResult(g, width, height))
+
+    return result

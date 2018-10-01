@@ -9,6 +9,7 @@ from logic.layout import GlossaryLayout
 from logic.layout import SimpleWordTableLayout
 from logic.layout import CodeletLayout
 from logic.layout import CodeletCloudLayout
+from logic.layout import SimpleImageLayout
 import logic.loadfile
 from utils.permutations import ParamCombinationGenerator
 from utils.permutations import OptimizableRange
@@ -87,6 +88,8 @@ for rect in rects:
     height = rect.y + rect.height
 
 html = HTMLElement('svg').set_attr('width', str(width)).set_attr('height', str(height))
+#html.set_attr('xmlns:svg', 'http://www.w3.org/2000/svg')
+#html.set_attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
 
 for rect in rects:
   idx = rect_svg_xref[rect.identifier]

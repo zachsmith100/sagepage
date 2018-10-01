@@ -238,11 +238,8 @@ media_box, pdf_rects = PDFLinkRects.pull_rects(PDFDeviceRGBColor(1.0, 0, 1.0), i
 ################################################################################
 print("Matching rects...")
 
-svg_rects.sort(key = lambda r: ( int(r['x']) << 10) & int(r['y']))
-pdf_rects.sort(key = lambda r: (int(r[0]) << 10) & int(media_box[3] - r[1]) )
-
-for r in svg_rects:
-  print(r['x'], r['y'], 'key', str(r['x']) + str(r['y']))
+svg_rects.sort(key = lambda r: ( int(r['x']) << 16) & int(r['y']))
+pdf_rects.sort(key = lambda r: (int(r[0]) << 16) & int(media_box[3] - r[1]) )
 
 if len(pdf_rects) < len(svg_rects):
     print("WARNING: Expected {0} rects in PDF '{1}', found {2} instead".format(len(svg_rects), pdf_in_path, len(pdf_rects)))

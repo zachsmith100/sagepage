@@ -2,13 +2,14 @@
 # Rect
 ######
 class Rect:
-  def __init__(self, identifier, x=0, y=0, width=0, height=0, color='gray'):
+  def __init__(self, identifier, x=0, y=0, width=0, height=0, color='gray', sort_group=None):
     self.identifier = identifier
     self.x = x
     self.y = y
     self.width = width
     self.height = height
     self.color = color
+    self.sort_group = sort_group
 
   def get_color(self):
     if self.color is None:
@@ -19,7 +20,7 @@ class Rect:
     self.color = color
 
   def __str__(self):
-    return 'Rect({0}, {1}, {2}, {3})'.format(self.x, self.y, self.width, self.height)
+    return 'Rect({0}, {1}, {2}, {3}, {4})'.format(self.x, self.y, self.width, self.height, self.sort_group)
 
   def __repr__(self):
     return self.__str__()

@@ -44,8 +44,9 @@
   },
   "codelets":
   {
-    "layout_class":"CodeletLayout",
-    "layout_ratio":1.618,
+    "layout_class":"CodeletCloudLayout",
+    "layout_sort_group":"codelets",
+    "layout_rati":1.618,
     "col_count":1,
     "header_border_width":0,
     "line_spacing":2,

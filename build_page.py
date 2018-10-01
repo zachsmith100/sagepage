@@ -8,6 +8,7 @@ from logic.layout import SimpleWordListLayout
 from logic.layout import GlossaryLayout
 from logic.layout import SimpleWordTableLayout
 from logic.layout import CodeletLayout
+from logic.layout import CodeletCloudLayout
 import logic.loadfile
 from utils.permutations import ParamCombinationGenerator
 from utils.permutations import OptimizableRange
@@ -46,14 +47,36 @@ for group_name in groups:
 
 # Assemble
 ##########
+def adjust_xy(element, **kwargs):
+  print(kwargs)
+  x = kwargs['x']
+  y = kwargs['y']
+  if 'x' in element.attributes:
+    old_x = float(element.get_attr('x', 0))
+    element.set_attr('x', str(x + old_x))
+  if 'y' in element.attributes:
+    old_y = float(element.get_attr('y', 0))
+    element.set_attr('y', str(y + old_y))
+
+def layout_sort_key(r):
+  key = (r.sort_group << 28) + (r.width * r.height)
+  return key
+
+rect_svg_xref = {}
 rects = []
+next_sort_group_id = 0
 for group_name in svg_outputs:
-  svg = svg_outputs[group_name]
-  rect = Rect(group_name, 0, 0, float(svg.get_attr('width', 0)), float(svg.get_attr('height',0)))
-  rects.append(rect)
+  for i in range(len(svg_outputs[group_name])):
+    svg = svg_outputs[group_name][i]
+    identifier = '{0}#{1}'.format(group_name, i)
+    rect_svg_xref[identifier] = (group_name, i)
+    rect = Rect(identifier, 0, 0, svg.width, svg.height, 'gray', next_sort_group_id)
+    print(rect)
+    next_sort_group_id = next_sort_group_id + 1
+    rects.append(rect)
 
 arrange_rects = ArrangeRects()
-arrange_rects.arrange(rects, 1.618, '{0}.matrix.svg'.format(output_file))
+arrange_rects.arrange(rects, 1.618, layout_sort_key, '{0}.matrix.svg'.format(output_file))
 
 width = 0
 height = 0
@@ -66,9 +89,13 @@ for rect in rects:
 html = HTMLElement('svg').set_attr('width', str(width)).set_attr('height', str(height))
 
 for rect in rects:
-  svg = svg_outputs[rect.identifier]
-  svg.set_attr('x', str(rect.x)).set_attr('y', str(rect.y))
-  html.add_child(svg)
+  idx = rect_svg_xref[rect.identifier]
+  group_name = idx[0]
+  i = idx[1]
+  svg = svg_outputs[group_name][i]
+  print(rect)
+  svg.html.iterate_children(adjust_xy, x=rect.x, y=rect.y)
+  html.add_child(svg.html)
 
 with open(output_file, 'w') as f:
   f.write(str(html))

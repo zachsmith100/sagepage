@@ -1,17 +1,12 @@
-import math
-
-import csv
 import sys
-import json
-import io
+from utils.html import HTMLElement
 from logic.layout import OptimizeLayout
 from logic.layout import SimpleWordListLayout
 from logic.layout import GlossaryLayout
 from logic.layout import SimpleWordTableLayout
 from logic.layout import CodeletLayout
+from logic.layout import CodeletCloudLayout
 import logic.loadfile
-from utils.permutations import ParamCombinationGenerator
-from utils.permutations import OptimizableRange
 
 ################################################################################
 # Command line
@@ -37,12 +32,24 @@ for name in groups:
   constructor = globals()[config[name]['layout_class']]
   layout = constructor()
   layout.load_config(config[name])
-  svg = OptimizeLayout.optimize_layout_for_ratio(layout, name, groups[name])
-  svg_outputs[name] = str(svg)
+  results = OptimizeLayout.optimize_layout_for_ratio(layout, name, groups[name])
+
+  svg = HTMLElement('svg')
+  width = 0
+  height = 0
+  for result in results:
+    svg.add_child(result.html)
+    if result.width > width:
+      width = result.width
+    if result.height > height:
+      height = result.height
+
+  svg.set_attr('width', width).set_attr('height', height)
+  svg_outputs[name] = svg
 
 # Output
 ########
 for name in svg_outputs:
   fn = '{0}/{1}.svg'.format(output_path, name)
   with open(fn, 'w') as f:
-    f.write(svg_outputs[name])
+    f.write(str(svg_outputs[name]))

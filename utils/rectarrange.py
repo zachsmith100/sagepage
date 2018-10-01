@@ -246,10 +246,13 @@ class ArrangeRects:
 
     return True
 
-  def arrange(self, rects, ratio, matrix_svg_filename=None):
+  def default_sort_key(r):
+    return r.width * r.height
+
+  def arrange(self, rects, ratio, rect_sort_key_f, matrix_svg_filename=None):
     self.ratio = ratio
 
-    rects.sort(key=lambda r: (r.width * r.height), reverse=True)
+    rects.sort(key=rect_sort_key_f, reverse=True)
 
     width = 0
     height = 0

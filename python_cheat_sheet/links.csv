@@ -1,83 +1,84 @@
 snake,0,./python_cheat_sheet/img/snake.png,https://python.org
 logo,0,./python_cheat_sheet/img/logo.png,https://docs.python.org/3/
-builtins,1,abs(),library/functions.html#abs
-builtins,2,delattr(),library/functions.html#delattr
-builtins,3,hash(),library/functions.html#hash
-builtins,4,memoryview(),library/functions.html#func-memoryview
-builtins,5,set(),library/functions.html#func-set
-builtins,6,all(),library/functions.html#all
-builtins,7,dict(),library/functions.html#func-dict
-builtins,8,help(),library/functions.html#help
-builtins,9,min(),library/functions.html#min
-builtins,10,setattr(),library/functions.html#setattr
-builtins,11,any(),library/functions.html#any
-builtins,12,dir(),library/functions.html#dir
-builtins,13,hex(),library/functions.html#hex
-builtins,14,next(),library/functions.html#next
-builtins,15,slice(),library/functions.html#slice
-builtins,16,ascii(),library/functions.html#ascii
-builtins,17,divmod(),library/functions.html#divmod
-builtins,18,id(),library/functions.html#id
-builtins,19,object(),library/functions.html#object
-builtins,20,sorted(),library/functions.html#sorted
-builtins,21,bin(),library/functions.html#bin
-builtins,22,enumerate(),library/functions.html#enumerate
-builtins,23,input(),library/functions.html#input
-builtins,24,oct(),library/functions.html#oct
-builtins,25,staticmethod(),library/functions.html#staticmethod
-builtins,26,bool(),library/functions.html#bool
-builtins,27,eval(),library/functions.html#eval
-builtins,28,int(),library/functions.html#int
-builtins,29,open(),library/functions.html#open
-builtins,30,str(),library/functions.html#func-str
-builtins,31,breakpoint(),library/functions.html#breakpoint
-builtins,32,exec(),library/functions.html#exec
-builtins,33,isinstance(),library/functions.html#isinstance
-builtins,34,ord(),library/functions.html#ord
-builtins,35,sum(),library/functions.html#sum
-builtins,36,bytearray(),library/functions.html#func-bytearray
-builtins,37,filter(),library/functions.html#filter
-builtins,38,issubclass(),library/functions.html#issubclass
-builtins,39,pow(),library/functions.html#pow
-builtins,40,super(),library/functions.html#super
-builtins,41,bytes(),library/functions.html#func-bytes
-builtins,42,float(),library/functions.html#float
-builtins,43,iter(),library/functions.html#iter
-builtins,44,print(),library/functions.html#print
-builtins,45,tuple(),library/functions.html#func-tuple
-builtins,46,callable(),library/functions.html#callable
-builtins,47,format(),library/functions.html#format
-builtins,48,len(),library/functions.html#len
-builtins,49,property(),library/functions.html#property
-builtins,50,type(),library/functions.html#type
-builtins,51,chr(),library/functions.html#chr
-builtins,52,frozenset(),library/functions.html#func-frozenset
-builtins,53,list(),library/functions.html#func-list
-builtins,54,range(),library/functions.html#func-range
-builtins,55,vars(),library/functions.html#vars
-builtins,56,classmethod(),library/functions.html#classmethod
-builtins,57,getattr(),library/functions.html#getattr
-builtins,58,locals(),library/functions.html#locals
-builtins,59,repr(),library/functions.html#repr
-builtins,60,zip(),library/functions.html#zip
-builtins,61,compile(),library/functions.html#compile
-builtins,62,globals(),library/functions.html#globals
-builtins,63,map(),library/functions.html#map
-builtins,64,reversed(),library/functions.html#reversed
 builtins,65,__import__(),library/functions.html#__import__
-builtins,66,complex(),library/functions.html#complex
-builtins,67,hasattr(),library/functions.html#hasattr
-builtins,68,max(),library/functions.html#max
-builtins,69,round(),library/functions.html#round
+builtins,1,abs(),library/functions.html#abs
 builtins,70,abs(),library/functions.html#abs
-builtins,71,delattr(),library/functions.html#delattr
-builtins,72,hash(),library/functions.html#hash
-builtins,73,memoryview(),library/functions.html#func-memoryview
-builtins,74,set(),library/functions.html#func-set
+builtins,6,all(),library/functions.html#all
 builtins,75,all(),library/functions.html#all
+builtins,11,any(),library/functions.html#any
+builtins,16,ascii(),library/functions.html#ascii
+builtins,21,bin(),library/functions.html#bin
+builtins,26,bool(),library/functions.html#bool
+builtins,31,breakpoint(),library/functions.html#breakpoint
+builtins,36,bytearray(),library/functions.html#func-bytearray
+builtins,41,bytes(),library/functions.html#func-bytes
+builtins,46,callable(),library/functions.html#callable
+builtins,51,chr(),library/functions.html#chr
+builtins,56,classmethod(),library/functions.html#classmethod
+builtins,61,compile(),library/functions.html#compile
+builtins,66,complex(),library/functions.html#complex
+builtins,2,delattr(),library/functions.html#delattr
+builtins,71,delattr(),library/functions.html#delattr
+builtins,7,dict(),library/functions.html#func-dict
 builtins,76,dict(),library/functions.html#func-dict
+builtins,12,dir(),library/functions.html#dir
+builtins,17,divmod(),library/functions.html#divmod
+builtins,22,enumerate(),library/functions.html#enumerate
+builtins,27,eval(),library/functions.html#eval
+builtins,32,exec(),library/functions.html#exec
+builtins,37,filter(),library/functions.html#filter
+builtins,42,float(),library/functions.html#float
+builtins,47,format(),library/functions.html#format
+builtins,52,frozenset(),library/functions.html#func-frozenset
+builtins,57,getattr(),library/functions.html#getattr
+builtins,62,globals(),library/functions.html#globals
+builtins,67,hasattr(),library/functions.html#hasattr
+builtins,3,hash(),library/functions.html#hash
+builtins,72,hash(),library/functions.html#hash
+builtins,8,help(),library/functions.html#help
+builtins,13,hex(),library/functions.html#hex
+builtins,18,id(),library/functions.html#id
+builtins,23,input(),library/functions.html#input
+builtins,28,int(),library/functions.html#int
+builtins,33,isinstance(),library/functions.html#isinstance
+builtins,38,issubclass(),library/functions.html#issubclass
+builtins,43,iter(),library/functions.html#iter
+builtins,48,len(),library/functions.html#len
+builtins,53,list(),library/functions.html#func-list
+builtins,58,locals(),library/functions.html#locals
+builtins,63,map(),library/functions.html#map
+builtins,68,max(),library/functions.html#max
+builtins,4,memoryview(),library/functions.html#func-memoryview
+builtins,73,memoryview(),library/functions.html#func-memoryview
+builtins,9,min(),library/functions.html#min
+builtins,14,next(),library/functions.html#next
+builtins,19,object(),library/functions.html#object
+builtins,24,oct(),library/functions.html#oct
+builtins,29,open(),library/functions.html#open
+builtins,34,ord(),library/functions.html#ord
+builtins,39,pow(),library/functions.html#pow
+builtins,44,print(),library/functions.html#print
+builtins,49,property(),library/functions.html#property
+builtins,54,range(),library/functions.html#func-range
+builtins,59,repr(),library/functions.html#repr
+builtins,64,reversed(),library/functions.html#reversed
+builtins,69,round(),library/functions.html#round
+builtins,5,set(),library/functions.html#func-set
+builtins,74,set(),library/functions.html#func-set
+builtins,10,setattr(),library/functions.html#setattr
+builtins,15,slice(),library/functions.html#slice
+builtins,20,sorted(),library/functions.html#sorted
+builtins,25,staticmethod(),library/functions.html#staticmethod
+builtins,30,str(),library/functions.html#func-str
+builtins,35,sum(),library/functions.html#sum
+builtins,40,super(),library/functions.html#super
+builtins,45,tuple(),library/functions.html#func-tuple
+builtins,50,type(),library/functions.html#type
+builtins,55,vars(),library/functions.html#vars
+builtins,60,zip(),library/functions.html#zip
 keywords,and,and,library/stdtypes.html#boolean-operations-and-or-not
-keywords,as,as,reference/compound_stmts.html#index-16
+keywords,import_as,as (import...as),reference/import.html
+keywords,with_as,as (with...as),reference/compound_stmts.html#index-16
 keywords,assert,assert,reference/simple_stmts.html#assert
 keywords,async,async,reference/compound_stmts.html#index-33
 keywords,await,await,reference/compound_stmts.html#index-33
@@ -242,16 +243,16 @@ a.insert(0, 500)
 a.remove(0)
 a.sort(key=str.lower,reverse=false)
 for i in range(len(a)): pass
-for v in a: pass",
+for v in a: pass",tutorial/datastructures.html?highlight=dictionary#more-on-lists
 codelets,tuple,"a = (100, 'asdf', 2.3)
 for i in range(len(a)): pass
-for v in a: pass",
+for v in a: pass",tutorial/datastructures.html?highlight=dictionary#tuples-and-sequences
 codelets,set,"a = {1,2,3}
 b = {3,4,5}
 print(a|b)  # a.union(b)
 print(a&b) # a.intersection(b)
 print(a-b) # a.difference(b)
-print(a^b) # a.difference_symmetric(b)",
+print(a^b) # a.difference_symmetric(b)",tutorial/datastructures.html?highlight=dictionary#sets
 codelets,functions,"def listArgs(*args):
   for v in args: pass
 listArgs(1, 2, 3)
@@ -261,26 +262,50 @@ keywordArgs(red=1, green=2, blue=3)
 def f(op, x, y): return op(x, y)
 def add(x, y): return x + y
 print(f(add, 10, 7))
-e = lambda x,y: x**2 + y + 7",
+e = lambda x,y: x**2 + y + 7",tutorial/controlflow.html#defining-functions
 codelets,comprehensions,"[char for char in 'Hello, World!']
 [x for x in range(50) if x % 3 == 0 if x % 9]
 {v: foo(v) for v in sequence if bar(v)}
 [await fun() for fun in funcs]
-[i async for i in agen()]",
+[i async for i in agen()]",tutorial/datastructures.html#list-comprehensions
 codelets,classes,"class A:
   a = 1.1 # class scope
   def __init__(self, a): pass
   def f(self): pass
 test = A('Apples')
-test.f()",
+test.f()",tutorial/classes.html
 codelets,slicing,"a[start:end] # from start to end-1
 a[start:] # all from start
-a[:end] # beginning to end-1",
+a[:end] # beginning to end-1",reference/expressions.html?highlight=slicing#slicings
 codelets,with,"with open('out.txt', 'w') as f:
-     f.write('Hello, World!') # File closed after",
+     f.write('Hello, World!') # File closed after",reference/compound_stmts.html?highlight=statement#with
 codelets,imports,"import X
 from X import a, b, c 
-from X import *",
+from X import *",reference/import.html?highlight=import
 codelets,strings,"# Comment
 """""" Multiline String """"""
-""{0} {1} {2}"".format(100,'abc',2.0)",
+""{0} {1} {2}"".format(100,'abc',2.0)",tutorial/introduction.html
+string_formatting,0,3.1415,https://www.programiz.com/python-programming/methods/string/format
+string_formatting,1,{:.2f},
+string_formatting,2,3.14,
+string_formatting,3,2.718,
+string_formatting,4,{:.0f},
+string_formatting,5,3,
+string_formatting,6,5,
+string_formatting,7,{:0>3d},
+string_formatting,8,005,
+string_formatting,9,5,
+string_formatting,10,{:x<4d},
+string_formatting,11,5xxx,
+string_formatting,12,0.25,
+string_formatting,13,{:.2%},
+string_formatting,14,25.00%,
+string_formatting,15,1030,
+string_formatting,16,{:.2e},
+string_formatting,17,1.03e+03,
+string_formatting,18,16,
+string_formatting,19,{:10d},
+string_formatting,20,”        16”,
+string_formatting,21,24,
+string_formatting,22,{:<10d},
+string_formatting,23,“24        “,

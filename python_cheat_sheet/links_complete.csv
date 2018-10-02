@@ -1,0 +1,311 @@
+snake,0,./python_cheat_sheet/img/snake.png,https://python.org
+logo,0,./python_cheat_sheet/img/logo.png,https://docs.python.org/3/
+builtins,65,__import__(),https://docs.python.org/3/library/functions.html#__import__
+builtins,1,abs(),https://docs.python.org/3/library/functions.html#abs
+builtins,70,abs(),https://docs.python.org/3/library/functions.html#abs
+builtins,6,all(),https://docs.python.org/3/library/functions.html#all
+builtins,75,all(),https://docs.python.org/3/library/functions.html#all
+builtins,11,any(),https://docs.python.org/3/library/functions.html#any
+builtins,16,ascii(),https://docs.python.org/3/library/functions.html#ascii
+builtins,21,bin(),https://docs.python.org/3/library/functions.html#bin
+builtins,26,bool(),https://docs.python.org/3/library/functions.html#bool
+builtins,31,breakpoint(),https://docs.python.org/3/library/functions.html#breakpoint
+builtins,36,bytearray(),https://docs.python.org/3/library/functions.html#func-bytearray
+builtins,41,bytes(),https://docs.python.org/3/library/functions.html#func-bytes
+builtins,46,callable(),https://docs.python.org/3/library/functions.html#callable
+builtins,51,chr(),https://docs.python.org/3/library/functions.html#chr
+builtins,56,classmethod(),https://docs.python.org/3/library/functions.html#classmethod
+builtins,61,compile(),https://docs.python.org/3/library/functions.html#compile
+builtins,66,complex(),https://docs.python.org/3/library/functions.html#complex
+builtins,2,delattr(),https://docs.python.org/3/library/functions.html#delattr
+builtins,71,delattr(),https://docs.python.org/3/library/functions.html#delattr
+builtins,7,dict(),https://docs.python.org/3/library/functions.html#func-dict
+builtins,76,dict(),https://docs.python.org/3/library/functions.html#func-dict
+builtins,12,dir(),https://docs.python.org/3/library/functions.html#dir
+builtins,17,divmod(),https://docs.python.org/3/library/functions.html#divmod
+builtins,22,enumerate(),https://docs.python.org/3/library/functions.html#enumerate
+builtins,27,eval(),https://docs.python.org/3/library/functions.html#eval
+builtins,32,exec(),https://docs.python.org/3/library/functions.html#exec
+builtins,37,filter(),https://docs.python.org/3/library/functions.html#filter
+builtins,42,float(),https://docs.python.org/3/library/functions.html#float
+builtins,47,format(),https://docs.python.org/3/library/functions.html#format
+builtins,52,frozenset(),https://docs.python.org/3/library/functions.html#func-frozenset
+builtins,57,getattr(),https://docs.python.org/3/library/functions.html#getattr
+builtins,62,globals(),https://docs.python.org/3/library/functions.html#globals
+builtins,67,hasattr(),https://docs.python.org/3/library/functions.html#hasattr
+builtins,3,hash(),https://docs.python.org/3/library/functions.html#hash
+builtins,72,hash(),https://docs.python.org/3/library/functions.html#hash
+builtins,8,help(),https://docs.python.org/3/library/functions.html#help
+builtins,13,hex(),https://docs.python.org/3/library/functions.html#hex
+builtins,18,id(),https://docs.python.org/3/library/functions.html#id
+builtins,23,input(),https://docs.python.org/3/library/functions.html#input
+builtins,28,int(),https://docs.python.org/3/library/functions.html#int
+builtins,33,isinstance(),https://docs.python.org/3/library/functions.html#isinstance
+builtins,38,issubclass(),https://docs.python.org/3/library/functions.html#issubclass
+builtins,43,iter(),https://docs.python.org/3/library/functions.html#iter
+builtins,48,len(),https://docs.python.org/3/library/functions.html#len
+builtins,53,list(),https://docs.python.org/3/library/functions.html#func-list
+builtins,58,locals(),https://docs.python.org/3/library/functions.html#locals
+builtins,63,map(),https://docs.python.org/3/library/functions.html#map
+builtins,68,max(),https://docs.python.org/3/library/functions.html#max
+builtins,4,memoryview(),https://docs.python.org/3/library/functions.html#func-memoryview
+builtins,73,memoryview(),https://docs.python.org/3/library/functions.html#func-memoryview
+builtins,9,min(),https://docs.python.org/3/library/functions.html#min
+builtins,14,next(),https://docs.python.org/3/library/functions.html#next
+builtins,19,object(),https://docs.python.org/3/library/functions.html#object
+builtins,24,oct(),https://docs.python.org/3/library/functions.html#oct
+builtins,29,open(),https://docs.python.org/3/library/functions.html#open
+builtins,34,ord(),https://docs.python.org/3/library/functions.html#ord
+builtins,39,pow(),https://docs.python.org/3/library/functions.html#pow
+builtins,44,print(),https://docs.python.org/3/library/functions.html#print
+builtins,49,property(),https://docs.python.org/3/library/functions.html#property
+builtins,54,range(),https://docs.python.org/3/library/functions.html#func-range
+builtins,59,repr(),https://docs.python.org/3/library/functions.html#repr
+builtins,64,reversed(),https://docs.python.org/3/library/functions.html#reversed
+builtins,69,round(),https://docs.python.org/3/library/functions.html#round
+builtins,5,set(),https://docs.python.org/3/library/functions.html#func-set
+builtins,74,set(),https://docs.python.org/3/library/functions.html#func-set
+builtins,10,setattr(),https://docs.python.org/3/library/functions.html#setattr
+builtins,15,slice(),https://docs.python.org/3/library/functions.html#slice
+builtins,20,sorted(),https://docs.python.org/3/library/functions.html#sorted
+builtins,25,staticmethod(),https://docs.python.org/3/library/functions.html#staticmethod
+builtins,30,str(),https://docs.python.org/3/library/functions.html#func-str
+builtins,35,sum(),https://docs.python.org/3/library/functions.html#sum
+builtins,40,super(),https://docs.python.org/3/library/functions.html#super
+builtins,45,tuple(),https://docs.python.org/3/library/functions.html#func-tuple
+builtins,50,type(),https://docs.python.org/3/library/functions.html#type
+builtins,55,vars(),https://docs.python.org/3/library/functions.html#vars
+builtins,60,zip(),https://docs.python.org/3/library/functions.html#zip
+keywords,and,and,https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not
+keywords,import_as,as (import...as),https://docs.python.org/3/reference/import.html
+keywords,with_as,as (with...as),https://docs.python.org/3/reference/compound_stmts.html#index-16
+keywords,assert,assert,https://docs.python.org/3/reference/simple_stmts.html#assert
+keywords,async,async,https://docs.python.org/3/reference/compound_stmts.html#index-33
+keywords,await,await,https://docs.python.org/3/reference/compound_stmts.html#index-33
+keywords,break,break,https://docs.python.org/3/reference/simple_stmts.html#break
+keywords,class,class,https://docs.python.org/3/reference/compound_stmts.html#class-definitions
+keywords,continue,continue,https://docs.python.org/3/reference/simple_stmts.html#the-continue-statement
+keywords,def,def,https://docs.python.org/3/reference/compound_stmts.html#function-definitions
+keywords,del,del,https://docs.python.org/3/library/stdtypes.html#index-22
+keywords,elif,elif,https://docs.python.org/3/reference/compound_stmts.html#the-if-statement
+keywords,else,else,https://docs.python.org/3/reference/compound_stmts.html#the-if-statement
+keywords,except,except,https://docs.python.org/3/reference/compound_stmts.html#the-try-statement
+keywords,False,False,https://docs.python.org/3/library/constants.html#False
+keywords,finally,finally,https://docs.python.org/3/reference/compound_stmts.html#the-try-statement
+keywords,for,for,https://docs.python.org/3/reference/compound_stmts.html#the-for-statement
+keywords,from,from,https://docs.python.org/3/reference/simple_stmts.html#the-import-statement
+keywords,global,global,https://docs.python.org/3/reference/simple_stmts.html#the-global-statement
+keywords,if,if,https://docs.python.org/3/reference/compound_stmts.html#the-if-statement
+keywords,import,import,https://docs.python.org/3/reference/import.html
+keywords,in,in,https://docs.python.org/3/reference/expressions.html#membership-test-operations
+keywords,is,is,https://docs.python.org/3/reference/expressions.html#is-not
+keywords,lambda,lambda,https://docs.python.org/3/reference/expressions.html#lambda
+keywords,None,None,https://docs.python.org/3/library/constants.html#None
+keywords,nonlocal,nonlocal,https://docs.python.org/3/reference/simple_stmts.html#the-nonlocal-statement
+keywords,not,not,https://docs.python.org/3/reference/expressions.html#boolean-operations
+keywords,or,or,https://docs.python.org/3/reference/expressions.html#boolean-operations
+keywords,pass,pass,https://docs.python.org/3/reference/simple_stmts.html#the-pass-statement
+keywords,raise,raise,https://docs.python.org/3/reference/simple_stmts.html#the-raise-statement
+keywords,return,return,https://docs.python.org/3/reference/simple_stmts.html#the-return-statement
+keywords,True,True,https://docs.python.org/3/library/constants.html#True
+keywords,try,try,https://docs.python.org/3/reference/compound_stmts.html#the-try-statement
+keywords,while,while,https://docs.python.org/3/reference/compound_stmts.html#the-while-statement
+keywords,with,with,https://docs.python.org/3/reference/compound_stmts.html#the-with-statement
+keywords,yield,yield,https://docs.python.org/3/reference/simple_stmts.html#the-yield-statement
+glossary,0,>>>,https://docs.python.org/3/glossary.html#term
+glossary,1,...,https://docs.python.org/3/glossary.html#term-1
+glossary,2,2to3,https://docs.python.org/3/glossary.html#term-2to3
+glossary,3,abstract base class,https://docs.python.org/3/glossary.html#term-abstract-base-class
+glossary,4,annotation,https://docs.python.org/3/glossary.html#term-annotation
+glossary,5,argument,https://docs.python.org/3/glossary.html#term-argument
+glossary,6,asynchronous context manager,https://docs.python.org/3/glossary.html#term-asynchronous-context-manager
+glossary,7,asynchronous generator,https://docs.python.org/3/glossary.html#term-asynchronous-generator
+glossary,8,asynchronous generator iterator,https://docs.python.org/3/glossary.html#term-asynchronous-generator-iterator
+glossary,9,asynchronous iterable,https://docs.python.org/3/glossary.html#term-asynchronous-iterable
+glossary,10,asynchronous iterator,https://docs.python.org/3/glossary.html#term-asynchronous-iterator
+glossary,11,attribute,https://docs.python.org/3/glossary.html#term-attribute
+glossary,12,awaitable,https://docs.python.org/3/glossary.html#term-awaitable
+glossary,13,BDFL,https://docs.python.org/3/glossary.html#term-bdfl
+glossary,14,binary file,https://docs.python.org/3/glossary.html#term-binary-file
+glossary,15,bytes-like object,https://docs.python.org/3/glossary.html#term-bytes-like-object
+glossary,16,bytecode,https://docs.python.org/3/glossary.html#term-bytecode
+glossary,17,class,https://docs.python.org/3/glossary.html#term-class
+glossary,18,class variable,https://docs.python.org/3/glossary.html#term-class-variable
+glossary,19,coercion,https://docs.python.org/3/glossary.html#term-coercion
+glossary,20,complex number,https://docs.python.org/3/glossary.html#term-complex-number
+glossary,21,context manager,https://docs.python.org/3/glossary.html#term-context-manager
+glossary,22,contiguous,https://docs.python.org/3/glossary.html#term-contiguous
+glossary,23,coroutine,https://docs.python.org/3/glossary.html#term-coroutine
+glossary,24,coroutine function,https://docs.python.org/3/glossary.html#term-coroutine-function
+glossary,25,CPython,https://docs.python.org/3/glossary.html#term-cpython
+glossary,26,decorator,https://docs.python.org/3/glossary.html#term-decorator
+glossary,27,descriptor,https://docs.python.org/3/glossary.html#term-descriptor
+glossary,28,dictionary,https://docs.python.org/3/glossary.html#term-dictionary
+glossary,29,dictionary view,https://docs.python.org/3/glossary.html#term-dictionary-view
+glossary,30,docstring,https://docs.python.org/3/glossary.html#term-docstring
+glossary,31,duck-typing,https://docs.python.org/3/glossary.html#term-duck-typing
+glossary,32,EAFP,https://docs.python.org/3/glossary.html#term-eafp
+glossary,33,expression,https://docs.python.org/3/glossary.html#term-expression
+glossary,34,extension module,https://docs.python.org/3/glossary.html#term-extension-module
+glossary,35,f-string,https://docs.python.org/3/glossary.html#term-f-string
+glossary,36,file object,https://docs.python.org/3/glossary.html#term-file-object
+glossary,37,file-like object,https://docs.python.org/3/glossary.html#term-file-like-object
+glossary,38,finder,https://docs.python.org/3/glossary.html#term-finder
+glossary,39,floor division,https://docs.python.org/3/glossary.html#term-floor-division
+glossary,40,function,https://docs.python.org/3/glossary.html#term-function
+glossary,41,function annotation,https://docs.python.org/3/glossary.html#term-function-annotation
+glossary,42,__future__,https://docs.python.org/3/glossary.html#term-future
+glossary,43,garbage collection,https://docs.python.org/3/glossary.html#term-garbage-collection
+glossary,44,generator iterator,https://docs.python.org/3/glossary.html#term-generator-iterator
+glossary,45,generic function,https://docs.python.org/3/glossary.html#term-generic-function
+glossary,46,GIL,https://docs.python.org/3/glossary.html#term-gil
+glossary,47,global interpreter lock,https://docs.python.org/3/glossary.html#term-global-interpreter-lock
+glossary,48,hash-based pyc,https://docs.python.org/3/glossary.html#term-hash-based-pyc
+glossary,49,hashable,https://docs.python.org/3/glossary.html#term-hashable
+glossary,50,IDLE,https://docs.python.org/3/glossary.html#term-idle
+glossary,51,immutable,https://docs.python.org/3/glossary.html#term-immutable
+glossary,52,import path,https://docs.python.org/3/glossary.html#term-import-path
+glossary,53,importing,https://docs.python.org/3/glossary.html#term-importing
+glossary,54,importer,https://docs.python.org/3/glossary.html#term-importer
+glossary,55,interactive,https://docs.python.org/3/glossary.html#term-interactive
+glossary,56,interpreted,https://docs.python.org/3/glossary.html#term-interpreted
+glossary,57,interpreter shutdown,https://docs.python.org/3/glossary.html#term-interpreter-shutdown
+glossary,58,iterable,https://docs.python.org/3/glossary.html#term-iterable
+glossary,59,iterator,https://docs.python.org/3/glossary.html#term-iterator
+glossary,60,key function,https://docs.python.org/3/glossary.html#term-key-function
+glossary,61,keyword argument,https://docs.python.org/3/glossary.html#term-keyword-argument
+glossary,62,lambda,https://docs.python.org/3/glossary.html#term-lambda
+glossary,63,LBYL,https://docs.python.org/3/glossary.html#term-lbyl
+glossary,64,list,https://docs.python.org/3/glossary.html#term-list
+glossary,65,list comprehension,https://docs.python.org/3/glossary.html#term-list-comprehension
+glossary,66,loader,https://docs.python.org/3/glossary.html#term-loader
+glossary,67,mapping,https://docs.python.org/3/glossary.html#term-mapping
+glossary,68,meta path finder,https://docs.python.org/3/glossary.html#term-meta-path-finder
+glossary,69,metaclass,https://docs.python.org/3/glossary.html#term-metaclass
+glossary,70,method,https://docs.python.org/3/glossary.html#term-method
+glossary,71,method resolution order,https://docs.python.org/3/glossary.html#term-method-resolution-order
+glossary,72,module,https://docs.python.org/3/glossary.html#term-module
+glossary,73,module spec,https://docs.python.org/3/glossary.html#term-module-spec
+glossary,74,MRO,https://docs.python.org/3/glossary.html#term-mro
+glossary,75,mutable,https://docs.python.org/3/glossary.html#term-mutable
+glossary,76,named tuple,https://docs.python.org/3/glossary.html#term-named-tuple
+glossary,77,namespace,https://docs.python.org/3/glossary.html#term-namespace
+glossary,78,namespace package,https://docs.python.org/3/glossary.html#term-namespace-package
+glossary,79,nested scope,https://docs.python.org/3/glossary.html#term-nested-scope
+glossary,80,new-style class,https://docs.python.org/3/glossary.html#term-new-style-class
+glossary,81,object,https://docs.python.org/3/glossary.html#term-object
+glossary,82,package,https://docs.python.org/3/glossary.html#term-package
+glossary,83,parameter,https://docs.python.org/3/glossary.html#term-parameter
+glossary,84,path entry,https://docs.python.org/3/glossary.html#term-path-entry
+glossary,85,path entry finder,https://docs.python.org/3/glossary.html#term-path-entry-finder
+glossary,86,path entry hook,https://docs.python.org/3/glossary.html#term-path-entry-hook
+glossary,87,path based finder,https://docs.python.org/3/glossary.html#term-path-based-finder
+glossary,88,path-like object,https://docs.python.org/3/glossary.html#term-path-like-object
+glossary,89,PEP,https://docs.python.org/3/glossary.html#term-pep
+glossary,90,portion,https://docs.python.org/3/glossary.html#term-portion
+glossary,91,positional argument,https://docs.python.org/3/glossary.html#term-positional-argument
+glossary,92,provisional API,https://docs.python.org/3/glossary.html#term-provisional-api
+glossary,93,provisional package,https://docs.python.org/3/glossary.html#term-provisional-package
+glossary,94,Python 3000,https://docs.python.org/3/glossary.html#term-python-3000
+glossary,95,Pythonic,https://docs.python.org/3/glossary.html#term-pythonic
+glossary,96,qualified name,https://docs.python.org/3/glossary.html#term-qualified-name
+glossary,97,reference count,https://docs.python.org/3/glossary.html#term-reference-count
+glossary,98,regular package,https://docs.python.org/3/glossary.html#term-regular-package
+glossary,99,__slots__,https://docs.python.org/3/glossary.html#term-slots
+glossary,100,sequence,https://docs.python.org/3/glossary.html#term-sequence
+glossary,101,single dispatch,https://docs.python.org/3/glossary.html#term-single-dispatch
+glossary,102,slice,https://docs.python.org/3/glossary.html#term-slice
+glossary,103,special method,https://docs.python.org/3/glossary.html#term-special-method
+glossary,104,statement,https://docs.python.org/3/glossary.html#term-statement
+glossary,105,struct sequence,https://docs.python.org/3/glossary.html#term-struct-sequence
+glossary,106,text encoding,https://docs.python.org/3/glossary.html#term-text-encoding
+glossary,107,text file,https://docs.python.org/3/glossary.html#term-text-file
+glossary,108,triple-quoted string,https://docs.python.org/3/glossary.html#term-triple-quoted-string
+glossary,109,type,https://docs.python.org/3/glossary.html#term-type
+glossary,110,type alias,https://docs.python.org/3/glossary.html#term-type-alias
+glossary,111,type hint,https://docs.python.org/3/glossary.html#term-type-hint
+glossary,112,universal newlines,https://docs.python.org/3/glossary.html#term-universal-newlines
+glossary,113,variable annotation,https://docs.python.org/3/glossary.html#term-variable-annotation
+glossary,114,virtual environment,https://docs.python.org/3/glossary.html#term-virtual-environment
+glossary,115,virtual machine,https://docs.python.org/3/glossary.html#term-virtual-machine
+glossary,116,Zen of Python,https://docs.python.org/3/glossary.html#term-zen-of-python
+glossary,117,>>>,https://docs.python.org/3/glossary.html#term
+glossary,118,...,https://docs.python.org/3/glossary.html#term-1
+codelets,dictionary,"a = {'A':100, 'B':200, 'C':300}
+a['lettuce'] = 900
+del a['two']
+for k in a: pass
+for k,v in a.items(): pass
+if 'apples' in a: print(""a as in apple"")",https://docs.python.org/3/tutorial/datastructures.html?highlight=dictionary#dictionaries
+codelets,list,"a = [100, 'asdf', 2.3]
+a.append(400)
+a.insert(0, 500)
+a.remove(0)
+a.sort(key=str.lower,reverse=false)
+for i in range(len(a)): pass
+for v in a: pass",https://docs.python.org/3/tutorial/datastructures.html?highlight=dictionary#more-on-lists
+codelets,tuple,"a = (100, 'asdf', 2.3)
+for i in range(len(a)): pass
+for v in a: pass",https://docs.python.org/3/tutorial/datastructures.html?highlight=dictionary#tuples-and-sequences
+codelets,set,"a = {1,2,3}
+b = {3,4,5}
+print(a|b)  # a.union(b)
+print(a&b) # a.intersection(b)
+print(a-b) # a.difference(b)
+print(a^b) # a.difference_symmetric(b)",https://docs.python.org/3/tutorial/datastructures.html?highlight=dictionary#sets
+codelets,functions,"def listArgs(*args):
+  for v in args: pass
+listArgs(1, 2, 3)
+def keywordArgs(**kwargs):
+    for k in kwargs: pass
+keywordArgs(red=1, green=2, blue=3)
+def f(op, x, y): return op(x, y)
+def add(x, y): return x + y
+print(f(add, 10, 7))
+e = lambda x,y: x**2 + y + 7",https://docs.python.org/3/tutorial/controlflow.html#defining-functions
+codelets,comprehensions,"[char for char in 'Hello, World!']
+[x for x in range(50) if x % 3 == 0 if x % 9]
+{v: foo(v) for v in sequence if bar(v)}
+[await fun() for fun in funcs]
+[i async for i in agen()]",https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions
+codelets,classes,"class A:
+  a = 1.1 # class scope
+  def __init__(self, a): pass
+  def f(self): pass
+test = A('Apples')
+test.f()",https://docs.python.org/3/tutorial/classes.html
+codelets,slicing,"a[start:end] # from start to end-1
+a[start:] # all from start
+a[:end] # beginning to end-1",https://docs.python.org/3/reference/expressions.html?highlight=slicing#slicings
+codelets,with,"with open('out.txt', 'w') as f:
+     f.write('Hello, World!') # File closed after",https://docs.python.org/3/reference/compound_stmts.html?highlight=statement#with
+codelets,imports,"import X
+from X import a, b, c 
+from X import *",https://docs.python.org/3/reference/import.html?highlight=import
+codelets,strings,"# Comment
+"""""" Multiline String """"""
+""{0} {1} {2}"".format(100,'abc',2.0)",https://docs.python.org/3/tutorial/introduction.html
+string_formatting,0,3.1415,https://www.programiz.com/python-programming/methods/string/format
+string_formatting,1,{:.2f},
+string_formatting,2,3.14,
+string_formatting,3,2.718,
+string_formatting,4,{:.0f},
+string_formatting,5,3,
+string_formatting,6,5,
+string_formatting,7,{:0>3d},
+string_formatting,8,005,
+string_formatting,9,5,
+string_formatting,10,{:x<4d},
+string_formatting,11,5xxx,
+string_formatting,12,0.25,
+string_formatting,13,{:.2%},
+string_formatting,14,25.00%,
+string_formatting,15,1030,
+string_formatting,16,{:.2e},
+string_formatting,17,1.03e+03,
+string_formatting,18,16,
+string_formatting,19,{:10d},
+string_formatting,20,”        16”,
+string_formatting,21,24,
+string_formatting,22,{:<10d},
+string_formatting,23,“24        “,

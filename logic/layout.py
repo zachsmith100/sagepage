@@ -8,6 +8,7 @@ from utils.html import HTMLElement
 from utils.html import HTMLStyleBuilder
 from utils.permutations import OptimizableRange
 from utils.permutations import ParamCombinationGenerator
+from utils.models import Size
 
 #########
 # LayoutUtils
@@ -190,13 +191,25 @@ class SimpleWordListLayout(Configurable):
     self.font_name = 'sans-serif'
     self.font_size = 10
     self.font_color = 'rgb(0,0,255)'
-    self.background_color = 'rgb(236,236,236)'    
+    self.background_color = 'rgb(236,236,236)'
+    self.title = ''
+    self.title_font_name = 'sans-serif'
+    self.title_font_color = 'rgb(0,0,0)'
+    self.title_font_size = 10
 
   def get_area_params(self, group):
     params = []
     if self.layout_ratio > 0:
       params.append(OptimizableRange('col_count', 1, len(group), 1))
     return params
+
+  def get_header_rect(self):
+    if len(self.title) < 1:
+      return Size(0,0)
+    text_extents = TextUtils.get_text_dimensions(self.title_font_name, self.title_font_size, True, self.title)
+    width = text_extents.x_advance + (2 * self.border_width)
+    height = text_extents.font_height + (2 * self.border_width)
+    return Size(width, height)
 
   def get_col_size(self, column):
     width = 0
@@ -227,6 +240,8 @@ class SimpleWordListLayout(Configurable):
       if size[1] > height:
         height = size[1]
     height = height + (2*self.border_width)
+    header_size = self.get_header_rect()
+    height = height + header_size.height
     return (width, height)
 
   def get_svg(self, group_name, group):
@@ -258,11 +273,12 @@ class SimpleWordListLayout(Configurable):
     # Get text coords
     ###################
     text_coords = []
+    header_size = self.get_header_rect()
     x = self.border_width
     for col_index in range(len(columns)):
       col_entries = columns[col_index]
       col_width = col_sizes[col_index][0]
-      y = self.border_width + font_extents.font_ascent
+      y = header_size.height + self.border_width + font_extents.font_ascent
       coord_col = []
       for row_index in range(len(col_entries)):
         entry = col_entries[row_index]
@@ -272,16 +288,35 @@ class SimpleWordListLayout(Configurable):
         y = y + self.row_spacing + font_extents.font_height
       x = x + col_width + self.col_spacing
       text_coords.append(coord_col)
-    # Output SVG
-    ############
+
+    svg_group = LayoutUtils.get_next_svg_group()
+    
+
+    # Output BG Rect
+    ################
     x = 0
     y = 0
-    svg_group = LayoutUtils.get_next_svg_group()
     bg_rect = HTMLElement('rect').set_attr('id', group_name).set_attr('width', str(layout_rect_size[0]))
     bg_rect.set_attr('x', str(x)).set_attr('y', str(y))
     bg_rect.set_attr('height', str(layout_rect_size[1]))
     bg_rect.set_attr('style', HTMLStyleBuilder().set('fill', self.background_color))
     svg_group.add_child(bg_rect)
+
+    # Output Title
+    ##############
+    if len(self.title) > 0:
+      title_extents = TextUtils.get_text_dimensions(self.title_font_name, self.title_font_size, True, self.title)
+      x = self.border_width
+      y = self.border_width + title_extents.font_ascent
+      title_element = HTMLElement('text')
+      title_element.set_attr('x', str(x)).set_attr('y', str(y))
+      title_element.set_text(self.title)
+      style = HTMLStyleBuilder().set('font-name', self.title_font_name).set('font-size', self.title_font_size).set('fill', self.title_font_color).set('font-weight', 'bold')
+      title_element.set_attr('style', str(style))
+      svg_group.add_child(title_element)
+
+    # Output Entries
+    ################
     for col_index in range(len(columns)):
       col_entries = columns[col_index]
       coord_col = text_coords[col_index]
@@ -290,6 +325,9 @@ class SimpleWordListLayout(Configurable):
         coord = coord_col[row_index]
         style = HTMLStyleBuilder().set('font-name', self.font_name).set('font-size', self.font_size).set('fill', self.font_color)
         svg_group.add_child(HTMLElement('text').set_text(entry.text).set_attr('x', str(coord[0])).set_attr('y', str(coord[1])).set_attr('style', str(style)))
+
+    # Pink Link Rects
+    #################
     for col_index in range(len(columns)):
       col_entries = columns[col_index]
       coord_col = text_coords[col_index]
@@ -304,6 +342,7 @@ class SimpleWordListLayout(Configurable):
         rect_element.set_attr('x', str(coord[0])).set_attr('y', str(coord[1] - font_extents.font_ascent))
         rect_element.set_attr('width', str(coord[2])).set_attr('height', font_extents.font_height).set_attr('style', style)
         svg_group.add_child(rect_element)
+
     return [LayoutResult(svg_group, layout_rect_size[0], layout_rect_size[1])]
 
 ###############
@@ -494,6 +533,10 @@ class SimpleWordTableLayout(Configurable):
     self.column_transparencies = []
     self.row_alt_color = 'rgb(0,0,0)'
     self.row_alt_transparency = 0.1
+    self.title = ''
+    self.title_font_name = 'sans-serif'
+    self.title_font_color = 'rgb(0,0,0)'
+    self.title_font_size = 10
     self.layout_ratio = 0
 
   def get_area_params(self, group):
@@ -501,6 +544,14 @@ class SimpleWordTableLayout(Configurable):
     if self.layout_ratio > 0:
       params.append(OptimizableRange('col_count', 1, int(len(group) / 2), 1))
     return params
+
+  def get_header_rect(self):
+    if len(self.title) < 1:
+      return Size(0,0)
+    text_extents = TextUtils.get_text_dimensions(self.title_font_name, self.title_font_size, True, self.title)
+    width = text_extents.x_advance + (2 * self.border_width)
+    height = text_extents.font_height + (2 * self.border_width)
+    return Size(width, height)
 
   def get_col_size(self, column):
     width = 0
@@ -518,6 +569,7 @@ class SimpleWordTableLayout(Configurable):
     return (width, height)
 
   def get_group_rect(self, group, col_sizes):
+    header_size = self.get_header_rect()
     width = (2*self.border_width)
     height = 0
     first = True
@@ -529,7 +581,7 @@ class SimpleWordTableLayout(Configurable):
       width = width + size[0]
       if size[1] > height:
         height = size[1]
-    height = height + (2*self.border_width)
+    height = height + header_size.height + (2*self.border_width)
     return (width, height)
 
   def get_svg(self, group_name, group):
@@ -561,11 +613,12 @@ class SimpleWordTableLayout(Configurable):
     # Get text coords
     ###################
     text_coords = []
+    header_size = self.get_header_rect()
     x = self.border_width
     for col_index in range(len(columns)):
       col_entries = columns[col_index]
       col_width = col_sizes[col_index][0]
-      y = self.border_width + font_extents.font_ascent
+      y = header_size.height + self.border_width + font_extents.font_ascent
       coord_col = []
       for row_index in range(len(col_entries)):
         entry = col_entries[row_index]
@@ -575,21 +628,37 @@ class SimpleWordTableLayout(Configurable):
         y = y + self.row_spacing + font_extents.font_height
       x = x + col_width + self.col_spacing
       text_coords.append(coord_col)
-    # Output SVG
-    ############
-    x = 0
-    y = 0
+
     svg_group = LayoutUtils.get_next_svg_group()
+    
+    # Output BG Rect
+    ################
+    x = 0
+    y = 0   
     bg_rect = HTMLElement('rect').set_attr('id', group_name).set_attr('width', str(layout_rect_size[0]))
     bg_rect.set_attr('x', str(x)).set_attr('y', str(y))
     bg_rect.set_attr('height', str(layout_rect_size[1]))
     bg_rect.set_attr('style', HTMLStyleBuilder().set('fill', self.background_color))
     svg_group.add_child(bg_rect)
+
+    # Output Title
+    ##############
+    if len(self.title) > 0:
+      title_extents = TextUtils.get_text_dimensions(self.title_font_name, self.title_font_size, True, self.title)
+      x = self.border_width
+      y = self.border_width + title_extents.font_ascent
+      title_element = HTMLElement('text')
+      title_element.set_attr('x', str(x)).set_attr('y', str(y))
+      title_element.set_text(self.title)
+      style = HTMLStyleBuilder().set('font-name', self.title_font_name).set('font-size', self.title_font_size).set('fill', self.title_font_color).set('font-weight', 'bold')
+      title_element.set_attr('style', str(style))
+      svg_group.add_child(title_element)
+
     # Column Rects
     ##############
     if len(self.column_colors) == len(columns):
       x = self.border_width
-      y = 0
+      y = header_size.height
       first = True
       for col_index in range(len(col_sizes)):
         size = col_sizes[col_index]
@@ -603,14 +672,15 @@ class SimpleWordTableLayout(Configurable):
         rect.set_attr('x', str(x))
         rect.set_attr('y', str(y))  
         rect.set_attr('width', str(width))
-        rect.set_attr('height', str(layout_rect_size[1]))
+        rect.set_attr('height', str(layout_rect_size[1] - header_size.height))
         rect.set_attr('style', HTMLStyleBuilder().set('fill', color).set('fill-opacity', str(self.column_transparencies[col_index])))
         svg_group.add_child(rect)
         x = x + width
+
     # Row Alts
     ##########
     x = self.border_width
-    y = self.border_width
+    y = header_size.height + self.border_width
     first = True
     for i in range(len(rows)):
       if first:
@@ -1266,6 +1336,9 @@ class CodeletCloudLayout(Configurable):
      
     return results
 
+###################
+# SimpleImageLayout
+###################
 class SimpleImageLayout(Configurable):
   def __init__(self):
     Configurable.__init__(self)

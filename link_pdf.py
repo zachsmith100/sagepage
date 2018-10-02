@@ -55,7 +55,6 @@ class SVGHTMLParser(HTMLParser):
         self.origin_x = float(data['x'])
       if 'y' in data:
         self.origin_y = float(data['y'])
-      print(self.origin_x, self.origin_y)
 
     if tag.lower() == "rect":
       rect_data = {i[0]:i[1] for i in attrs}
@@ -93,24 +92,6 @@ if reader.read_file(parser.begin, pdf_in_path):
   print("SUCCESS")
 else:
   print("FAIL")
-
-for k in in_pdf.objects:
-  obj = in_pdf.objects[k]
-  with open("{0}.{1}.head".format(obj.name, obj.version), "w") as f:
-    f.write(str(obj))
-  for v in obj.values:
-    decode_filter = None
-    if v.type == PDFValue.DICTIONARY:
-      if 'Filter' in v.value:
-        decode_filter = v.value['Filter']
-
-    decoded = None
-    if decode_filter is not None and decode_filter.value == 'FlateDecode':
-      decoded = zlib.decompress(obj.stream_data)
-     
-    if decoded is not None:
-      with open("{0}.{1}".format(obj.name, obj.version), "wb") as f:
-        f.write(decoded)
 
 class PDFDeviceRGBColor:
   def __init__(self, r=0.0, g=0.0, b=0.0):
@@ -215,8 +196,9 @@ class PDFLinkRects:
           selected_paths = True
         else:
           selected_paths = False
-      if selected_paths and cmd.name == 'Q':
-        selected_paths = False
+      if selected_paths:
+        if cmd.name == 'Q':
+          selected_paths = False
       if selected_paths and cmd.name == 're':
         selected_commands.append(cmd)
       else:
@@ -244,9 +226,6 @@ svg_rects.sort(key = lambda r: (int(r['x']) << 16) & int(r['y']))
 pdf_rects.sort(key = lambda r: (int(r[0]) << 16) & int(media_box[3] - r[1]) )
 
 if len(pdf_rects) != len(svg_rects):
-    for r in svg_rects:
-      if r['id'] == 'logo.0':
-        print(r)
     print("WARNING: Expected {0} rects in PDF '{1}', found {2} instead".format(len(svg_rects), pdf_in_path, len(pdf_rects)))
 
 for i in range(len(svg_rects)):

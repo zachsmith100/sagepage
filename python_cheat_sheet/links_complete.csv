@@ -1,81 +1,76 @@
 snake,0,./python_cheat_sheet/img/snake.png,https://python.org
 logo,0,./python_cheat_sheet/img/logo.png,https://docs.python.org/3/
-builtins,65,__import__(),https://docs.python.org/3/library/functions.html#__import__
-builtins,1,abs(),https://docs.python.org/3/library/functions.html#abs
-builtins,70,abs(),https://docs.python.org/3/library/functions.html#abs
-builtins,6,all(),https://docs.python.org/3/library/functions.html#all
-builtins,75,all(),https://docs.python.org/3/library/functions.html#all
-builtins,11,any(),https://docs.python.org/3/library/functions.html#any
-builtins,16,ascii(),https://docs.python.org/3/library/functions.html#ascii
-builtins,21,bin(),https://docs.python.org/3/library/functions.html#bin
-builtins,26,bool(),https://docs.python.org/3/library/functions.html#bool
-builtins,31,breakpoint(),https://docs.python.org/3/library/functions.html#breakpoint
-builtins,36,bytearray(),https://docs.python.org/3/library/functions.html#func-bytearray
-builtins,41,bytes(),https://docs.python.org/3/library/functions.html#func-bytes
-builtins,46,callable(),https://docs.python.org/3/library/functions.html#callable
-builtins,51,chr(),https://docs.python.org/3/library/functions.html#chr
-builtins,56,classmethod(),https://docs.python.org/3/library/functions.html#classmethod
-builtins,61,compile(),https://docs.python.org/3/library/functions.html#compile
-builtins,66,complex(),https://docs.python.org/3/library/functions.html#complex
-builtins,2,delattr(),https://docs.python.org/3/library/functions.html#delattr
-builtins,71,delattr(),https://docs.python.org/3/library/functions.html#delattr
-builtins,7,dict(),https://docs.python.org/3/library/functions.html#func-dict
-builtins,76,dict(),https://docs.python.org/3/library/functions.html#func-dict
-builtins,12,dir(),https://docs.python.org/3/library/functions.html#dir
-builtins,17,divmod(),https://docs.python.org/3/library/functions.html#divmod
-builtins,22,enumerate(),https://docs.python.org/3/library/functions.html#enumerate
-builtins,27,eval(),https://docs.python.org/3/library/functions.html#eval
-builtins,32,exec(),https://docs.python.org/3/library/functions.html#exec
-builtins,37,filter(),https://docs.python.org/3/library/functions.html#filter
-builtins,42,float(),https://docs.python.org/3/library/functions.html#float
-builtins,47,format(),https://docs.python.org/3/library/functions.html#format
-builtins,52,frozenset(),https://docs.python.org/3/library/functions.html#func-frozenset
-builtins,57,getattr(),https://docs.python.org/3/library/functions.html#getattr
-builtins,62,globals(),https://docs.python.org/3/library/functions.html#globals
-builtins,67,hasattr(),https://docs.python.org/3/library/functions.html#hasattr
-builtins,3,hash(),https://docs.python.org/3/library/functions.html#hash
-builtins,72,hash(),https://docs.python.org/3/library/functions.html#hash
-builtins,8,help(),https://docs.python.org/3/library/functions.html#help
-builtins,13,hex(),https://docs.python.org/3/library/functions.html#hex
-builtins,18,id(),https://docs.python.org/3/library/functions.html#id
-builtins,23,input(),https://docs.python.org/3/library/functions.html#input
-builtins,28,int(),https://docs.python.org/3/library/functions.html#int
-builtins,33,isinstance(),https://docs.python.org/3/library/functions.html#isinstance
+builtins,1,__import__(),https://docs.python.org/3/library/functions.html#__import__
+builtins,2,abs(),https://docs.python.org/3/library/functions.html#abs
+builtins,3,all(),https://docs.python.org/3/library/functions.html#all
+builtins,4,any(),https://docs.python.org/3/library/functions.html#any
+builtins,5,ascii(),https://docs.python.org/3/library/functions.html#ascii
+builtins,6,bin(),https://docs.python.org/3/library/functions.html#bin
+builtins,7,bool(),https://docs.python.org/3/library/functions.html#bool
+builtins,8,breakpoint(),https://docs.python.org/3/library/functions.html#breakpoint
+builtins,9,bytearray(),https://docs.python.org/3/library/functions.html#func-bytearray
+builtins,10,bytes(),https://docs.python.org/3/library/functions.html#func-bytes
+builtins,11,callable(),https://docs.python.org/3/library/functions.html#callable
+builtins,12,chr(),https://docs.python.org/3/library/functions.html#chr
+builtins,13,classmethod(),https://docs.python.org/3/library/functions.html#classmethod
+builtins,14,compile(),https://docs.python.org/3/library/functions.html#compile
+builtins,15,complex(),https://docs.python.org/3/library/functions.html#complex
+builtins,16,delattr(),https://docs.python.org/3/library/functions.html#delattr
+builtins,17,dict(),https://docs.python.org/3/library/functions.html#func-dict
+builtins,18,dir(),https://docs.python.org/3/library/functions.html#dir
+builtins,19,divmod(),https://docs.python.org/3/library/functions.html#divmod
+builtins,20,enumerate(),https://docs.python.org/3/library/functions.html#enumerate
+builtins,21,eval(),https://docs.python.org/3/library/functions.html#eval
+builtins,22,exec(),https://docs.python.org/3/library/functions.html#exec
+builtins,23,filter(),https://docs.python.org/3/library/functions.html#filter
+builtins,24,float(),https://docs.python.org/3/library/functions.html#float
+builtins,25,format(),https://docs.python.org/3/library/functions.html#format
+builtins,26,frozenset(),https://docs.python.org/3/library/functions.html#func-frozenset
+builtins,27,getattr(),https://docs.python.org/3/library/functions.html#getattr
+builtins,28,globals(),https://docs.python.org/3/library/functions.html#globals
+builtins,29,hasattr(),https://docs.python.org/3/library/functions.html#hasattr
+builtins,30,hash(),https://docs.python.org/3/library/functions.html#hash
+builtins,31,hash(),https://docs.python.org/3/library/functions.html#hash
+builtins,32,help(),https://docs.python.org/3/library/functions.html#help
+builtins,33,hex(),https://docs.python.org/3/library/functions.html#hex
+builtins,34,id(),https://docs.python.org/3/library/functions.html#id
+builtins,35,input(),https://docs.python.org/3/library/functions.html#input
+builtins,36,int(),https://docs.python.org/3/library/functions.html#int
+builtins,37,isinstance(),https://docs.python.org/3/library/functions.html#isinstance
 builtins,38,issubclass(),https://docs.python.org/3/library/functions.html#issubclass
-builtins,43,iter(),https://docs.python.org/3/library/functions.html#iter
-builtins,48,len(),https://docs.python.org/3/library/functions.html#len
-builtins,53,list(),https://docs.python.org/3/library/functions.html#func-list
-builtins,58,locals(),https://docs.python.org/3/library/functions.html#locals
-builtins,63,map(),https://docs.python.org/3/library/functions.html#map
-builtins,68,max(),https://docs.python.org/3/library/functions.html#max
-builtins,4,memoryview(),https://docs.python.org/3/library/functions.html#func-memoryview
-builtins,73,memoryview(),https://docs.python.org/3/library/functions.html#func-memoryview
-builtins,9,min(),https://docs.python.org/3/library/functions.html#min
-builtins,14,next(),https://docs.python.org/3/library/functions.html#next
-builtins,19,object(),https://docs.python.org/3/library/functions.html#object
-builtins,24,oct(),https://docs.python.org/3/library/functions.html#oct
-builtins,29,open(),https://docs.python.org/3/library/functions.html#open
-builtins,34,ord(),https://docs.python.org/3/library/functions.html#ord
-builtins,39,pow(),https://docs.python.org/3/library/functions.html#pow
-builtins,44,print(),https://docs.python.org/3/library/functions.html#print
-builtins,49,property(),https://docs.python.org/3/library/functions.html#property
-builtins,54,range(),https://docs.python.org/3/library/functions.html#func-range
-builtins,59,repr(),https://docs.python.org/3/library/functions.html#repr
-builtins,64,reversed(),https://docs.python.org/3/library/functions.html#reversed
-builtins,69,round(),https://docs.python.org/3/library/functions.html#round
-builtins,5,set(),https://docs.python.org/3/library/functions.html#func-set
-builtins,74,set(),https://docs.python.org/3/library/functions.html#func-set
-builtins,10,setattr(),https://docs.python.org/3/library/functions.html#setattr
-builtins,15,slice(),https://docs.python.org/3/library/functions.html#slice
-builtins,20,sorted(),https://docs.python.org/3/library/functions.html#sorted
-builtins,25,staticmethod(),https://docs.python.org/3/library/functions.html#staticmethod
-builtins,30,str(),https://docs.python.org/3/library/functions.html#func-str
-builtins,35,sum(),https://docs.python.org/3/library/functions.html#sum
-builtins,40,super(),https://docs.python.org/3/library/functions.html#super
-builtins,45,tuple(),https://docs.python.org/3/library/functions.html#func-tuple
-builtins,50,type(),https://docs.python.org/3/library/functions.html#type
-builtins,55,vars(),https://docs.python.org/3/library/functions.html#vars
-builtins,60,zip(),https://docs.python.org/3/library/functions.html#zip
+builtins,39,iter(),https://docs.python.org/3/library/functions.html#iter
+builtins,40,len(),https://docs.python.org/3/library/functions.html#len
+builtins,41,list(),https://docs.python.org/3/library/functions.html#func-list
+builtins,42,locals(),https://docs.python.org/3/library/functions.html#locals
+builtins,43,map(),https://docs.python.org/3/library/functions.html#map
+builtins,44,max(),https://docs.python.org/3/library/functions.html#max
+builtins,45,memoryview(),https://docs.python.org/3/library/functions.html#func-memoryview
+builtins,46,min(),https://docs.python.org/3/library/functions.html#min
+builtins,47,next(),https://docs.python.org/3/library/functions.html#next
+builtins,48,object(),https://docs.python.org/3/library/functions.html#object
+builtins,49,oct(),https://docs.python.org/3/library/functions.html#oct
+builtins,50,open(),https://docs.python.org/3/library/functions.html#open
+builtins,51,ord(),https://docs.python.org/3/library/functions.html#ord
+builtins,52,pow(),https://docs.python.org/3/library/functions.html#pow
+builtins,53,print(),https://docs.python.org/3/library/functions.html#print
+builtins,54,property(),https://docs.python.org/3/library/functions.html#property
+builtins,55,range(),https://docs.python.org/3/library/functions.html#func-range
+builtins,56,repr(),https://docs.python.org/3/library/functions.html#repr
+builtins,57,reversed(),https://docs.python.org/3/library/functions.html#reversed
+builtins,58,round(),https://docs.python.org/3/library/functions.html#round
+builtins,59,set(),https://docs.python.org/3/library/functions.html#func-set
+builtins,60,set(),https://docs.python.org/3/library/functions.html#func-set
+builtins,61,setattr(),https://docs.python.org/3/library/functions.html#setattr
+builtins,62,slice(),https://docs.python.org/3/library/functions.html#slice
+builtins,63,sorted(),https://docs.python.org/3/library/functions.html#sorted
+builtins,64,staticmethod(),https://docs.python.org/3/library/functions.html#staticmethod
+builtins,65,str(),https://docs.python.org/3/library/functions.html#func-str
+builtins,66,sum(),https://docs.python.org/3/library/functions.html#sum
+builtins,67,super(),https://docs.python.org/3/library/functions.html#super
+builtins,68,tuple(),https://docs.python.org/3/library/functions.html#func-tuple
+builtins,69,type(),https://docs.python.org/3/library/functions.html#type
+builtins,70,vars(),https://docs.python.org/3/library/functions.html#vars
+builtins,71,zip(),https://docs.python.org/3/library/functions.html#zip
 keywords,and,and,https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not
 keywords,import_as,as (import...as),https://docs.python.org/3/reference/import.html
 keywords,with_as,as (with...as),https://docs.python.org/3/reference/compound_stmts.html#index-16
@@ -229,8 +224,6 @@ glossary,113,variable annotation,https://docs.python.org/3/glossary.html#term-va
 glossary,114,virtual environment,https://docs.python.org/3/glossary.html#term-virtual-environment
 glossary,115,virtual machine,https://docs.python.org/3/glossary.html#term-virtual-machine
 glossary,116,Zen of Python,https://docs.python.org/3/glossary.html#term-zen-of-python
-glossary,117,>>>,https://docs.python.org/3/glossary.html#term
-glossary,118,...,https://docs.python.org/3/glossary.html#term-1
 codelets,dictionary,"a = {'A':100, 'B':200, 'C':300}
 a['lettuce'] = 900
 del a['two']
@@ -309,3 +302,70 @@ string_formatting,20,”        16”,
 string_formatting,21,24,
 string_formatting,22,{:<10d},
 string_formatting,23,“24        “,
+common_seq_ops,1,x in s,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#common-sequence-operations
+common_seq_ops,2,x not in s,https://docs.python.org/3/
+common_seq_ops,3,s + t,https://docs.python.org/3/
+common_seq_ops,4,s * n or n * s,https://docs.python.org/3/
+common_seq_ops,5,s[i],https://docs.python.org/3/
+common_seq_ops,6,s[i:j],https://docs.python.org/3/
+common_seq_ops,7,s[i:j:k],https://docs.python.org/3/
+common_seq_ops,8,len(s),https://docs.python.org/3/
+common_seq_ops,9,min(s),https://docs.python.org/3/
+common_seq_ops,10,max(s),https://docs.python.org/3/
+common_seq_ops,11,"s.index(x[, i[, j]])",https://docs.python.org/3/
+common_seq_ops,12,s.count(x),https://docs.python.org/3/
+mutable_seq_ops,1,s[i] = x,https://docs.python.org/3//library/stdtypes.html?highlight=text%20sequence#mutable-sequence-types
+mutable_seq_ops,2,s[i:j] = t,https://docs.python.org/3/
+mutable_seq_ops,3,del s[i:j],https://docs.python.org/3/
+mutable_seq_ops,4,s[i:j:k] = t,https://docs.python.org/3/
+mutable_seq_ops,5,del s[i:j:k],https://docs.python.org/3/
+mutable_seq_ops,6,s.append(x),https://docs.python.org/3/
+mutable_seq_ops,7,s.clear(),https://docs.python.org/3/
+mutable_seq_ops,8,s.copy(),https://docs.python.org/3/
+mutable_seq_ops,9,s.extend(t),https://docs.python.org/3/
+mutable_seq_ops,10,s += t,https://docs.python.org/3/
+mutable_seq_ops,11,s *= n,https://docs.python.org/3/
+mutable_seq_ops,12,"s.insert(i, x)",https://docs.python.org/3/
+mutable_seq_ops,13,s.pop([i]),https://docs.python.org/3/
+mutable_seq_ops,14,s.remove(x),https://docs.python.org/3/
+mutable_seq_ops,15,s.reverse(),https://docs.python.org/3/
+text_seq_ops,1,capitalize,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.capitalize
+text_seq_ops,2,center,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.center
+text_seq_ops,3,count,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.count
+text_seq_ops,4,decode,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.decode
+text_seq_ops,5,endswith,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.endswith
+text_seq_ops,6,expandtabs,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.expandtabs
+text_seq_ops,7,find,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.find
+text_seq_ops,8,fromhex,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.fromhex
+text_seq_ops,9,hex,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.hex
+text_seq_ops,10,index,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.index
+text_seq_ops,11,isalnum,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.isalnum
+text_seq_ops,12,isalpha,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.isalpha
+text_seq_ops,13,isascii,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.isascii
+text_seq_ops,14,isdigit,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.isdigit
+text_seq_ops,15,islower,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.islower
+text_seq_ops,16,isspace,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.isspace
+text_seq_ops,17,istitle,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.istitle
+text_seq_ops,18,isupper,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.isupper
+text_seq_ops,19,join,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.join
+text_seq_ops,20,ljust,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.ljust
+text_seq_ops,21,lower,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.lower
+text_seq_ops,22,lstrip,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.lstrip
+text_seq_ops,23,maketrans,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.maketrans
+text_seq_ops,24,partition,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.partition
+text_seq_ops,25,replace,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.replace
+text_seq_ops,26,rfind,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.rfind
+text_seq_ops,27,rindex,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.rindex
+text_seq_ops,28,rjust,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.rjust
+text_seq_ops,29,rpartition,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.rpartition
+text_seq_ops,30,rsplit,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.rsplit
+text_seq_ops,31,rstrip,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.rstrip
+text_seq_ops,32,split,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.split
+text_seq_ops,33,splitlines,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.splitlines
+text_seq_ops,34,startswith,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.startswith
+text_seq_ops,35,strip,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.strip
+text_seq_ops,36,swapcase,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.swapcase
+text_seq_ops,37,title,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.title
+text_seq_ops,38,translate,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.translate
+text_seq_ops,39,upper,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.upper
+text_seq_ops,40,zfill,https://docs.python.org/3/library/stdtypes.html?highlight=text%20sequence#bytes.zfill

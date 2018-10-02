@@ -40,7 +40,7 @@
   {
     "layout_class":"SimpleWordTableLayout",
     "layout_ratio":1.618,
-    "col_count":1,
+    "col_count":3,
     "font_name":"sans-serif",
     "font_size":10,
     "border_width":3,
@@ -48,8 +48,6 @@
     "col_spacing":14,
     "background_color":"rgb(250,250,250)",
     "font_color":"rgb(170,68,0)",
-    "column_colors":["rgb(255,0,0)","rgb(0,0,255)","rgb(0,255,0)"],
-    "column_transparencies":[0.05, 0.05, 0.05],
     "row_alt_color":"rgb(0,0,0)",
     "row_alt_transparency":0.05,
     "title":"Builtins"
@@ -69,7 +67,63 @@
     "column_transparencies":[0.05, 0.05, 0.05],
     "row_alt_color":"rgb(0,0,0)",
     "row_alt_transparency":0.05,
-    "title":"String Formatting"
+    "title":"String Formatting",
+    "flow_entries":false,
+    "first_link_covers_all":true
+  },
+  "common_seq_ops":
+  {
+    "layout_class":"SimpleWordTableLayout",
+    "layout_ratio":1.618,
+    "col_count":3,
+    "font_name":"sans-serif",
+    "font_size":10,
+    "border_width":3,
+    "row_spacing":1,
+    "col_spacing":14,
+    "background_color":"rgb(255,245,255)",
+    "font_color":"rgb(0,0,0)",
+    "row_alt_color":"rgb(0,0,0)",
+    "row_alt_transparency":0.05,
+    "title":"Common Sequence Ops",
+    "flow_entries":false,
+    "first_link_covers_all":true
+  },
+  "mutable_seq_ops":
+  {
+    "layout_class":"SimpleWordTableLayout",
+    "layout_ratio":1.618,
+    "col_count":3,
+    "font_name":"sans-serif",
+    "font_size":10,
+    "border_width":3,
+    "row_spacing":1,
+    "col_spacing":14,
+    "background_color":"rgb(255,255,255)",
+    "font_color":"rgb(0,0,0)",
+    "row_alt_color":"rgb(0,0,0)",
+    "row_alt_transparency":0.05,
+    "title":"Mutable Sequence Ops",
+    "flow_entries":false,
+    "first_link_covers_all":true
+  },
+  "text_seq_ops":
+  {
+    "layout_class":"SimpleWordTableLayout",
+    "layout_ratio":1.618,
+    "col_count":3,
+    "font_name":"sans-serif",
+    "font_size":10,
+    "border_width":3,
+    "row_spacing":1,
+    "col_spacing":14,
+    "background_color":"rgb(255,255,255)",
+    "font_color":"rgb(0,0,0)",
+    "row_alt_color":"rgb(0,0,0)",
+    "row_alt_transparency":0.05,
+    "title":"Text Sequence Ops",
+    "flow_entries":true,
+    "first_link_covers_all":false
   },
   "codelets":
   {

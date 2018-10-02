@@ -14,5 +14,17 @@
 	"codelets":
 	{
 		"base_url":"https://docs.python.org/3/"
+	},
+	"common_seq_ops":
+	{
+		"base_url":"https://docs.python.org/3/"
+	},
+	"mutable_seq_ops":
+	{
+		"base_url":"https://docs.python.org/3/"
+	},
+	"text_seq_ops":
+	{
+		"base_url":"https://docs.python.org/3/"
 	}
 }

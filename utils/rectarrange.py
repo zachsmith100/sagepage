@@ -14,6 +14,9 @@ class FreeCell:
   def set_color(self, color):
     self.color = color
 
+  def get_color(self):
+    return self.color
+
   def is_free(self):
     if self.color is None:
       return True
@@ -44,10 +47,26 @@ class AreaMatrix:
     self.columns.append([cell])
     self.column_widths.append(width)
 
+  def dump_svg(self, filename):
+    rects = []
+    y = 0
+    for row_index in range(len(self.rows)):
+      x = 0
+      height = self.row_heights[row_index]
+      for col_index in range(len(self.columns)):
+        width = self.column_widths[col_index]
+        cell = self.rows[row_index][col_index]
+        rect = Rect(cell.identifier, x, y, width, height, cell.color)
+        rects.append(rect)
+        x = x + width
+      y = y + height
+
+    SVG.dump_rects(filename, rects)
+
   def get_next_id(self):
     next_id = self.next_id
     self.next_id = self.next_id + 1
-    return next_id
+    return 'AreaMatrix.internal_cell.{0}'.format(next_id)
 
   def mark_cell(self, col_index, row_index, color):
     self.columns[col_index][row_index].set_color(color)
@@ -114,7 +133,6 @@ class AreaMatrix:
 
     return rects
 
-
   def list_free_rects(self):
     free_rects = []
     for row_index in range(len(self.rows)):
@@ -132,7 +150,8 @@ class AreaMatrix:
       if selected_rect is None:
         selected_rect = rect
       elif rect.y < selected_rect.y:
-        selected_rect = rect
+        if rect.x < selected_rect.x:
+          selected_rect = rect
     return selected_rect
 
   def place_rect(self, origin_col_index, origin_row_index, rect):
@@ -167,34 +186,73 @@ class AreaMatrix:
     ######
     for col_index in range(origin_col_index, split_col_index + 1):
       for row_index in range(origin_row_index, split_row_index + 1):
-        self.rows[row_index][col_index].color = rect.get_color()
+        cell = self.rows[row_index][col_index]
+        cell.color = rect.get_color()
+        cell.identifier = rect.identifier
 
-    # Update X,Y
-    ############
+    return Rect(None, origin_col_index, origin_row_index, split_col_index, split_row_index)
+
+  def update_rects_xy(self, rects):
+    rects_xref = {r.identifier:r for r in rects}
     x = 0
     y = 0
-    for col_index in range(origin_col_index):
+    for col_index in range(len(self.columns)):
+      for row_index in range(len(self.rows)):
+        cell_id = self.rows[row_index][col_index].identifier
+        if cell_id not in rects_xref:
+          continue
+        rect = rects_xref[cell_id]
+        rect.x = x
+        rect.y = y
+        y = y + self.row_heights[row_index]
       x = x + self.column_widths[col_index]
-    for row_index in range(origin_row_index):
-      y = y + self.row_heights[row_index]
-    rect.x = x
-    rect.y = y
 
-  def dump_svg(self, filename):
-    rects = []
-    y = 0
-    for row_index in range(len(self.rows)):
-      x = 0
-      height = self.row_heights[row_index]
-      for col_index in range(len(self.columns)):
-        width = self.column_widths[col_index]
-        cell = self.rows[row_index][col_index]
-        rect = Rect(cell.identifier, x, y, width, height, cell.color)
-        rects.append(rect)
-        x = x + width
-      y = y + height
+  def overlay_matrix_cells(self, origin_col_index, origin_row_index, overlay_origin_col_index, overlay_row_index, matrix):
+    col_width = 0
+    for col_index in range(origin_col_index, len(self.columns)):
+      col_width = col_width + self.column_widths[col_index]
+      matrix_col_width = 0
+      matrix_col_index = overlay_origin_col_index
+      while matrix_col_index < len(matrix.columns) and matrix_col_width < col_width:
+        matrix_col_width = matrix_col_width + matrix.column_widths[matrix_col_index]
+        matrix_col_index = matrix_col_index + 1
+      matrix_col_index = matrix_col_index - 1
 
-    SVG.dump_rects(filename, rects)
+      if matrix_col_width > col_width:
+        split_distance = col_width - (matrix_col_width - matrix.column_widths[matrix_col_index])
+        matrix.split_column(matrix_col_index, split_distance)
+        print("column: split_distance", split_distance, "matrix_col_index", matrix_col_index, 'matrix_col_width', (matrix_col_width - matrix.column_widths[matrix_col_index]))
+      else:
+        break
+
+    row_height = 0
+    for row_index in range(origin_row_index, len(self.rows)):
+      row_height = row_height + self.row_heights[row_index]
+      matrix_row_height = 0
+      matrix_row_index = overlay_row_index
+      while matrix_row_index < len(matrix.rows) and matrix_row_height < row_height:
+        matrix_row_height = matrix_row_height + matrix.row_heights[matrix_row_index]
+        matrix_row_index = matrix_row_index + 1
+      matrix_row_index = matrix_row_index - 1
+
+      if matrix_row_height > row_height:
+        split_distance = row_height - (matrix_row_height - matrix.row_heights[matrix_row_index])
+        matrix.split_row(matrix_row_index, split_distance)
+        print("row: split_distance", split_distance, "matrix_row_index", matrix_row_index, 'matrix_row_height', (matrix_row_height - matrix.row_heights[matrix_row_index]))
+      else:
+        break
+
+  def overlay_matrix(self, origin_col_index, origin_row_index, matrix):
+    self.overlay_matrix_cells(origin_col_index, origin_row_index, 0, 0, matrix)
+    matrix.overlay_matrix_cells(0, 0, origin_col_index, origin_row_index, self)
+  
+    for col_index in range(len(matrix.columns)):
+      overlay_col_index = origin_col_index + col_index
+      for row_index in range(len(matrix.rows)):
+        overlay_row_index = origin_row_index + row_index
+        overlay_cell = matrix.rows[row_index][col_index]
+        print(overlay_col_index, overlay_row_index)
+        self.rows[overlay_row_index][overlay_col_index] = FreeCell(overlay_cell.identifier, overlay_cell.color)
 
   def __str__(self):
     s = 'AreaMatrix(width={0}, height={1}, rows={2}, cols={3})'.format(self.width, self.height, len(self.rows), len(self.columns))
@@ -220,12 +278,12 @@ class ArrangeRects:
     h = math.sqrt(unit_square)
     w = h * self.ratio
 
-    if ((w*100) % 10) > 0:
+    if ((w*1000) % 10) > 0:
       w = int(w) + 1
     else:
       w = int(w)
 
-    if ((h*100) % 10) > 0:
+    if ((h*1000) % 10) > 0:
       h = int(h) + 1
     else:
       h = int(h)
@@ -256,18 +314,16 @@ class ArrangeRects:
 
     width = 0
     height = 0
+    area = 0
     for rect in rects:
-      if (rect.x + rect.width) > width:
-        width = rect.x + rect.width
-      if (rect.y + rect.height) > height:
-        height = rect.y + rect.height
-    area = width * height
+      area = area + (rect.width * rect.height)
 
     while True:
       enclosing_rect = self.get_enclosing_rect_for_area(area)
       print("Attempting enclosing rect", enclosing_rect.width, enclosing_rect.height)
       matrix = AreaMatrix(enclosing_rect.width, enclosing_rect.height)
       if self.attempt_arrangement(matrix, rects):
+        self.update_rects_xy(rects)
         print("Found arrangement", enclosing_rect)
         if matrix_svg_filename is not None:
           matrix.dump_svg(matrix_svg_filename)

@@ -538,6 +538,8 @@ class SimpleWordTableLayout(Configurable):
     self.title_font_color = 'rgb(0,0,0)'
     self.title_font_size = 10
     self.layout_ratio = 0
+    self.flow_entries = True
+    self.first_link_covers_all = False
 
   def get_area_params(self, group):
     params = []
@@ -585,20 +587,32 @@ class SimpleWordTableLayout(Configurable):
     return (width, height)
 
   def get_svg(self, group_name, group):
-    # Init Entries
-    ##############
+    # Index Entries
+    ###############
     row_count = int(len(group) / self.col_count)
     if len(group) % self.col_count:
       row_count = row_count + 1
-    columns = [group[i:i+row_count] for i in range(0, len(group), row_count)]
     rows = []
     for i in range(row_count):
       row = []
-      for j in range(len(columns)):
-        next_index = (j*row_count) + i
+      for j in range(self.col_count):
+        if self.flow_entries:
+          next_index = (j*row_count) + i
+        else:
+          next_index = (i*self.col_count) + j
         if next_index < len(group):
           row.append(group[next_index])
       rows.append(row)
+    columns = []
+    for col_index in range(self.col_count):
+      column = []
+      for row in rows:
+        if col_index < len(row):
+          column.append(row[col_index])
+      columns.append(column)
+
+    print(columns)
+
     # Get col sizes
     ###############
     col_sizes = []
@@ -628,7 +642,6 @@ class SimpleWordTableLayout(Configurable):
         y = y + self.row_spacing + font_extents.font_height
       x = x + col_width + self.col_spacing
       text_coords.append(coord_col)
-
     svg_group = LayoutUtils.get_next_svg_group()
     
     # Output BG Rect
@@ -697,6 +710,7 @@ class SimpleWordTableLayout(Configurable):
         rect.set_attr('height', str(height))
         rect.set_attr('style', HTMLStyleBuilder().set('fill', self.row_alt_color).set('fill-opacity', str(self.row_alt_transparency)))
         svg_group.add_child(rect)
+
     # Text
     ######
     for col_index in range(len(columns)):
@@ -707,20 +721,22 @@ class SimpleWordTableLayout(Configurable):
         coord = coord_col[row_index]
         style = HTMLStyleBuilder().set('font-name', self.font_name).set('font-size', self.font_size).set('fill', self.font_color)
         svg_group.add_child(HTMLElement('text').set_text(entry.text).set_attr('x', str(coord[0])).set_attr('y', str(coord[1])).set_attr('style', str(style)))
-    for col_index in range(len(columns)):
-      col_entries = columns[col_index]
-      coord_col = text_coords[col_index]
-      for row_index in range(len(col_entries)):
-        entry = col_entries[row_index] 
-        if entry.url is None or len(entry.url.strip()) < 1:
-          continue
-        coord = coord_col[row_index]
-        style = HTMLStyleBuilder().set('fill', 'rgb(255,0,255)').set('fill-opacity', '0.25')
-        rect_element = HTMLElement('rect')
-        rect_element.set_attr('id', '{0}.{1}'.format(entry.group, entry.identifier))
-        rect_element.set_attr('x', str(coord[0])).set_attr('y', str(coord[1] - font_extents.font_ascent))
-        rect_element.set_attr('width', str(coord[2])).set_attr('height', font_extents.font_height).set_attr('style', style)
-        svg_group.add_child(rect_element)
+
+    # Pink Link Rects
+    #################
+    if self.first_link_covers_all:
+      svg_group.add_child(LayoutUtils.get_pink_link_rect(rows[0][0].group, rows[0][0].identifier, 0, 0, layout_rect_size[0], layout_rect_size[1]))
+    else:
+      for col_index in range(len(columns)):
+        col_entries = columns[col_index]
+        coord_col = text_coords[col_index]
+        for row_index in range(len(col_entries)):
+          entry = col_entries[row_index] 
+          if entry.url is None or len(entry.url.strip()) < 1:
+            continue
+          coord = coord_col[row_index]
+          svg_group.add_child(LayoutUtils.get_pink_link_rect(entry.group, entry.identifier, coord[0], (coord[1] - font_extents.font_ascent), coord[2], font_extents.font_height))
+
     return [LayoutResult(svg_group, layout_rect_size[0], layout_rect_size[1])]
 
 ################
@@ -1400,7 +1416,6 @@ class SimpleImageLayout(Configurable):
         preserveAspectRatio = 'xMinYMin'
       height = (self.width / width) * height
       width = self.width
-      print("width", width, "height", height)
     elif self.height is not None:
       if self.width is None:
         preserveAspectRatio = 'xMinYMin'

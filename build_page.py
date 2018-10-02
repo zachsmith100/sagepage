@@ -49,7 +49,6 @@ for group_name in groups:
 # Assemble
 ##########
 def adjust_xy(element, **kwargs):
-  print(kwargs)
   x = kwargs['x']
   y = kwargs['y']
   if 'x' in element.attributes:
@@ -72,7 +71,6 @@ for group_name in svg_outputs:
     identifier = '{0}#{1}'.format(group_name, i)
     rect_svg_xref[identifier] = (group_name, i)
     rect = Rect(identifier, 0, 0, svg.width, svg.height, 'gray', next_sort_group_id)
-    print(rect)
     next_sort_group_id = next_sort_group_id + 1
     rects.append(rect)
 
@@ -88,15 +86,14 @@ for rect in rects:
     height = rect.y + rect.height
 
 html = HTMLElement('svg').set_attr('width', str(width)).set_attr('height', str(height))
-#html.set_attr('xmlns:svg', 'http://www.w3.org/2000/svg')
-#html.set_attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+html.set_attr('xmlns:svg', 'http://www.w3.org/2000/svg')
+html.set_attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
 
 for rect in rects:
   idx = rect_svg_xref[rect.identifier]
   group_name = idx[0]
   i = idx[1]
   svg = svg_outputs[group_name][i]
-  print(rect)
   svg.html.iterate_children(adjust_xy, x=rect.x, y=rect.y)
   html.add_child(svg.html)
 

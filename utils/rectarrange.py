@@ -2,6 +2,8 @@ import math
 from utils.models import Rect
 from utils.models import Size
 from utils.svg import SVG
+from utils.models import GridCoord
+from utils.models import XYCoord
 
 # Arrangeable
 #############
@@ -30,7 +32,7 @@ class Arrangeable:
     return self.matrix.get_allocated_size()
 
   def overlay_onto_matrix(self, dst_origin_col_index, dst_origin_row_index, dst_matrix):
-    self.matrix.overlay_matrix(dst_origin_row_index, dst_origin_col_index, dst_matrix)
+    self.matrix.overlay_matrix(dst_origin_col_index, dst_origin_row_index, dst_matrix)
 
   def dump_svg(self):
     if self.matrix_svg_filename:
@@ -65,6 +67,7 @@ class FreeCell:
 # AreaMatrix
 ############
 class AreaMatrix:
+  next_id = 0
   def __init__(self, width, height):
     self.width = width
     self.height = height
@@ -79,6 +82,8 @@ class AreaMatrix:
     self.row_heights.append(height)
     self.columns.append([cell])
     self.column_widths.append(width)
+    self.cell_rect_xref = {}
+    self.rects = {}
 
   def dump_svg(self, filename):
     rects = []
@@ -97,14 +102,15 @@ class AreaMatrix:
     SVG.dump_rects(filename, rects)
 
   def get_next_id(self):
-    next_id = self.next_id
-    self.next_id = self.next_id + 1
+    next_id = AreaMatrix.next_id
+    AreaMatrix.next_id = AreaMatrix.next_id + 1
     return 'AreaMatrix.internal_cell.{0}'.format(next_id)
 
   def mark_cell(self, col_index, row_index, color):
     self.columns[col_index][row_index].set_color(color)
 
   def split_row(self, row_index, new_height):
+    print('split_row', row_index, new_height)
     old_height = self.row_heights[row_index]
     self.row_heights[row_index] = new_height
     new_row_height = old_height - new_height
@@ -122,6 +128,7 @@ class AreaMatrix:
     self.row_heights.insert(row_index + 1, new_row_height)
 
   def split_column(self, col_index, new_width):
+    print('split_column', col_index, new_width)
     old_width = self.column_widths[col_index]
     self.column_widths[col_index] = new_width
     new_col_width = old_width - new_width
@@ -187,13 +194,71 @@ class AreaMatrix:
           selected_rect = rect
     return selected_rect
 
-  def place_rect(self, origin_col_index, origin_row_index, rect):
+  def get_cell_grid_coord_for_xy(self, origin_col_index, origin_row_index, target_x, target_y):
+    x = 0
+    width = 0
+    for col_index in range(origin_col_index, len(self.columns)):
+      width = self.column_widths[col_index]
+      y = 0
+      for row_index in range(origin_row_index, len(self.rows)):
+        height = self.row_heights[row_index]
+        print(x, y, width, height, col_index, row_index)
+        if x <= target_x and target_x <= (x + width) and y <= target_y and target_y <= (y + height):
+          print('match', x, y, width, height, origin_col_index, origin_row_index, target_x, target_y)
+          return GridCoord(col_index, row_index)
+        y = y + height
+      x = x + width
+    return None
+
+  def get_relative_cell_origin_xy(self, origin_col_index, origin_row_index, target_col_index, target_row_index):
+    print("get_relative_cell_origin_xy", len(self.columns), len(self.rows), origin_col_index, origin_row_index, target_col_index, target_row_index)
+    x = 0
+    width = 0
+    for col_index in range(origin_col_index, len(self.columns)):
+      width = self.column_widths[col_index]
+      y = 0
+      for row_index in range(origin_row_index, len(self.rows)):
+        height = self.row_heights[row_index]
+        if target_col_index == (col_index - origin_col_index) and target_row_index == (row_index - origin_row_index):
+          return XYCoord(x, y)
+        y = y + height
+      x = x + width
+    return None
+
+  def place_rect(self, x, y, rect):
+
+    print('place_rect', x, y, rect)
+
+    origin_cell_index = self.get_cell_grid_coord_for_xy(0, 0, x, y)
+
+    print('origin_cell_index', origin_cell_index)
+
+    if origin_cell_index is None:
+      print("Origin cell index not found")
+      return False
+
+    origin_cell_xy = self.get_relative_cell_origin_xy(0, 0, origin_cell_index.col, origin_cell_index.row)
+
+    if origin_cell_xy is None:
+      print("origin_cell_xy not found")
+      return False
+
+    if x - origin_cell_xy.x > 0:
+      self.split_column(origin_cell_index.col, x - origin_cell_xy.x)
+      origin_cell_index.col = origin_cell_index.col + 1
+
+    if y - origin_cell_xy.y > 0:
+      self.split_row(origin_cell_index.row, y - origin_cell_xy.y)
+      origin_cell_index.row = origin_cell_index.row + 1
+
+    origin_cell_xy = self.get_relative_cell_origin_xy(0, 0, origin_cell_index.col, origin_cell_index.row)
+
     remaining_width = rect.width
     remaining_height = rect.height
 
     # Split col
     ###########
-    split_col_index = origin_col_index
+    split_col_index = origin_cell_index.col
     next_width = self.column_widths[split_col_index]
     while remaining_width > next_width:
       remaining_width = remaining_width - next_width
@@ -205,7 +270,7 @@ class AreaMatrix:
 
     # Split row
     ###########
-    split_row_index = origin_row_index
+    split_row_index = origin_cell_index.row
     next_height = self.row_heights[split_row_index]
     while remaining_height > next_height:
       remaining_height = remaining_height - next_height
@@ -217,26 +282,35 @@ class AreaMatrix:
 
     # Mark
     ######
-    for col_index in range(origin_col_index, split_col_index + 1):
-      for row_index in range(origin_row_index, split_row_index + 1):
+    for col_index in range(origin_cell_index.col, split_col_index + 1):
+      for row_index in range(origin_cell_index.row, split_row_index + 1):
         cell = self.rows[row_index][col_index]
         cell.color = rect.get_color()
-        cell.identifier = rect.identifier
+        self.cell_rect_xref[cell.identifier] = rect.identifier
+        self.rects[rect.identifier] = rect
 
-    return Rect(None, origin_col_index, origin_row_index, split_col_index, split_row_index)
+    return True
 
-  def update_rects_xy(self, rects):
-    rects_xref = {r.identifier:r for r in rects}
+  def get_rects(self):
+    self.update_rects_xy()
+    rects = [self.rects[cell_id] for cell_id in self.rects]
+    return rects
+
+  def update_rects_xy(self):
     x = 0
-    y = 0
+    seen = set()
     for col_index in range(len(self.columns)):
+      y = 0
       for row_index in range(len(self.rows)):
-        cell_id = self.rows[row_index][col_index].identifier
-        if cell_id not in rects_xref:
-          continue
-        rect = rects_xref[cell_id]
-        rect.x = x
-        rect.y = y
+        cell = self.rows[row_index][col_index]
+        cell_rect_id = None
+        if cell.identifier in self.cell_rect_xref:
+          cell_rect_id = self.cell_rect_xref[cell.identifier]
+        if cell_rect_id is not None and cell_rect_id in self.rects and cell_rect_id not in seen:
+          rect = self.rects[cell_rect_id]
+          rect.x = x
+          rect.y = y
+          seen.add(cell_rect_id)
         y = y + self.row_heights[row_index]
       x = x + self.column_widths[col_index]
 
@@ -350,12 +424,19 @@ class AreaMatrix:
     return True
 
   def overlay_matrix(self, dst_origin_col_index, dst_origin_row_index, dst_matrix):
+
+    print("OVERLAY")
+    for rect in self.get_rects():
+      dst_cell_origin = dst_matrix.get_relative_cell_origin_xy(0, 0, dst_origin_col_index, dst_origin_row_index)
+      print("dst_cell_origin", dst_cell_origin, dst_origin_col_index, dst_origin_row_index)
+      dst_matrix.place_rect(dst_cell_origin.x + rect.x, dst_cell_origin.y + rect.y, rect.copy())
+
     #print(len(self.rows), len(self.columns), origin_col_index, origin_row_index, len(matrix.rows), len(matrix.columns))
 
     #dst_matrix.dump_svg('../tmp/debug.dst.999.svg')
     #self.dump_svg('../tmp/debug.src.999.svg')
 
-    self.overlay_matrix_cells(dst_origin_col_index, dst_origin_row_index, dst_matrix)
+    #self.overlay_matrix_cells(dst_origin_col_index, dst_origin_row_index, dst_matrix)
 
     #dst_matrix.dump_svg('../tmp/debug.dst.1000.svg')
     #self.dump_svg('../tmp/debug.src.1000.svg')
@@ -364,7 +445,7 @@ class AreaMatrix:
 
 
     # this one
-    self.iterate_cells(0, 0, self.overlapping_cells_cb, dst_matrix=dst_matrix, dst_origin_col_index=dst_origin_col_index, dst_origin_row_index=dst_origin_row_index)
+    #self.iterate_cells(0, 0, self.overlapping_cells_cb, dst_matrix=dst_matrix, dst_origin_col_index=dst_origin_col_index, dst_origin_row_index=dst_origin_row_index)
 
     #print(len(self.rows), len(self.columns), dst_origin_col_index, origin_row_index, len(matrix.rows), len(matrix.columns))
   
@@ -393,23 +474,16 @@ class AreaMatrix:
     return Size(self.width, self.height)
 
   def get_allocated_size(self):
-    x = 0
     width = 0
     height = 0
-    for col_index in range(len(self.columns)):
-      y = 0
-      x = x + self.column_widths[col_index]
-      for row_index in range(len(self.rows)):
-        cell = self.rows[row_index][col_index]
-        y = y + self.row_heights[row_index]
-        if cell.is_free():
-          continue
-        if width < x:
-          width = x
-        if height < y:
-          height = y
-    return Size(width, height)
+    for rect in self.get_rects():
+      if width < (rect.x + rect.width):
+        width = rect.x + rect.width
+      if height < (rect.y + rect.height):
+        height = rect.y + rect.height
 
+    print("HEIGHT", width, height)
+    return Size(width, height)
 
   def __str__(self):
     s = 'AreaMatrix(width={0}, height={1}, rows={2}, cols={3})'.format(self.width, self.height, len(self.rows), len(self.columns))
@@ -457,7 +531,9 @@ class ArrangeRects:
       if selected_rect is None:
         return False
 
-      matrix.place_rect(selected_rect.x, selected_rect.y, rect)
+      cell_origin = matrix.get_relative_cell_origin_xy(0, 0, selected_rect.x, selected_rect.y)
+      if matrix.place_rect(cell_origin.x, cell_origin.y, rect) is not True:
+        return False
 
     return True
 
@@ -481,7 +557,6 @@ class ArrangeRects:
       print("Attempting enclosing rect", enclosing_rect.width, enclosing_rect.height)
       matrix = AreaMatrix(enclosing_rect.width, enclosing_rect.height)
       if self.attempt_arrangement(matrix, rects):
-        matrix.update_rects_xy(rects)
         print("Found arrangement", enclosing_rect)
         if matrix_svg_filename is not None:
           matrix.dump_svg(matrix_svg_filename)
@@ -501,6 +576,8 @@ class ArrangeRects:
 
       free_rects = matrix.list_free_rects()
 
+      print("FREE RECTS", free_rects)
+
       selected_rect = matrix.select_fit(rect, free_rects)
 
       if selected_rect is None:
@@ -513,9 +590,7 @@ class ArrangeRects:
       print(arrangeable.identifier, 'i', i)
       matrix.dump_svg('../tmp/debug.{0}.svg'.format(i))
       i = i + 1
-      if i == 2:
-        return True
-
+      
     return True
 
   def arrange_arrangeables(self, arrangeables, ratio, matrix_svg_filename=None):
@@ -541,13 +616,12 @@ class ArrangeRects:
       print("Attempting enclosing rect", enclosing_rect.width, enclosing_rect.height)
       matrix = AreaMatrix(enclosing_rect.width, enclosing_rect.height)
       if self.attempt_arrangeables_arrange(matrix, arrangeables):
-        matrix.update_rects_xy(rects)
         print("Found arrangement", enclosing_rect)
         if matrix_svg_filename is not None:
           matrix.dump_svg(matrix_svg_filename)
-        break
+        return matrix.get_rects()
       area = area + int(area * 0.1)
-    
+    return None
 
 
 

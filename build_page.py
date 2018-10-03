@@ -75,15 +75,18 @@ for group_name in svg_outputs:
     rect = Rect(identifier, 0, 0, svg.width, svg.height, 'gray', next_sort_group_id)
     next_sort_group_id = next_sort_group_id + 1
     rects.append(rect)
-  arrangeables.append(Arrangeable(group_name, rects, 1.618, '{0}.{1}.matrix.svg'.format(output_file, group_name)))
+  if len(rects) > 0:
+    arrangeables.append(Arrangeable(group_name, rects, 1.618, '{0}.{1}.matrix.svg'.format(output_file, group_name)))
 
-arrange_rects = ArrangeRects()
-arrange_rects.arrange_arrangeables(arrangeables, 1.618, '{0}.matrix.svg'.format(output_file))
+arranger = ArrangeRects()
+arranged_rects = arranger.arrange_arrangeables(arrangeables, 1.618, '{0}.matrix.svg'.format(output_file))
 #arrange_rects.arrange(rects, 1.618, layout_sort_key, '{0}.matrix.svg'.format(output_file))
+
+print(arranged_rects)
 
 width = 0
 height = 0
-for rect in rects:
+for rect in arranged_rects:
   if (rect.x + rect.width) > width:
     width = rect.x + rect.width
   if (rect.y + rect.height) > height:
@@ -93,7 +96,7 @@ html = HTMLElement('svg').set_attr('width', str(width)).set_attr('height', str(h
 html.set_attr('xmlns:svg', 'http://www.w3.org/2000/svg')
 html.set_attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
 
-for rect in rects:
+for rect in arranged_rects:
   idx = rect_svg_xref[rect.identifier]
   group_name = idx[0]
   i = idx[1]

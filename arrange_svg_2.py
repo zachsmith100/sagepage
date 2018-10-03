@@ -57,41 +57,21 @@ input_rects.append(Rect(2,0,0,75,235, 'blue'))
 #arrange_rects = ArrangeRects()
 #arrange_rects.arrange(input_rects, ratio)
 
-
-#cell = FreeCell(True, 1024, 1024)
-#cell.split_vertically(150)
-#cell.split_horizontally(25)
-#cell.east.south.split_horizontally(100)
-#cell.east.south.split_vertically(225)
-#cell.south.south.split_horizontally(25)
+src_matrix = AreaMatrix(200, 200)
+#src_matrix.split_column(0, 50)
+#src_matrix.split_row(0, 50)
+src_matrix.place_rect(10, 10, input_rects[0])
+src_matrix.place_rect(100, 100, input_rects[1])
 
 
 dst_matrix = AreaMatrix(1024, 1024)
-dst_matrix.place_rect(0, 0, input_rects[2])
-#matrix.split_column(0, 30)
-#matrix.split_column(1, 20) # at 50
-#matrix.split_column(2, 100) # at 150
-#matrix.split_column(3, 175) # at 325
+#dst_matrix.place_rect(0, 0, input_rects[2])
 
-#matrix.split_row(0, 100)
-#matrix.split_row(1, 25) # at 125
-#matrix.split_row(2, 25) # at 150
 
-src_matrix = AreaMatrix(200, 200)
-src_matrix.place_rect(0, 0, input_rects[0])
-src_matrix.place_rect(1, 1, input_rects[1])
-#overlay_matrix.split_column(0, 100)
-#overlay_matrix.split_column(0, 10)
-#overlay_matrix.split_row(0, 25)
-#overlay_matrix.split_row(0, 15) # at 15
-#overlay_matrix.split_row(1, 15) # at 30
-
-src_matrix.overlay_matrix(0, 1, dst_matrix)
+src_matrix.overlay_matrix(0, 0, dst_matrix)
 #overlay_matrix.overlay_matrix(0, 0, matrix, [])
 
-src_matrix.update_rects_xy(input_rects)
-
-print(dst_matrix.get_allocated_size())
+#dst_matrix.update_rects_xy(input_rects)
 
 src_matrix.dump_svg('{0}.src_matrix.svg'.format(output_file))
 dst_matrix.dump_svg('{0}.dst_matrix.svg'.format(output_file))
@@ -113,4 +93,4 @@ dst_matrix.dump_svg('{0}.dst_matrix.svg'.format(output_file))
 #arrange_rects = ArrangeRects()
 #arrange_rects.arrange(input_rects, ratio, ArrangeRects.default_sort_key, '{0}.matrix.svg'.format(output_file))
 
-SVG.dump_rects(output_file, input_rects)
+SVG.dump_rects(output_file, dst_matrix.get_rects())

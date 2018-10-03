@@ -15,6 +15,7 @@ from utils.permutations import ParamCombinationGenerator
 from utils.permutations import OptimizableRange
 from utils.models import Rect
 from utils.rectarrange import ArrangeRects
+from utils.rectarrange import Arrangeable
 from utils.svg import SVG
 from utils.html import HTMLElement
 from utils.html import HTMLStyleBuilder
@@ -63,9 +64,10 @@ def layout_sort_key(r):
   return key
 
 rect_svg_xref = {}
-rects = []
 next_sort_group_id = 0
+arrangeables = []
 for group_name in svg_outputs:
+  rects = []
   for i in range(len(svg_outputs[group_name])):
     svg = svg_outputs[group_name][i]
     identifier = '{0}#{1}'.format(group_name, i)
@@ -73,9 +75,11 @@ for group_name in svg_outputs:
     rect = Rect(identifier, 0, 0, svg.width, svg.height, 'gray', next_sort_group_id)
     next_sort_group_id = next_sort_group_id + 1
     rects.append(rect)
+  arrangeables.append(Arrangeable(group_name, rects, 1.618, '{0}.{1}.matrix.svg'.format(output_file, group_name)))
 
 arrange_rects = ArrangeRects()
-arrange_rects.arrange(rects, 1.618, layout_sort_key, '{0}.matrix.svg'.format(output_file))
+arrange_rects.arrange_arrangeables(arrangeables, 1.618, '{0}.matrix.svg'.format(output_file))
+#arrange_rects.arrange(rects, 1.618, layout_sort_key, '{0}.matrix.svg'.format(output_file))
 
 width = 0
 height = 0

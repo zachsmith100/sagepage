@@ -66,8 +66,8 @@ input_rects.append(Rect(2,0,0,75,235, 'blue'))
 #cell.south.south.split_horizontally(25)
 
 
-matrix = AreaMatrix(1024, 1024)
-matrix.place_rect(0, 0, input_rects[2])
+dst_matrix = AreaMatrix(1024, 1024)
+dst_matrix.place_rect(0, 0, input_rects[2])
 #matrix.split_column(0, 30)
 #matrix.split_column(1, 20) # at 50
 #matrix.split_column(2, 100) # at 150
@@ -77,22 +77,24 @@ matrix.place_rect(0, 0, input_rects[2])
 #matrix.split_row(1, 25) # at 125
 #matrix.split_row(2, 25) # at 150
 
-overlay_matrix = AreaMatrix(200, 200)
-overlay_matrix.place_rect(0, 0, input_rects[0])
-overlay_matrix.place_rect(1, 1, input_rects[1])
+src_matrix = AreaMatrix(200, 200)
+src_matrix.place_rect(0, 0, input_rects[0])
+src_matrix.place_rect(1, 1, input_rects[1])
 #overlay_matrix.split_column(0, 100)
 #overlay_matrix.split_column(0, 10)
 #overlay_matrix.split_row(0, 25)
 #overlay_matrix.split_row(0, 15) # at 15
 #overlay_matrix.split_row(1, 15) # at 30
 
-matrix.overlay_matrix(0, 1, overlay_matrix)
+src_matrix.overlay_matrix(0, 1, dst_matrix)
 #overlay_matrix.overlay_matrix(0, 0, matrix, [])
 
-matrix.update_rects_xy(input_rects)
+src_matrix.update_rects_xy(input_rects)
 
-matrix.dump_svg('{0}.matrix.svg'.format(output_file))
-overlay_matrix.dump_svg('{0}.overlay_matrix.svg'.format(output_file))
+print(dst_matrix.get_allocated_size())
+
+src_matrix.dump_svg('{0}.src_matrix.svg'.format(output_file))
+dst_matrix.dump_svg('{0}.dst_matrix.svg'.format(output_file))
 
 
 #matrix.split_column(1, 300)

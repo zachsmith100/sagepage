@@ -20,7 +20,7 @@ class Rect:
     self.color = color
 
   def __str__(self):
-    return 'Rect({0}, {1}, {2}, {3}, {4})'.format(self.x, self.y, self.width, self.height, self.sort_group)
+    return 'Rect(id={0}, x={1}, y={2}, w={3}, h={4}), sort_group={5}'.format(self.identifier, self.x, self.y, self.width, self.height, self.sort_group)
 
   def __repr__(self):
     return self.__str__()

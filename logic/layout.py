@@ -1248,6 +1248,7 @@ class CodeletCloudLayout(Configurable):
     self.layout_ratio = 0
     self.layout_sort_group = 'CodeletCloudLayout'
     self.entries = {}
+    self.highlight_lines = ""
 
   def get_text_rect(self, entry):
     lines = entry.text.split('\n')
@@ -1338,6 +1339,34 @@ class CodeletCloudLayout(Configurable):
       hilighter = PythonSyntaxSVGHilighter(self.font_name, self.font_size, self.font_color, self.line_spacing)
       text_element = hilighter.get_text_element(entry.text, x + self.border_width, y + header_height + self.border_width)
       svg_group.add_child(text_element)
+
+      # Hilighted Lines
+      #################
+      # 1:1,3:3,5:5
+      hilight_ranges = []
+      parts = []
+      if 'hilight_lines' in self.entries[entry.identifier]:
+        parts = self.entries[entry.identifier]['hilight_lines'].split(',')
+      for part in parts:
+        range_parts = part.split(':')
+        print(range_parts)
+        hilight_ranges.append((int(range_parts[0]), int(range_parts[1])))
+      print('hrange', hilight_ranges)
+
+      font_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size)
+
+      line_height = font_extents.font_height
+
+      for hilight_range in hilight_ranges:
+        hilight_x = self.border_width
+        hilight_y = header_height + self.border_width + (hilight_range[0] * line_height) + ((hilight_range[0] - 1) * self.line_spacing) + font_extents.font_descent
+        hilight_width = entry_size[0] - (2 * self.border_width)
+        hilight_height = (hilight_range[1] * line_height) + ((hilight_range[1] - 1) * self.line_spacing)
+        hilight_rect = HTMLElement('rect').set_attr('x', str(hilight_x)).set_attr('y', str(hilight_y)).set_attr('width', str(hilight_width)).set_attr('height', str(hilight_height))
+        style = HTMLStyleBuilder().set('fill', 'rgb(0,0,0)').set('fill-opacity', '0.1')
+        hilight_rect.set_attr('style', str(style))
+        svg_group.add_child(hilight_rect)
+
 
       # Pink Link Rect
       ################

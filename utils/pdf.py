@@ -150,6 +150,8 @@ class PDFValue:
       s = '<{0}>'.format(self.value)
     elif self.type == PDFValue.NAME:
       s = '/{0}'.format(self.value)
+    elif self.type == PDFValue.FLOAT:
+      s = '{:f}'.format(self.value)
     else:
       s = '{0}'.format(self.value)
     return s

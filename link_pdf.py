@@ -184,6 +184,7 @@ class PDFLinkRects:
     stream_data = PDFLinkRectsUtils.decompress_content_stream(content_object)
     commands = PDFLinkRectsUtils.parse_content_stream(stream_data)
 
+    
     # Filter Commands
     #################
     output_commands = []

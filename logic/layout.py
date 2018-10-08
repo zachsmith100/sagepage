@@ -295,6 +295,8 @@ class SimpleWordListLayout(Configurable):
     height = height + (2*self.border_width)
     header_size = self.get_header_rect()
     height = height + header_size.height
+    if width < header_size.width:
+      width = header_size.width
     return (width, height)
 
   def get_svg(self, group_name, group):

@@ -1,0 +1,21 @@
+# Data Gather
+#############
+
+
+# Build Page
+############
+python3 build_page.py ./python_libs_cheat_sheet/config.json ./python_libs_cheat_sheet/links.csv ./python_libs_cheat_sheet/svg/input.svg
+
+python3 link_pdf.py ./python_libs_cheat_sheet/links.csv ./python_libs_cheat_sheet/svg/input.svg ./python_libs_cheat_sheet/pdf/input.pdf ./python_libs_cheat_sheet/pdf/out.pdf 
+
+
+# Build Links
+#############
+#python3 build_links.py ./python_libs_cheat_sheet/links_config.json ./python_libs_cheat_sheet/links.csv ./python_libs_cheat_sheet/links_complete.csv
+
+
+Utils
+#####
+python3 deflate_pdf.py ./python_libs_cheat_sheet/pdf/input.pdf ./python_libs_cheat_sheet/pdf/input.deflated.pdf
+
+python3 deflate_pdf.py ./python_libs_cheat_sheet/pdf/input.deflated.pdf ./python_libs_cheat_sheet/pdf/input.reflated.pdf

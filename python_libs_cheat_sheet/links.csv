@@ -1,0 +1,328 @@
+page_meta,0,zacharysmith.us@gmail.com,
+page_meta,1,https://python.bronzehorse.space,https://python.bronzehorse.space
+snake,0,./python_libs_cheat_sheet/img/snake.png,https://python.org
+logo,0,./python_libs_cheat_sheet/img/logo.png,https://docs.python.org/3/
+third_party,0,Requests,http://www.python-requests.org
+third_party,1,HTTP wrapper.,http://www.python-requests.org
+third_party,2,Scrapy,http://www.scrapy.org/
+third_party,3,Web scraper.,http://www.scrapy.org/
+third_party,4,wxPython,http://wxpython.org/
+third_party,5,GUI Toolkit.,http://wxpython.org/
+third_party,6,Pillow,https://github.com/python-imaging/Pillow
+third_party,7,Python 3x Imaging Lib.,https://github.com/python-imaging/Pillow
+third_party,8,SQLAlchemy,http://www.sqlalchemy.org/
+third_party,9,SQL DB wrapper.,http://www.sqlalchemy.org/
+third_party,10,BeautifulSoup,http://www.crummy.com/software/BeautifulSoup/
+third_party,11,XML/HTML wrapper.,http://www.crummy.com/software/BeautifulSoup/
+third_party,12,Twisted,http://twistedmatrix.com/
+third_party,13,Network API,http://twistedmatrix.com/
+third_party,14,Numpy,http://numpy.scipy.org//
+third_party,15,Advanced maths.,http://numpy.scipy.org//
+third_party,16,SciPy,http://www.scipy.org/
+third_party,17,Science/Math tools,http://www.scipy.org/
+third_party,18,MatPlotLib,http://matplotlib.sourceforge.net/
+third_party,19,Plotting/Datavisualization.,http://matplotlib.sourceforge.net/
+third_party,20,PyGame,http://www.pygame.org/news.html
+third_party,21,2d Game API.,http://www.pygame.org/news.html
+third_party,22,PyGlet,http://www.pyglet.org/
+third_party,23,3d animation & game API.,http://www.pyglet.org/
+third_party,24,PyQT,http://www.riverbankcomputing.co.uk/pyqt/
+third_party,25,QT API wrapper.,http://www.riverbankcomputing.co.uk/pyqt/
+third_party,26,PyGTK,http://www.pygtk.org/
+third_party,27,GTK API wrapper.,http://www.pygtk.org/
+third_party,28,Scapy,http://www.secdev.org/projects/scapy/
+third_party,29,Network sniifer toolkit.,http://www.secdev.org/projects/scapy/
+third_party,30,PyWin32,http://sourceforge.net/projects/pywin32/
+third_party,31,Win32 API wrapper.,http://sourceforge.net/projects/pywin32/
+third_party,32,NLTK,http://www.nltk.org/
+third_party,33,Natural Language Toolkit.,http://www.nltk.org/
+third_party,34,Nose,http://code.google.com/p/python-nose/
+third_party,35,TDD toolkit.,http://code.google.com/p/python-nose/
+third_party,36,SymPy,http://code.google.com/p/sympy/
+third_party,37,Basic maths toolkit (calculus).,http://code.google.com/p/sympy/
+third_party,38,IPython,http://ipython.scipy.org/moin/
+third_party,39,Python power shell.,http://ipython.scipy.org/moin/
+third_party,40,Bottle,http://bottlepy.org/
+third_party,41,REST API framework.,http://bottlepy.org/
+third_party,42,Invoke,http://www.pyinvoke.org/
+third_party,43,Remote execution framework.,http://www.pyinvoke.org/
+third_party,44,Splinter,https://splinter.readthedocs.org/en/latest/
+third_party,45,Web page automation/testing.,https://splinter.readthedocs.org/en/latest/
+third_party,46,Arrow,https://github.com/crsmithdev/arrow
+third_party,47,Date/Time utilities.,https://github.com/crsmithdev/arrow
+Built_in_Types,1,Truth Value Testing,https://docs.python.org/3/library/stdtypes.html#truth-value-testing
+Built_in_Types,2,Boolean Operations —,https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not
+Built_in_Types,3,Comparisons,https://docs.python.org/3/library/stdtypes.html#comparisons
+Built_in_Types,4,Numeric Types —,https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex
+Built_in_Types,5,Iterator Types,https://docs.python.org/3/library/stdtypes.html#iterator-types
+Built_in_Types,6,Sequence Types —,https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range
+Built_in_Types,7,Text Sequence Type —,https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str
+Built_in_Types,8,Binary Sequence Types —,https://docs.python.org/3/library/stdtypes.html#binary-sequence-types-bytes-bytearray-memoryview
+Built_in_Types,9,Set Types —,https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset
+Built_in_Types,10,Mapping Types —,https://docs.python.org/3/library/stdtypes.html#mapping-types-dict
+Built_in_Types,11,Context Manager Types,https://docs.python.org/3/library/stdtypes.html#context-manager-types
+Built_in_Types,12,Other Built-in Types,https://docs.python.org/3/library/stdtypes.html#other-built-in-types
+Built_in_Types,13,Special Attributes,https://docs.python.org/3/library/stdtypes.html#special-attributes
+Built_in_Exceptions,1,Base classes,https://docs.python.org/3/library/exceptions.html#base-classes
+Built_in_Exceptions,2,Concrete exceptions,https://docs.python.org/3/library/exceptions.html#concrete-exceptions
+Built_in_Exceptions,3,Warnings,https://docs.python.org/3/library/exceptions.html#warnings
+Built_in_Exceptions,4,Exception hierarchy,https://docs.python.org/3/library/exceptions.html#exception-hierarchy
+Text_Processing_Services,1,string,https://docs.python.org/3/library/string.html
+Text_Processing_Services,2,re,https://docs.python.org/3/library/re.html
+Text_Processing_Services,3,difflib,https://docs.python.org/3/library/difflib.html
+Text_Processing_Services,4,textwrap,https://docs.python.org/3/library/textwrap.html
+Text_Processing_Services,5,unicodedata,https://docs.python.org/3/library/unicodedata.html
+Text_Processing_Services,6,stringprep,https://docs.python.org/3/library/stringprep.html
+Text_Processing_Services,7,readline,https://docs.python.org/3/library/readline.html
+Text_Processing_Services,8,rlcompleter,https://docs.python.org/3/library/rlcompleter.html
+Binary_Data_Services,1,struct,https://docs.python.org/3/library/struct.html
+Binary_Data_Services,2,codecs,https://docs.python.org/3/library/codecs.html
+Data_Types,1,datetime,https://docs.python.org/3/library/datetime.html
+Data_Types,2,calendar,https://docs.python.org/3/library/calendar.html
+Data_Types,3,collections,https://docs.python.org/3/library/collections.html
+Data_Types,4,collections.abc,https://docs.python.org/3/library/collections.abc.html
+Data_Types,5,heapq,https://docs.python.org/3/library/heapq.html
+Data_Types,6,bisect,https://docs.python.org/3/library/bisect.html
+Data_Types,7,array,https://docs.python.org/3/library/array.html
+Data_Types,8,weakref,https://docs.python.org/3/library/weakref.html
+Data_Types,9,types,https://docs.python.org/3/library/types.html
+Data_Types,10,copy,https://docs.python.org/3/library/copy.html
+Data_Types,11,pprint,https://docs.python.org/3/library/pprint.html
+Data_Types,12,reprlib,https://docs.python.org/3/library/reprlib.html
+Data_Types,13,enum,https://docs.python.org/3/library/enum.html
+Numeric_and_Mathematical_Modules,1,numbers,https://docs.python.org/3/library/numbers.html
+Numeric_and_Mathematical_Modules,2,math,https://docs.python.org/3/library/math.html
+Numeric_and_Mathematical_Modules,3,cmath,https://docs.python.org/3/library/cmath.html
+Numeric_and_Mathematical_Modules,4,decimal,https://docs.python.org/3/library/decimal.html
+Numeric_and_Mathematical_Modules,5,fractions,https://docs.python.org/3/library/fractions.html
+Numeric_and_Mathematical_Modules,6,random,https://docs.python.org/3/library/random.html
+Numeric_and_Mathematical_Modules,7,statistics,https://docs.python.org/3/library/statistics.html
+Functional_Programming_Modules,1,itertools,https://docs.python.org/3/library/itertools.html
+Functional_Programming_Modules,2,functools,https://docs.python.org/3/library/functools.html
+Functional_Programming_Modules,3,operator,https://docs.python.org/3/library/operator.html
+File_and_Directory_Access,1,pathlib,https://docs.python.org/3/library/pathlib.html
+File_and_Directory_Access,2,os.path,https://docs.python.org/3/library/os.path.html
+File_and_Directory_Access,3,fileinput,https://docs.python.org/3/library/fileinput.html
+File_and_Directory_Access,4,stat,https://docs.python.org/3/library/stat.html
+File_and_Directory_Access,5,filecmp,https://docs.python.org/3/library/filecmp.html
+File_and_Directory_Access,6,tempfile,https://docs.python.org/3/library/tempfile.html
+File_and_Directory_Access,7,glob,https://docs.python.org/3/library/glob.html
+File_and_Directory_Access,8,fnmatch,https://docs.python.org/3/library/fnmatch.html
+File_and_Directory_Access,9,linecache,https://docs.python.org/3/library/linecache.html
+File_and_Directory_Access,10,shutil,https://docs.python.org/3/library/shutil.html
+File_and_Directory_Access,11,macpath,https://docs.python.org/3/library/macpath.html
+Data_Persistence,1,pickle,https://docs.python.org/3/library/pickle.html
+Data_Persistence,2,copyreg,https://docs.python.org/3/library/copyreg.html
+Data_Persistence,3,shelve,https://docs.python.org/3/library/shelve.html
+Data_Persistence,4,marshal,https://docs.python.org/3/library/marshal.html
+Data_Persistence,5,dbm,https://docs.python.org/3/library/dbm.html
+Data_Persistence,6,sqlite3,https://docs.python.org/3/library/sqlite3.html
+Data_Compression_and_Archiving,1,zlib,https://docs.python.org/3/library/zlib.html
+Data_Compression_and_Archiving,2,gzip,https://docs.python.org/3/library/gzip.html
+Data_Compression_and_Archiving,3,bz2,https://docs.python.org/3/library/bz2.html
+Data_Compression_and_Archiving,4,lzma,https://docs.python.org/3/library/lzma.html
+Data_Compression_and_Archiving,5,zipfile,https://docs.python.org/3/library/zipfile.html
+Data_Compression_and_Archiving,6,tarfile,https://docs.python.org/3/library/tarfile.html
+File_Formats,1,csv,https://docs.python.org/3/library/csv.html
+File_Formats,2,configparser,https://docs.python.org/3/library/configparser.html
+File_Formats,3,netrc,https://docs.python.org/3/library/netrc.html
+File_Formats,4,xdrlib,https://docs.python.org/3/library/xdrlib.html
+File_Formats,5,plistlib,https://docs.python.org/3/library/plistlib.html
+Cryptographic_Services,1,hashlib,https://docs.python.org/3/library/hashlib.html
+Cryptographic_Services,2,hmac,https://docs.python.org/3/library/hmac.html
+Cryptographic_Services,3,secrets,https://docs.python.org/3/library/secrets.html
+Generic_Operating_System_Services,1,os,https://docs.python.org/3/library/os.html
+Generic_Operating_System_Services,2,io,https://docs.python.org/3/library/io.html
+Generic_Operating_System_Services,3,time,https://docs.python.org/3/library/time.html
+Generic_Operating_System_Services,4,argparse,https://docs.python.org/3/library/argparse.html
+Generic_Operating_System_Services,5,getopt,https://docs.python.org/3/library/getopt.html
+Generic_Operating_System_Services,6,logging,https://docs.python.org/3/library/logging.html
+Generic_Operating_System_Services,7,logging.config,https://docs.python.org/3/library/logging.config.html
+Generic_Operating_System_Services,8,logging.handlers,https://docs.python.org/3/library/logging.handlers.html
+Generic_Operating_System_Services,9,getpass,https://docs.python.org/3/library/getpass.html
+Generic_Operating_System_Services,10,curses,https://docs.python.org/3/library/curses.html
+Generic_Operating_System_Services,11,curses.textpad,https://docs.python.org/3/library/curses.html#module-curses.textpad
+Generic_Operating_System_Services,12,curses.ascii,https://docs.python.org/3/library/curses.ascii.html
+Generic_Operating_System_Services,13,curses.panel,https://docs.python.org/3/library/curses.panel.html
+Generic_Operating_System_Services,14,platform,https://docs.python.org/3/library/platform.html
+Generic_Operating_System_Services,15,errno,https://docs.python.org/3/library/errno.html
+Generic_Operating_System_Services,16,ctypes,https://docs.python.org/3/library/ctypes.html
+Concurrent_Execution,1,threading,https://docs.python.org/3/library/threading.html
+Concurrent_Execution,2,multiprocessing,https://docs.python.org/3/library/multiprocessing.html
+Concurrent_Execution,3,The,https://docs.python.org/3/library/concurrent.html
+Concurrent_Execution,4,concurrent.futures,https://docs.python.org/3/library/concurrent.futures.html
+Concurrent_Execution,5,subprocess,https://docs.python.org/3/library/subprocess.html
+Concurrent_Execution,6,sched,https://docs.python.org/3/library/sched.html
+Concurrent_Execution,7,queue,https://docs.python.org/3/library/queue.html
+Concurrent_Execution,8,_thread,https://docs.python.org/3/library/_thread.html
+Concurrent_Execution,9,_dummy_thread,https://docs.python.org/3/library/_dummy_thread.html
+Concurrent_Execution,10,dummy_threading,https://docs.python.org/3/library/dummy_threading.html
+contextvars,1,Context Variables,https://docs.python.org/3/library/contextvars.html#context-variables
+contextvars,2,Manual Context Management,https://docs.python.org/3/library/contextvars.html#manual-context-management
+contextvars,3,asyncio support,https://docs.python.org/3/library/contextvars.html#asyncio-support
+Networking_and_Interprocess_Communication,1,asyncio,https://docs.python.org/3/library/asyncio.html
+Networking_and_Interprocess_Communication,2,socket,https://docs.python.org/3/library/socket.html
+Networking_and_Interprocess_Communication,3,ssl,https://docs.python.org/3/library/ssl.html
+Networking_and_Interprocess_Communication,4,select,https://docs.python.org/3/library/select.html
+Networking_and_Interprocess_Communication,5,selectors,https://docs.python.org/3/library/selectors.html
+Networking_and_Interprocess_Communication,6,asyncore,https://docs.python.org/3/library/asyncore.html
+Networking_and_Interprocess_Communication,7,asynchat,https://docs.python.org/3/library/asynchat.html
+Networking_and_Interprocess_Communication,8,signal,https://docs.python.org/3/library/signal.html
+Networking_and_Interprocess_Communication,9,mmap,https://docs.python.org/3/library/mmap.html
+Internet_Data_Handling,1,email,https://docs.python.org/3/library/email.html
+Internet_Data_Handling,2,json,https://docs.python.org/3/library/json.html
+Internet_Data_Handling,3,mailcap,https://docs.python.org/3/library/mailcap.html
+Internet_Data_Handling,4,mailbox,https://docs.python.org/3/library/mailbox.html
+Internet_Data_Handling,5,mimetypes,https://docs.python.org/3/library/mimetypes.html
+Internet_Data_Handling,6,base64,https://docs.python.org/3/library/base64.html
+Internet_Data_Handling,7,binhex,https://docs.python.org/3/library/binhex.html
+Internet_Data_Handling,8,binascii,https://docs.python.org/3/library/binascii.html
+Internet_Data_Handling,9,quopri,https://docs.python.org/3/library/quopri.html
+Internet_Data_Handling,10,uu,https://docs.python.org/3/library/uu.html
+Structured_Markup_Processing_Tools,1,html,https://docs.python.org/3/library/html.html
+Structured_Markup_Processing_Tools,2,html.parser,https://docs.python.org/3/library/html.parser.html
+Structured_Markup_Processing_Tools,3,html.entities,https://docs.python.org/3/library/html.entities.html
+Structured_Markup_Processing_Tools,4,XML Processing Modules,https://docs.python.org/3/library/xml.html
+Structured_Markup_Processing_Tools,5,xml.etree.ElementTree,https://docs.python.org/3/library/xml.etree.elementtree.html
+Structured_Markup_Processing_Tools,6,xml.dom,https://docs.python.org/3/library/xml.dom.html
+Structured_Markup_Processing_Tools,7,xml.dom.minidom,https://docs.python.org/3/library/xml.dom.minidom.html
+Structured_Markup_Processing_Tools,8,xml.dom.pulldom,https://docs.python.org/3/library/xml.dom.pulldom.html
+Structured_Markup_Processing_Tools,9,xml.sax,https://docs.python.org/3/library/xml.sax.html
+Structured_Markup_Processing_Tools,10,xml.sax.handler,https://docs.python.org/3/library/xml.sax.handler.html
+Structured_Markup_Processing_Tools,11,xml.sax.saxutils,https://docs.python.org/3/library/xml.sax.utils.html
+Structured_Markup_Processing_Tools,12,xml.sax.xmlreader,https://docs.python.org/3/library/xml.sax.reader.html
+Structured_Markup_Processing_Tools,13,xml.parsers.expat,https://docs.python.org/3/library/pyexpat.html
+Internet_Protocols_and_Support,1,webbrowser,https://docs.python.org/3/library/webbrowser.html
+Internet_Protocols_and_Support,2,cgi,https://docs.python.org/3/library/cgi.html
+Internet_Protocols_and_Support,3,cgitb,https://docs.python.org/3/library/cgitb.html
+Internet_Protocols_and_Support,4,wsgiref,https://docs.python.org/3/library/wsgiref.html
+Internet_Protocols_and_Support,5,urllib,https://docs.python.org/3/library/urllib.html
+Internet_Protocols_and_Support,6,urllib.request,https://docs.python.org/3/library/urllib.request.html
+Internet_Protocols_and_Support,7,urllib.response,https://docs.python.org/3/library/urllib.request.html#module-urllib.response
+Internet_Protocols_and_Support,8,urllib.parse,https://docs.python.org/3/library/urllib.parse.html
+Internet_Protocols_and_Support,9,urllib.error,https://docs.python.org/3/library/urllib.error.html
+Internet_Protocols_and_Support,10,urllib.robotparser,https://docs.python.org/3/library/urllib.robotparser.html
+Internet_Protocols_and_Support,11,http,https://docs.python.org/3/library/http.html
+Internet_Protocols_and_Support,12,http.client,https://docs.python.org/3/library/http.client.html
+Internet_Protocols_and_Support,13,ftplib,https://docs.python.org/3/library/ftplib.html
+Internet_Protocols_and_Support,14,poplib,https://docs.python.org/3/library/poplib.html
+Internet_Protocols_and_Support,15,imaplib,https://docs.python.org/3/library/imaplib.html
+Internet_Protocols_and_Support,16,nntplib,https://docs.python.org/3/library/nntplib.html
+Internet_Protocols_and_Support,17,smtplib,https://docs.python.org/3/library/smtplib.html
+Internet_Protocols_and_Support,18,smtpd,https://docs.python.org/3/library/smtpd.html
+Internet_Protocols_and_Support,19,telnetlib,https://docs.python.org/3/library/telnetlib.html
+Internet_Protocols_and_Support,20,uuid,https://docs.python.org/3/library/uuid.html
+Internet_Protocols_and_Support,21,socketserver,https://docs.python.org/3/library/socketserver.html
+Internet_Protocols_and_Support,22,http.server,https://docs.python.org/3/library/http.server.html
+Internet_Protocols_and_Support,23,http.cookies,https://docs.python.org/3/library/http.cookies.html
+Internet_Protocols_and_Support,24,http.cookiejar,https://docs.python.org/3/library/http.cookiejar.html
+Internet_Protocols_and_Support,25,xmlrpc,https://docs.python.org/3/library/xmlrpc.html
+Internet_Protocols_and_Support,26,xmlrpc.client,https://docs.python.org/3/library/xmlrpc.client.html
+Internet_Protocols_and_Support,27,xmlrpc.server,https://docs.python.org/3/library/xmlrpc.server.html
+Internet_Protocols_and_Support,28,ipaddress,https://docs.python.org/3/library/ipaddress.html
+Multimedia_Services,1,audioop,https://docs.python.org/3/library/audioop.html
+Multimedia_Services,2,aifc,https://docs.python.org/3/library/aifc.html
+Multimedia_Services,3,sunau,https://docs.python.org/3/library/sunau.html
+Multimedia_Services,4,wave,https://docs.python.org/3/library/wave.html
+Multimedia_Services,5,chunk,https://docs.python.org/3/library/chunk.html
+Multimedia_Services,6,colorsys,https://docs.python.org/3/library/colorsys.html
+Multimedia_Services,7,imghdr,https://docs.python.org/3/library/imghdr.html
+Multimedia_Services,8,sndhdr,https://docs.python.org/3/library/sndhdr.html
+Multimedia_Services,9,ossaudiodev,https://docs.python.org/3/library/ossaudiodev.html
+Internationalization,1,gettext,https://docs.python.org/3/library/gettext.html
+Internationalization,2,locale,https://docs.python.org/3/library/locale.html
+Program_Frameworks,1,turtle,https://docs.python.org/3/library/turtle.html
+Program_Frameworks,2,cmd,https://docs.python.org/3/library/cmd.html
+Program_Frameworks,3,shlex,https://docs.python.org/3/library/shlex.html
+Graphical_User_Interfaces_with_Tk,1,tkinter,https://docs.python.org/3/library/tkinter.html
+Graphical_User_Interfaces_with_Tk,2,tkinter.ttk,https://docs.python.org/3/library/tkinter.ttk.html
+Graphical_User_Interfaces_with_Tk,3,tkinter.tix,https://docs.python.org/3/library/tkinter.tix.html
+Graphical_User_Interfaces_with_Tk,4,tkinter.scrolledtext,https://docs.python.org/3/library/tkinter.scrolledtext.html
+Graphical_User_Interfaces_with_Tk,5,IDLE,https://docs.python.org/3/library/idle.html
+Graphical_User_Interfaces_with_Tk,6,Other Graphical User Interface Packages,https://docs.python.org/3/library/othergui.html
+Development_Tools,1,typing,https://docs.python.org/3/library/typing.html
+Development_Tools,2,pydoc,https://docs.python.org/3/library/pydoc.html
+Development_Tools,3,doctest,https://docs.python.org/3/library/doctest.html
+Development_Tools,4,unittest,https://docs.python.org/3/library/unittest.html
+Development_Tools,5,unittest.mock,https://docs.python.org/3/library/unittest.mock.html
+Development_Tools,6,unittest.mock,https://docs.python.org/3/library/unittest.mock-examples.html
+Development_Tools,7,2to3 - Automated Python 2 to 3 code translation,https://docs.python.org/3/library/2to3.html
+Development_Tools,8,test,https://docs.python.org/3/library/test.html
+Development_Tools,9,test.support,https://docs.python.org/3/library/test.html#module-test.support
+Development_Tools,10,test.support.script_helper,https://docs.python.org/3/library/test.html#module-test.support.script_helper
+Debugging_and_Profiling,1,bdb,https://docs.python.org/3/library/bdb.html
+Debugging_and_Profiling,2,faulthandler,https://docs.python.org/3/library/faulthandler.html
+Debugging_and_Profiling,3,pdb,https://docs.python.org/3/library/pdb.html
+Debugging_and_Profiling,4,The Python Profilers,https://docs.python.org/3/library/profile.html
+Debugging_and_Profiling,5,timeit,https://docs.python.org/3/library/timeit.html
+Debugging_and_Profiling,6,trace,https://docs.python.org/3/library/trace.html
+Debugging_and_Profiling,7,tracemalloc,https://docs.python.org/3/library/tracemalloc.html
+Software_Packaging_and_Distribution,1,distutils,https://docs.python.org/3/library/distutils.html
+Software_Packaging_and_Distribution,2,ensurepip,https://docs.python.org/3/library/ensurepip.html
+Software_Packaging_and_Distribution,3,venv,https://docs.python.org/3/library/venv.html
+Software_Packaging_and_Distribution,4,zipapp,https://docs.python.org/3/library/zipapp.html
+Python_Runtime_Services,1,sys,https://docs.python.org/3/library/sys.html
+Python_Runtime_Services,2,sysconfig,https://docs.python.org/3/library/sysconfig.html
+Python_Runtime_Services,3,builtins,https://docs.python.org/3/library/builtins.html
+Python_Runtime_Services,4,__main__,https://docs.python.org/3/library/__main__.html
+Python_Runtime_Services,5,warnings,https://docs.python.org/3/library/warnings.html
+Python_Runtime_Services,6,dataclasses,https://docs.python.org/3/library/dataclasses.html
+Python_Runtime_Services,7,contextlib,https://docs.python.org/3/library/contextlib.html
+Python_Runtime_Services,8,abc,https://docs.python.org/3/library/abc.html
+Python_Runtime_Services,9,atexit,https://docs.python.org/3/library/atexit.html
+Python_Runtime_Services,10,traceback,https://docs.python.org/3/library/traceback.html
+Python_Runtime_Services,11,__future__,https://docs.python.org/3/library/__future__.html
+Python_Runtime_Services,12,gc,https://docs.python.org/3/library/gc.html
+Python_Runtime_Services,13,inspect,https://docs.python.org/3/library/inspect.html
+Python_Runtime_Services,14,site,https://docs.python.org/3/library/site.html
+Custom_Python_Interpreters,1,code,https://docs.python.org/3/library/code.html
+Custom_Python_Interpreters,2,codeop,https://docs.python.org/3/library/codeop.html
+Importing_Modules,1,zipimport,https://docs.python.org/3/library/zipimport.html
+Importing_Modules,2,pkgutil,https://docs.python.org/3/library/pkgutil.html
+Importing_Modules,3,modulefinder,https://docs.python.org/3/library/modulefinder.html
+Importing_Modules,4,runpy,https://docs.python.org/3/library/runpy.html
+Importing_Modules,5,importlib,https://docs.python.org/3/library/importlib.html
+Python_Language_Services,1,parser,https://docs.python.org/3/library/parser.html
+Python_Language_Services,2,ast,https://docs.python.org/3/library/ast.html
+Python_Language_Services,3,symtable,https://docs.python.org/3/library/symtable.html
+Python_Language_Services,4,symbol,https://docs.python.org/3/library/symbol.html
+Python_Language_Services,5,token,https://docs.python.org/3/library/token.html
+Python_Language_Services,6,keyword,https://docs.python.org/3/library/keyword.html
+Python_Language_Services,7,tokenize,https://docs.python.org/3/library/tokenize.html
+Python_Language_Services,8,tabnanny,https://docs.python.org/3/library/tabnanny.html
+Python_Language_Services,9,pyclbr,https://docs.python.org/3/library/pyclbr.html
+Python_Language_Services,10,py_compile,https://docs.python.org/3/library/py_compile.html
+Python_Language_Services,11,compileall,https://docs.python.org/3/library/compileall.html
+Python_Language_Services,12,dis,https://docs.python.org/3/library/dis.html
+Python_Language_Services,13,pickletools,https://docs.python.org/3/library/pickletools.html
+MS_Windows_Specific_Services,1,msilib,https://docs.python.org/3/library/msilib.html
+MS_Windows_Specific_Services,2,msvcrt,https://docs.python.org/3/library/msvcrt.html
+MS_Windows_Specific_Services,3,winreg,https://docs.python.org/3/library/winreg.html
+MS_Windows_Specific_Services,4,winsound,https://docs.python.org/3/library/winsound.html
+Unix_Specific_Services,1,posix,https://docs.python.org/3/library/posix.html
+Unix_Specific_Services,2,pwd,https://docs.python.org/3/library/pwd.html
+Unix_Specific_Services,3,spwd,https://docs.python.org/3/library/spwd.html
+Unix_Specific_Services,4,grp,https://docs.python.org/3/library/grp.html
+Unix_Specific_Services,5,crypt,https://docs.python.org/3/library/crypt.html
+Unix_Specific_Services,6,termios,https://docs.python.org/3/library/termios.html
+Unix_Specific_Services,7,tty,https://docs.python.org/3/library/tty.html
+Unix_Specific_Services,8,pty,https://docs.python.org/3/library/pty.html
+Unix_Specific_Services,9,fcntl,https://docs.python.org/3/library/fcntl.html
+Unix_Specific_Services,10,pipes,https://docs.python.org/3/library/pipes.html
+Unix_Specific_Services,11,resource,https://docs.python.org/3/library/resource.html
+Unix_Specific_Services,12,nis,https://docs.python.org/3/library/nis.html
+Unix_Specific_Services,13,syslog,https://docs.python.org/3/library/syslog.html
+Superseded_Modules,1,optparse,https://docs.python.org/3/library/optparse.html
+Superseded_Modules,2,imp,https://docs.python.org/3/library/imp.html
+Undocumented_Modules,1,Platform specific modules,https://docs.python.org/3/library/undoc.html#platform-specific-modules
+Undocumented_Modules,2,10. Full Grammar specification,https://docs.python.org/3/library/../reference/grammar.html
+Undocumented_Modules,3,Introduction,https://docs.python.org/3/library/intro.html
+Undocumented_Modules,4,Report a Bug,https://docs.python.org/3/library/../bugs.html
+Undocumented_Modules,5,Show Source,https://docs.python.org/3/library/https://github.com/python/cpython/blob/3.7/Doc/library/index.rst
+Undocumented_Modules,6,index,https://docs.python.org/3/library/../genindex.html
+Undocumented_Modules,7,modules,https://docs.python.org/3/library/../py-modindex.html
+Undocumented_Modules,8,next,https://docs.python.org/3/library/intro.html
+Undocumented_Modules,9,previous,https://docs.python.org/3/library/../reference/grammar.html
+Undocumented_Modules,10,Python,https://docs.python.org/3/library/https://www.python.org/
+Undocumented_Modules,11,Documentation,https://docs.python.org/3/library/../index.html
+Undocumented_Modules,15,Sphinx,https://docs.python.org/3/library/http://sphinx.pocoo.org/

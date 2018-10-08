@@ -50,10 +50,20 @@ class LayoutUtils:
 # Configurable
 ##############
 class Configurable:
+  def __init__(self):
+    self.raw_config = {}
+
   def load_config(self, config):
     for key in self.__dict__:
       if key in config:
         setattr(self, key, config[key])
+    self.base_config = dict(config)
+
+  def load_configurable(self, target_configurable, target_name, configurable_entries):
+    target_configurable.load_config(self.base_config)
+    if target_name in configurable_entries:
+      target_configurable.load_config(configurable_entries[target_name])
+    return target_configurable
 
 ##############
 # LayoutResult
@@ -176,6 +186,49 @@ class OptimizeLayout:
 
     print('SVG Selected:', 'W', w, 'H', h, 'New Ratio', new_ratio, 'New Ratio Diff', new_ratio_diff)    
     return [selected_svg]
+
+#################################
+# SimpleTextLineLayoutEntryConfig
+#################################
+class SimpleTextLineLayoutEntryConfig(Configurable):
+  def __init__(self):
+    Configurable.__init__(self)
+    self.font_name = 'sans-serif'
+    self.font_color = 'black'
+    self.font_size = 10
+    self.bold = False
+
+######################
+# SimpleTextLineLayout
+######################
+class SimpleTextLineLayout(Configurable):
+  def __init__(self):
+    Configurable.__init__(self)
+    self.font_name = 'sans-serif'
+    self.font_size = 10
+    self.font_color = 'black'
+    self.bold = False
+    self.entry_configs = {}
+
+  def get_svg(self, group_name, group):
+    results = []
+    x = 0
+    y = 0
+    for entry in group:
+      entry_config = self.load_configurable(SimpleTextLineLayoutEntryConfig(), entry.identifier, self.entry_configs)
+      svg_group = LayoutUtils.get_next_svg_group()
+      text_extents = TextUtils.get_text_dimensions(entry_config.font_name, entry_config.font_size, entry_config.bold, entry.text)
+      y = text_extents.font_ascent
+      layout_rect_size = (text_extents.x_advance, text_extents.font_height)
+      style = HTMLStyleBuilder().set('font-name', entry_config.font_name).set('font-size', entry_config.font_size).set('fill', entry_config.font_color)
+      if entry_config.bold:
+        style.set('font-weight', 'bold')
+      svg_group.add_child(HTMLElement('text').set_text(entry.text).set_attr('x', str(x)).set_attr('y', str(y)).set_attr('style', str(style)))
+      if len(entry.url.strip()) > 0:
+        svg_group.add_child(LayoutUtils.get_pink_link_rect(group_name, entry.identifier, 0, 0, layout_rect_size[0], layout_rect_size[1]))
+      results.append(LayoutResult(svg_group, layout_rect_size[0], layout_rect_size[1]))
+    return results
+
 
 ######################
 # SimpleWordListLayout
@@ -389,7 +442,7 @@ class GlossaryLayout(Configurable):
     entries = []
     last_letter = ' '
     for link in group:
-      if last_letter != link.text[0] and link.text[0].isalpha():
+      if last_letter.lower() != link.text[0].lower() and link.text[0].isalpha():
         entries.append(GlossaryEntry(None, link.text[0].upper(), '', self.font_size + 2, True))
         last_letter = link.text[0]
       identifier = '{0}.{1}'.format(link.group, link.identifier)

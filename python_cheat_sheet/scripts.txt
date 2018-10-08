@@ -1,0 +1,28 @@
+# Debug
+#######
+python3 arrange_svg_2.py ./python_cheat_sheet/svg ./python_cheat_sheet/svg/out.svg
+
+python3 generate_svg.py ./python_cheat_sheet/config.json ./python_cheat_sheet/links.csv ./python_cheat_sheet/svg
+
+# Data Gather
+#############
+python3 link_python_glossary.py python_glossary.html > glossary.csv 
+
+
+# Build Page
+############
+python3 build_page.py ./python_cheat_sheet/config.json ./python_cheat_sheet/links_complete.csv ./python_cheat_sheet/svg/input.svg
+
+python3 link_pdf.py ./python_cheat_sheet/links_complete.csv ./python_cheat_sheet/svg/input.svg ./python_cheat_sheet/pdf/input.pdf ./python_cheat_sheet/pdf/out.pdf 
+
+
+# Build Links
+#############
+python3 build_links.py ./python_cheat_sheet/links_config.json ./python_cheat_sheet/links.csv ./python_cheat_sheet/links_complete.csv
+
+
+Utils
+#####
+python3 deflate_pdf.py ./python_cheat_sheet/pdf/input.pdf ./python_cheat_sheet/pdf/input.deflated.pdf
+
+python3 deflate_pdf.py ./python_cheat_sheet/pdf/input.deflated.pdf ./python_cheat_sheet/pdf/input.reflated.pdf

@@ -10,6 +10,7 @@ from logic.layout import SimpleWordTableLayout
 from logic.layout import CodeletLayout
 from logic.layout import CodeletCloudLayout
 from logic.layout import SimpleImageLayout
+from logic.layout import SimpleTextLineLayout
 import logic.loadfile
 from utils.permutations import ParamCombinationGenerator
 from utils.permutations import OptimizableRange
@@ -80,9 +81,6 @@ for group_name in svg_outputs:
 
 arranger = ArrangeRects()
 arranged_rects = arranger.arrange_arrangeables(arrangeables, 1.618, '{0}.matrix.svg'.format(output_file))
-#arrange_rects.arrange(rects, 1.618, layout_sort_key, '{0}.matrix.svg'.format(output_file))
-
-print(arranged_rects)
 
 width = 0
 height = 0
@@ -93,7 +91,7 @@ for rect in arranged_rects:
     height = rect.y + rect.height
 
 html = HTMLElement('svg').set_attr('width', str(width)).set_attr('height', str(height))
-html.set_attr('xmlns:svg', 'http://www.w3.org/2000/svg')
+html.set_attr('xmlns', 'http://www.w3.org/2000/svg')
 html.set_attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
 
 for rect in arranged_rects:

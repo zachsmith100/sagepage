@@ -1,4 +1,23 @@
 {
+  "page_meta":
+  {
+    "layout_class":"SimpleTextLineLayout",
+    "font_color":"rgb(0,0,255)",
+    "bold":false,
+    "entry_configs":
+    {
+      "0":
+      {
+        "bold":true,
+        "font_color":"rgb(170,0,0)"
+      }
+    }
+  },
+  "homepage_link":
+  {
+    "layout_class":"SimpleTextLineLayout",
+    "font_color":"rgb(0,0,255)"
+  },
   "snake":
   {
     "layout_class":"SimpleImageLayout",

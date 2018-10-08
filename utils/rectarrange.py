@@ -190,8 +190,8 @@ class AreaMatrix:
       if selected_rect is None:
         selected_rect = rect
       elif rect.y < selected_rect.y:
-        if rect.x < selected_rect.x:
-          selected_rect = rect
+        #if rect.x < selected_rect.x:
+        selected_rect = rect
     return selected_rect
 
   def get_cell_grid_coord_for_xy(self, origin_col_index, origin_row_index, target_x, target_y):

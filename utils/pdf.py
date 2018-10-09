@@ -152,6 +152,8 @@ class PDFValue:
       s = '/{0}'.format(self.value)
     elif self.type == PDFValue.FLOAT:
       s = '{:f}'.format(self.value)
+    elif self.type == PDFValue.BOOLEAN:
+      s = str(self.value).lower()
     else:
       s = '{0}'.format(self.value)
     return s

@@ -9,10 +9,11 @@ from utils.html import HTMLStyleBuilder
 from utils.permutations import OptimizableRange
 from utils.permutations import ParamCombinationGenerator
 from utils.models import Size
+from utils.configurable import Configurable
 
-#########
+#############
 # LayoutUtils
-#########
+#############
 class LayoutUtils:
   next_element_id = 0
 
@@ -45,25 +46,6 @@ class LayoutUtils:
     if f % 1 > 0:
       result = result + 1
     return result
-
-##############
-# Configurable
-##############
-class Configurable:
-  def __init__(self):
-    self.raw_config = {}
-
-  def load_config(self, config):
-    for key in self.__dict__:
-      if key in config:
-        setattr(self, key, config[key])
-    self.base_config = dict(config)
-
-  def load_configurable(self, target_configurable, target_name, configurable_entries):
-    target_configurable.load_config(self.base_config)
-    if target_name in configurable_entries:
-      target_configurable.load_config(configurable_entries[target_name])
-    return target_configurable
 
 ##############
 # LayoutResult
@@ -153,6 +135,8 @@ class OptimizeLayout:
         params = None
 
     if params is None:
+      print(group_name)
+      print(group)
       svg = layout.get_svg(group_name, group)
       return svg
 
@@ -168,7 +152,7 @@ class OptimizeLayout:
     values = generator.next()
 
     while values is not None:
-      layout.load_config(values)
+      Configurable.load_config(values, layout)
 
       layout_result = layout.get_svg(group_name, group)[0]
 
@@ -190,9 +174,8 @@ class OptimizeLayout:
 #################################
 # SimpleTextLineLayoutEntryConfig
 #################################
-class SimpleTextLineLayoutEntryConfig(Configurable):
+class SimpleTextLineLayoutEntryConfig:
   def __init__(self):
-    Configurable.__init__(self)
     self.font_name = 'sans-serif'
     self.font_color = 'black'
     self.font_size = 10
@@ -201,9 +184,8 @@ class SimpleTextLineLayoutEntryConfig(Configurable):
 ######################
 # SimpleTextLineLayout
 ######################
-class SimpleTextLineLayout(Configurable):
+class SimpleTextLineLayout:
   def __init__(self):
-    Configurable.__init__(self)
     self.font_name = 'sans-serif'
     self.font_size = 10
     self.font_color = 'black'
@@ -215,7 +197,10 @@ class SimpleTextLineLayout(Configurable):
     x = 0
     y = 0
     for entry in group:
-      entry_config = self.load_configurable(SimpleTextLineLayoutEntryConfig(), entry.identifier, self.entry_configs)
+      print(group)
+      entry_config = SimpleTextLineLayoutEntryConfig()
+      Configurable.copy_config(self, entry_config)
+      Configurable.overlay_config(entry_config, self.entry_configs, entry.identifier)
       svg_group = LayoutUtils.get_next_svg_group()
       text_extents = TextUtils.get_text_dimensions(entry_config.font_name, entry_config.font_size, entry_config.bold, entry.text)
       y = text_extents.font_ascent
@@ -233,9 +218,8 @@ class SimpleTextLineLayout(Configurable):
 ######################
 # SimpleWordListLayout
 ######################
-class SimpleWordListLayout(Configurable):
+class SimpleWordListLayout:
   def __init__(self):
-    Configurable.__init__(self)
     self.layout_ratio = 0
     self.col_count = 0
     self.border_width = 0
@@ -420,9 +404,8 @@ class GlossaryEntry:
 ################
 # GlossaryLayout
 ################
-class GlossaryLayout(Configurable):
+class GlossaryLayout:
   def __init__(self):
-    Configurable.__init__(self)
     self.font_name = 'sans-serif'
     self.font_size = 10
     self.col_count = 0
@@ -572,9 +555,8 @@ class GlossaryLayout(Configurable):
 #######################
 # SimpleWordTableLayout
 #######################
-class SimpleWordTableLayout(Configurable):
+class SimpleWordTableLayout:
   def __init__(self):
-    Configurable.__init__(self)
     self.col_count = 0
     self.border_width = 0
     self.row_spacing = 0
@@ -1101,9 +1083,8 @@ class PythonSyntaxSVGHilighter:
 ###############
 # CodeletLayout
 ###############
-class CodeletLayout(Configurable):
+class CodeletLayout:
   def __init__(self):
-    Configurable.__init__(self)
     self.col_count = 0
     self.border_width = 2
     self.row_spacing = 0
@@ -1281,9 +1262,8 @@ class CodeletLayout(Configurable):
 ###############
 # CodeletCloudLayout
 ###############
-class CodeletCloudLayout(Configurable):
+class CodeletCloudLayout:
   def __init__(self):
-    Configurable.__init__(self)
     self.border_width = 2
     self.row_spacing = 0
     self.col_spacing = 10
@@ -1439,9 +1419,8 @@ class CodeletCloudLayout(Configurable):
 ###################
 # SimpleImageLayout
 ###################
-class SimpleImageLayout(Configurable):
+class SimpleImageLayout:
   def __init__(self):
-    Configurable.__init__(self)
     self.width = None
     self.height = None
 

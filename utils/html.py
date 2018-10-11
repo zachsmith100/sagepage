@@ -1,4 +1,5 @@
 import html
+from utils.tree import BasicTree
 
 # HTMLAttribute
 ###############
@@ -16,11 +17,11 @@ class HTMLAttribute:
 #############
 # HTMLElement
 #############
-class HTMLElement:
+class HTMLElement(BasicTree):
   def __init__(self, name):
+    BasicTree.__init__(self)
     self.name = name
     self.attributes = {}
-    self.children = []
     self.text = ''
 
   def set_attr(self, n, v):
@@ -32,21 +33,9 @@ class HTMLElement:
       return self.attributes[name].value
     return default_value
 
-  def add_child(self, e):
-    self.children.append(e)
-    return e
-
   def set_text(self, t):
     self.text = t
     return self
-
-  def iterate_children(self, callback_f, **kwargs):
-    results = []
-    for child in self.children:
-      results.append(callback_f(child, **kwargs))
-      next_results = child.iterate_children(callback_f, **kwargs)
-      results.extend(next_results)
-    return results
 
   def render(self, f):
     f.write(str(self))

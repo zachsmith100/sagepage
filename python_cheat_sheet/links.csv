@@ -280,6 +280,17 @@ from X import *",reference/import.html?highlight=import
 codelets,strings,"# Comment
 """""" Multiline String """"""
 ""{0} {1} {2}"".format(100,'abc',2.0)",tutorial/introduction.html
+codelets,for_loops,"for v in a_list:
+  print(v)
+for k in a_dictionary:
+  v = dictionary[k]
+for k in a_set:
+  print(k)",reference/compound_stmts.html#for
+codelets,while_loops,"while True:
+  pass
+a = 0
+while a < 100:
+ a = a + 1",reference/compound_stmts.html#while
 string_formatting,0,3.1415,https://www.programiz.com/python-programming/methods/string/format
 string_formatting,1,{:.2f},
 string_formatting,2,3.14,
@@ -371,3 +382,5 @@ text_seq_ops,37,title,library/stdtypes.html?highlight=text%20sequence#bytes.titl
 text_seq_ops,38,translate,library/stdtypes.html?highlight=text%20sequence#bytes.translate
 text_seq_ops,39,upper,library/stdtypes.html?highlight=text%20sequence#bytes.upper
 text_seq_ops,40,zfill,library/stdtypes.html?highlight=text%20sequence#bytes.zfill
+internals,0,Python GC Basics,https://docs.python.org/3/library/gc.html?highlight=garbage#module-gc
+internals,1,Execution Model,https://docs.python.org/3/reference/executionmodel.html

@@ -135,8 +135,6 @@ class OptimizeLayout:
         params = None
 
     if params is None:
-      print(group_name)
-      print(group)
       svg = layout.get_svg(group_name, group)
       return svg
 
@@ -197,7 +195,6 @@ class SimpleTextLineLayout:
     x = 0
     y = 0
     for entry in group:
-      print(group)
       entry_config = SimpleTextLineLayoutEntryConfig()
       Configurable.copy_config(self, entry_config)
       Configurable.overlay_config(entry_config, self.entry_configs, entry.identifier)
@@ -647,8 +644,6 @@ class SimpleWordTableLayout:
         if col_index < len(row):
           column.append(row[col_index])
       columns.append(column)
-
-    print(columns)
 
     # Get col sizes
     ###############
@@ -1384,9 +1379,7 @@ class CodeletCloudLayout:
         parts = self.entries[entry.identifier]['hilight_lines'].split(',')
       for part in parts:
         range_parts = part.split(':')
-        print(range_parts)
         hilight_ranges.append((int(range_parts[0]), int(range_parts[1])))
-      print('hrange', hilight_ranges)
 
       font_extents = TextUtils.get_text_dimensions(self.font_name, self.font_size)
 

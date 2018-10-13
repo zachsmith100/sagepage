@@ -94,8 +94,6 @@ class Arrangeable:
     for rect in arrangeable_rects:
       area = area + (rect.width * rect.height)
 
-    print(width, height, area, arrangeable_rects)
-
     arrangeable_rects.sort(key=lambda r: (r.width * r.height), reverse=True)
 
     while True:
@@ -105,6 +103,141 @@ class Arrangeable:
         self.matrix = matrix
         break
       area = area + int(area * 0.1)
+
+
+####################
+# EvenRectColumnFlow
+####################
+class EvenRectColumnFlow:
+  def __init__(self, max_col_count):
+    self.columns = []
+    self.max_col_count = max_col_count
+
+  def get_column(self, index):
+    for i in range(len(self.columns), (index + 1)):
+      self.columns.append([])
+    return self.columns[index]
+
+  def get_column_height(self, index):
+    height = 0
+    for cell in self.get_column(index):
+      height = height + cell.height
+    return height
+
+  def get_max_col_height(self):
+    height = 0
+    for index in range(len(self.columns)):
+      next_col_height = self.get_column_height(index)
+      if height < next_col_height:
+        height = next_col_height
+    return height
+
+  def get_last_element_height(self, col_index):
+    if len(self.columns[col_index]) < 1:
+      return 0
+    return self.columns[col_index][-1].height
+
+  def should_wrap(self, col_index):
+    if (col_index + 1) >= self.max_col_count:
+      return False
+
+    if len(self.get_column(col_index)) < 1:
+      return False
+
+    col_height = self.get_column_height(col_index)
+    next_col_height = self.get_column_height(col_index + 1)
+    last_element_height = self.get_last_element_height(col_index)
+
+    if col_height > (next_col_height + last_element_height):
+      return True
+
+    return False
+
+  def push_rect(self, rect, col_index=0):
+    self.get_column(col_index).insert(0, rect)
+    print(rect)
+    while self.should_wrap(col_index):
+      last_rect = self.get_column(col_index).pop()
+      self.push_rect(last_rect, col_index + 1)
+    
+
+###################
+# ColumnArrangeable
+###################
+class ColumnArrangeable(Arrangeable):
+  def __init__(self, identifier):
+    Arrangeable.__init__(self, identifier)
+    self.column_count = 1
+    self.rects = []
+    self.matrix = AreaMatrix(0,0)
+    self.columns = []
+    self.column_widths = []
+    self.column_heights = []
+
+  def index_columns(self):
+    flow = EvenRectColumnFlow(self.column_count)
+    for rect in reversed(self.rects):
+      flow.push_rect(rect)
+    self.columns = flow.columns
+
+  def get_col_widths(self):
+    col_widths = []
+    for column in self.columns:
+      width = 0
+      for cell in column:
+        if cell.width > width:
+          width = cell.width
+      col_widths.append(width)
+    return col_widths
+
+  def get_col_heights(self):
+    col_heights = []
+    for column in self.columns:
+      height = 0
+      for cell in column:
+        height = height + cell.height
+      col_heights.append(height)
+    return col_heights
+
+  def arrange(self):
+    child_rects = []
+    for identifier in self.children:
+      child = self.children[identifier]
+      child.arrange()
+      child_size = child.get_allocated_size()
+      child_rects.extend(child.get_rects())
+    self.add_rects(child_rects)
+
+    self.index_columns()
+
+    self.column_widths = self.get_col_widths()
+
+    self.column_heights = self.get_col_heights()
+
+    width = 0
+
+    for col_width in self.column_widths:
+      width = width + col_width
+
+    height = 0
+
+    for col_height in self.column_heights:
+      if height < col_height:
+        height = col_height
+
+    self.matrix = AreaMatrix(width, height)
+
+    x = 0
+    for col_index in range(len(self.columns)):
+      y = 0
+      column = self.columns[col_index]
+      for row_index in range(len(column)):
+        cell_rect = column[row_index]
+        cell_rect.x = x
+        cell_rect.y = y
+        self.matrix.place_rect(x, y, cell_rect)        
+        y = y + cell_rect.height
+      x = x + self.column_widths[col_index]
 
 ##########
 # FreeCell
@@ -268,9 +401,7 @@ class AreaMatrix:
       y = 0
       for row_index in range(origin_row_index, len(self.rows)):
         height = self.row_heights[row_index]
-        #print(x, y, width, height, col_index, row_index)
         if x <= target_x and target_x <= (x + width) and y <= target_y and target_y <= (y + height):
-          #print('match', x, y, width, height, origin_col_index, origin_row_index, target_x, target_y)
           return GridCoord(col_index, row_index)
         y = y + height
       x = x + width
@@ -320,6 +451,9 @@ class AreaMatrix:
     next_width = self.column_widths[split_col_index]
     while remaining_width > next_width:
       remaining_width = remaining_width - next_width
+      if (split_col_index + 1) >= len(self.column_widths):
+        # reached the end of the matrix
+        break
       split_col_index = split_col_index + 1
       next_width = self.column_widths[split_col_index]
 
@@ -332,6 +466,9 @@ class AreaMatrix:
     next_height = self.row_heights[split_row_index]
     while remaining_height > next_height:
       remaining_height = remaining_height - next_height
+      if (split_row_index + 1) >= len(self.row_heights):
+        # reached the end of the matrix
+        break
       split_row_index = split_row_index + 1
       next_height = self.row_heights[split_row_index]
 

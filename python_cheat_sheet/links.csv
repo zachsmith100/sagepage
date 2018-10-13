@@ -271,7 +271,9 @@ test = A('Apples')
 test.f()",tutorial/classes.html
 codelets,slicing,"a[start:end] # from start to end-1
 a[start:] # all from start
-a[:end] # beginning to end-1",reference/expressions.html?highlight=slicing#slicings
+a[:end] # beginning to end-1
+a[-1] # last element
+a[-2] # 2nd to last element",reference/expressions.html?highlight=slicing#slicings
 codelets,with,"with open('out.txt', 'w') as f:
      f.write('Hello, World!') # File closed after",reference/compound_stmts.html?highlight=statement#with
 codelets,imports,"import X

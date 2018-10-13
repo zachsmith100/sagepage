@@ -155,6 +155,7 @@ class PDFLinkRectsUtils:
         commands.append(cmd)
     reader = ParserReader()
     parser = PDFContentStreamParser(append_command)
+    print(content_stream)
     result = reader.read_string(parser.begin, content_stream)
     if result:
       return commands

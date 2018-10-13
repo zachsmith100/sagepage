@@ -16,6 +16,7 @@ from utils.permutations import ParamCombinationGenerator
 from utils.permutations import OptimizableRange
 from utils.models import Rect
 from utils.rectarrange import Arrangeable
+from utils.rectarrange import ColumnArrangeable
 from utils.svg import SVG
 from utils.html import HTMLElement
 from utils.html import HTMLStyleBuilder
@@ -36,14 +37,12 @@ output_file = sys.argv[3]
 ################################################################################
 # Load Config
 ################################################################################
-class Group(BasicTree):
-  def __init__(self):
-    BasicTree.__init__(self)
-
-
 config = logic.loadfile.load_json(config_path)
 links = logic.loadfile.load_link_entries(links_path)
 
+################################################################################
+# Load Arrangeables
+################################################################################
 rect_svg_xref = {}
 next_sort_group_id = 0
 
@@ -53,6 +52,15 @@ def load_links_group_svg(config, links_group_name, links_group):
   Configurable.load_config(config, layout)
   svg_results = OptimizeLayout.optimize_layout_for_ratio(layout, links_group_name, links_group)
   return svg_results
+
+def create_arrangeable_instance(config, identifier):
+  if 'arrangeable' in config:
+    class_name = config['arrangeable']['arrangeable_class']
+    constructor = globals()[class_name]
+    arrangeable = constructor(identifier)
+    Configurable.load_config(config['arrangeable'], arrangeable)
+    return arrangeable
+  return Arrangeable(identifier)
 
 def load_arrangeables(config, links, parent_arrangeable):
   global next_sort_group_id
@@ -67,14 +75,25 @@ def load_arrangeables(config, links, parent_arrangeable):
         rect = Rect(identifier, 0, 0, svg.width, svg.height, 'gray', next_sort_group_id)
         next_sort_group_id = next_sort_group_id + 1
         rects.append(rect)
-      child = parent_arrangeable.add_child(Arrangeable(links_group_name))
+      child = parent_arrangeable.add_child(create_arrangeable_instance(config['links'][links_group_name], links_group_name))
       child.add_rects(rects)
 
   if 'layout_groups' in config:
     for layout_group_name in config['layout_groups']:
-      child = parent_arrangeable.add_child(Arrangeable(layout_group_name))
+      child = parent_arrangeable.add_child(create_arrangeable_instance(config['layout_groups'][layout_group_name], layout_group_name))
       load_arrangeables(config['layout_groups'][layout_group_name], links, child)
 
+root_arrangeable = Arrangeable('__root__')
+load_arrangeables(config, links, root_arrangeable)
+
+################################################################################
+# Arrange
+################################################################################
+root_arrangeable.arrange()
+
+################################################################################
+# Output
+################################################################################
 def adjust_xy(element, **kwargs):
   x = kwargs['x']
   y = kwargs['y']
@@ -84,11 +103,6 @@ def adjust_xy(element, **kwargs):
   if 'y' in element.attributes:
     old_y = float(element.get_attr('y', 0))
     element.set_attr('y', str(y + old_y))
-
-root_arrangeable = Arrangeable('__root__')
-load_arrangeables(config, links, root_arrangeable)
-
-root_arrangeable.arrange()
 
 width = 0
 height = 0
@@ -103,6 +117,8 @@ html.set_attr('xmlns', 'http://www.w3.org/2000/svg')
 html.set_attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
 
 for rect in root_arrangeable.get_rects():
+  if rect.identifier not in rect_svg_xref:
+    continue
   svg = rect_svg_xref[rect.identifier]
   svg.html.iterate_children(adjust_xy, x=rect.x, y=rect.y)
   html.add_child(svg.html)

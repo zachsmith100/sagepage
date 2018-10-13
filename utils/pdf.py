@@ -419,7 +419,11 @@ class PDFValueParser(ParserBase):
     self.token = t
 
   def set_hex_string(self, s):
-    self.set_value(PDFValue(PDFValue.HEXSTRING, s))
+    if s == '>': # empty hexstring
+      self.last_token = '>'
+      self.set_value(PDFValue(PDFValue.HEXSTRING, ''))
+    else:
+      self.set_value(PDFValue(PDFValue.HEXSTRING, s))
 
   def set_array(self, a):
     self.set_value(a)
@@ -470,7 +474,10 @@ class PDFValueParser(ParserBase):
   def verify_hex_string_close(self, b, n):
     if chr(b) == '>':
       return PDFParseResult(None, None, None)
-    return PDFParseResult("Expected '>', received '{0}'".format(chr(b)))
+    if self.last_token is not None and self.last_token == '>': # empty hexstring
+      self.last_token = None
+      return PDFParseResult(None, None, None, [b])
+    return PDFParseResult("Expected '>', received '{0}'".format(chr(b)), None, None)
 
   def process_name_token(self, b, n):
     self.set_value(PDFValue(PDFValue.NAME, self.token))

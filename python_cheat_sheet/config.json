@@ -1,301 +1,746 @@
 {
-  "layout_groups":
-  {
-    "meta_group":
-    {
-      "layout_groups":{},
-      "arrangeable":
-      {
-        "arrangeable_class":"ColumnArrangeable",
-        "column_count":1
+  "layout_groups": {
+    "root_group": {
+      "arrangeable": {
+        "arrangeable_class": "ColumnArrangeable",
+        "column_count": 1
       },
-      "links":
-      {
-        "snake":
-        {
-          "layout_class":"SimpleImageLayout",
-          "width":96
-        },
-        "logo":
-        {
-          "layout_class":"SimpleImageLayout",
-          "width":325
-        },
-        "page_meta":
-        {
-          "layout_class":"SimpleTextLineLayout",
-          "font_color":"rgb(0,0,255)",
-          "bold":false,
-          "entry_configs":
-          {
-            "0":
-            {
-              "bold":true,
-              "font_color":"rgb(170,0,0)"
-            }
-          }
-        }
-      }
-    },
-    "content_group":
-    {
-      "layout_groups":
-      {
-        "sequence_ops_group":
-        {
-          "layout_groups":{},
-          "arrangeable":
-          {
-            "arrangeable_class":"ColumnArrangeable",
-            "column_count":2
-          },
-          "links":
-          {
-            "common_seq_ops":
-            {
-              "layout_class":"SimpleWordTableLayout",
-              "layout_ratio":1.618,
-              "col_count":3,
-              "font_name":"sans-serif",
-              "font_size":10,
-              "border_width":3,
-              "row_spacing":1,
-              "col_spacing":14,
-              "background_color":"rgb(255,245,255)",
-              "font_color":"rgb(0,0,0)",
-              "row_alt_color":"rgb(0,0,0)",
-              "row_alt_transparency":0.05,
-              "title":"Common Sequence Ops",
-              "flow_entries":false,
-              "first_link_covers_all":true
-            },
-            "mutable_seq_ops":
-            {
-              "layout_class":"SimpleWordTableLayout",
-              "layout_ratio":1.618,
-              "col_count":3,
-              "font_name":"sans-serif",
-              "font_size":10,
-              "border_width":3,
-              "row_spacing":1,
-              "col_spacing":14,
-              "background_color":"rgb(255,255,255)",
-              "font_color":"rgb(0,0,0)",
-              "row_alt_color":"rgb(0,0,0)",
-              "row_alt_transparency":0.05,
-              "title":"Mutable Sequence Ops",
-              "flow_entries":false,
-              "first_link_covers_all":true
-            },
-            "text_seq_ops":
-            {
-              "layout_class":"SimpleWordTableLayout",
-              "layout_ratio":1.618,
-              "col_count":3,
-              "font_name":"sans-serif",
-              "font_size":10,
-              "border_width":3,
-              "row_spacing":1,
-              "col_spacing":14,
-              "background_color":"rgb(255,255,255)",
-              "font_color":"rgb(0,0,0)",
-              "row_alt_color":"rgb(0,0,0)",
-              "row_alt_transparency":0.05,
-              "title":"Text Sequence Ops",
-              "flow_entries":true,
-              "first_link_covers_all":false
-            },
-            "string_formatting":
-            {
-              "layout_class":"SimpleWordTableLayout",
-              "col_count":3,
-              "font_name":"sans-serif",
-              "font_size":10,
-              "border_width":3,
-              "row_spacing":1,
-              "col_spacing":14,
-              "background_color":"rgb(255,255,255)",
-              "font_color":"rgb(0,0,0)",
-              "column_colors":["rgb(255,0,0)","rgb(0,0,255)","rgb(0,255,0)"],
-              "column_transparencies":[0.05, 0.05, 0.05],
-              "row_alt_color":"rgb(0,0,0)",
-              "row_alt_transparency":0.05,
-              "title":"String Formatting",
-              "flow_entries":false,
-              "first_link_covers_all":true
-            }
-          }
-        },
-        "codelets_group":
-        {
-          "layout_groups":{},
-          "links":
-          {
-            "codelets":
-            {
-              "layout_class":"CodeletCloudLayout",
-              "arrangeable":
-              {
-                "arrangeable_class":"ColumnArrangeable",
-                "column_count":3
+      "layout_groups": {
+        "core_group": {
+          "layout_groups": {
+            "meta_group": {
+              "layout_groups": {},
+              "arrangeable": {
+                "arrangeable_class": "ColumnArrangeable",
+                "column_count": 1
               },
-              "layout_sort_group":"codelets",
-              "layout_ratio":1.618,
-              "col_count":2,
-              "header_border_width":0,
-              "line_spacing":2,
-              "entries":
-              {
-                "dictionary":
-                {
-                  "title":"DICTIONARY (Hashtable)",
-                  "subtitle":"Unordered, Mutable",
-                  "hilight_lines":"1:1,3:1,5:1",
-                  "syntax_hilighter":"python"
+              "links": {
+                "snake": {
+                  "layout_class": "SimpleImageLayout",
+                  "width": 96
                 },
-                "list":
-                {
-                  "title":"LIST (Dynamic Array)",
-                  "subtitle":"Ordered, Mutable",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"1:1,3:1,5:1"
+                "logo": {
+                  "layout_class": "SimpleImageLayout",
+                  "width": 325
                 },
-                "tuple":
-                {
-                  "title":"TUPLE (Array)",
-                  "subtitle":"Ordered, Immutable",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"1:1"
+                "page_meta": {
+                  "layout_class": "SimpleTextLineLayout",
+                  "font_color": "rgb(0,0,255)",
+                  "bold": false,
+                  "entry_configs": {
+                    "0": {
+                      "bold": true,
+                      "font_color": "rgb(170,0,0)"
+                    }
+                  }
+                }
+              }
+            },
+            "content_group": {
+              "layout_groups": {
+                "sequence_ops_group": {
+                  "layout_groups": {},
+                  "arrangeable": {
+                    "arrangeable_class": "ColumnArrangeable",
+                    "column_count": 2
+                  },
+                  "links": {
+                    "common_seq_ops": {
+                      "layout_class": "SimpleWordTableLayout",
+                      "layout_ratio": 1.618,
+                      "col_count": 3,
+                      "font_name": "sans-serif",
+                      "font_size": 10,
+                      "border_width": 3,
+                      "row_spacing": 1,
+                      "col_spacing": 14,
+                      "background_color": "auto",
+                      "font_color": "rgb(0,0,0)",
+                      "row_alt_color": "rgb(0,0,0)",
+                      "row_alt_transparency": 0.05,
+                      "title": "Common Sequence Ops",
+                      "flow_entries": false,
+                      "first_link_covers_all": true
+                    },
+                    "mutable_seq_ops": {
+                      "layout_class": "SimpleWordTableLayout",
+                      "layout_ratio": 1.618,
+                      "col_count": 3,
+                      "font_name": "sans-serif",
+                      "font_size": 10,
+                      "border_width": 3,
+                      "row_spacing": 1,
+                      "col_spacing": 14,
+                      "background_color": "auto",
+                      "font_color": "rgb(0,0,0)",
+                      "row_alt_color": "rgb(0,0,0)",
+                      "row_alt_transparency": 0.05,
+                      "title": "Mutable Sequence Ops",
+                      "flow_entries": false,
+                      "first_link_covers_all": true
+                    },
+                    "text_seq_ops": {
+                      "layout_class": "SimpleWordTableLayout",
+                      "layout_ratio": 1.618,
+                      "col_count": 3,
+                      "font_name": "sans-serif",
+                      "font_size": 10,
+                      "border_width": 3,
+                      "row_spacing": 1,
+                      "col_spacing": 14,
+                      "background_color": "auto",
+                      "font_color": "rgb(0,0,0)",
+                      "row_alt_color": "rgb(0,0,0)",
+                      "row_alt_transparency": 0.05,
+                      "title": "Text Sequence Ops",
+                      "flow_entries": true,
+                      "first_link_covers_all": false
+                    },
+                    "string_formatting": {
+                      "layout_class": "SimpleWordTableLayout",
+                      "col_count": 3,
+                      "font_name": "sans-serif",
+                      "font_size": 10,
+                      "border_width": 3,
+                      "row_spacing": 1,
+                      "col_spacing": 14,
+                      "background_color": "auto",
+                      "font_color": "rgb(0,0,0)",
+                      "column_colors": [
+                        "rgb(255,0,0)",
+                        "rgb(0,0,255)",
+                        "rgb(0,255,0)"
+                      ],
+                      "column_transparencies": [
+                        0.05,
+                        0.05,
+                        0.05
+                      ],
+                      "row_alt_color": "rgb(0,0,0)",
+                      "row_alt_transparency": 0.05,
+                      "title": "String Formatting",
+                      "flow_entries": false,
+                      "first_link_covers_all": true
+                    }
+                  }
                 },
-                "set":
-                {
-                  "title":"SET (Hashtable)",
-                  "subtitle":"Unordered, Mutable",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"1:1,3:1,5:1"
+                "codelets_group": {
+                  "layout_groups": {},
+                  "links": {
+                    "codelets": {
+                      "layout_class": "CodeletCloudLayout",
+                      "arrangeable": {
+                        "arrangeable_class": "ColumnArrangeable",
+                        "column_count": 3
+                      },
+                      "layout_sort_group": "codelets",
+                      "layout_ratio": 1.618,
+                      "col_count": 2,
+                      "header_border_width": 0,
+                      "line_spacing": 2,
+                      "entries": {
+                        "dictionary": {
+                          "title": "DICTIONARY (Hashtable)",
+                          "subtitle": "Unordered, Mutable",
+                          "hilight_lines": "1:1,3:1,5:1",
+                          "syntax_hilighter": "python"
+                        },
+                        "list": {
+                          "title": "LIST (Dynamic Array)",
+                          "subtitle": "Ordered, Mutable",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "1:1,3:1,5:1"
+                        },
+                        "tuple": {
+                          "title": "TUPLE (Array)",
+                          "subtitle": "Ordered, Immutable",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "1:1"
+                        },
+                        "set": {
+                          "title": "SET (Hashtable)",
+                          "subtitle": "Unordered, Mutable",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "1:1,3:1,5:1"
+                        },
+                        "functions": {
+                          "title": "Functions",
+                          "subtitle": "",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "3:3,7:1,9:1"
+                        },
+                        "comprehensions": {
+                          "title": "COMPREHENSIONS",
+                          "subtitle": "",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "1:1,3:1"
+                        },
+                        "classes": {
+                          "title": "CLASSES",
+                          "subtitle": "",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "4:1"
+                        },
+                        "slicing": {
+                          "title": "SLICING",
+                          "subtitle": "",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "1:1"
+                        },
+                        "with": {
+                          "title": "WITH",
+                          "subtitle": "",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python"
+                        },
+                        "imports": {
+                          "title": "IMPORT",
+                          "subtitle": "",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "1:1"
+                        },
+                        "strings": {
+                          "title": "STRINGS",
+                          "subtitle": "",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "1:1"
+                        },
+                        "for_loops": {
+                          "title": "for Loops",
+                          "subtitle": "",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "2:2"
+                        },
+                        "while_loops": {
+                          "title": "while Loops",
+                          "subtitle": "",
+                          "glyph": "{}",
+                          "syntax_hilighter": "python",
+                          "hilight_lines": "2:3"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "links": {
+                "glossary": {
+                  "layout_class": "GlossaryLayout",
+                  "layout_ratio": 1.618,
+                  "col_count": 1,
+                  "font_name": "sans-serif",
+                  "font_size": 10,
+                  "border_width": 3,
+                  "row_spacing": 1,
+                  "col_spacing": 14,
+                  "background_color": "rgb(255,255,255)",
+                  "font_color": "rgb(0,0,0)"
                 },
-                "functions":
-                {
-                  "title":"Functions",
-                  "subtitle":"",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"3:3,7:1,9:1"
+                "keywords": {
+                  "layout_class": "SimpleWordListLayout",
+                  "layout_ratio": 1.618,
+                  "col_count": 1,
+                  "font_name": "sans-serif",
+                  "font_size": 10,
+                  "border_width": 3,
+                  "row_spacing": 1,
+                  "col_spacing": 14,
+                  "background_color": "rgb(236,236,236)",
+                  "font_color": "rgb(0,0,255)",
+                  "title": "Keywords"
                 },
-                "comprehensions":
-                {
-                  "title":"COMPREHENSIONS",
-                  "subtitle":"",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"1:1,3:1"
-                },
-                "classes":
-                {
-                  "title":"CLASSES",
-                  "subtitle":"",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"4:1"
-                },
-                "slicing":
-                {
-                  "title":"SLICING",
-                  "subtitle":"",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"1:1"
-                },
-                "with":
-                {
-                  "title":"WITH",
-                  "subtitle":"",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python"
-                },
-                "imports":
-                {
-                  "title":"IMPORT",
-                  "subtitle":"",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"1:1"
-                },
-                "strings":
-                {
-                  "title":"STRINGS",
-                  "subtitle":"",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"1:1"
-                },
-                "for_loops":
-                {
-                  "title":"for Loops",
-                  "subtitle":"",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"2:2"
-                },
-                "while_loops":
-                {
-                  "title":"while Loops",
-                  "subtitle":"",
-                  "glyph":"{}",
-                  "syntax_hilighter":"python",
-                  "hilight_lines":"2:3"
+                "builtins": {
+                  "layout_class": "SimpleWordTableLayout",
+                  "layout_ratio": 1.618,
+                  "col_count": 3,
+                  "font_name": "sans-serif",
+                  "font_size": 10,
+                  "border_width": 3,
+                  "row_spacing": 1,
+                  "col_spacing": 14,
+                  "background_color": "rgb(250,250,250)",
+                  "font_color": "rgb(170,68,0)",
+                  "row_alt_color": "rgb(0,0,0)",
+                  "row_alt_transparency": 0.05,
+                  "title": "Builtins"
                 }
               }
             }
           }
-        }
-      },
-      "links":
-      {
-        "glossary":
-        {
-          "layout_class":"GlossaryLayout",
-          "layout_ratio":1.618, 
-          "col_count":1,
-          "font_name":"sans-serif",
-          "font_size":10,
-          "border_width":3,
-          "row_spacing":1,
-          "col_spacing":14,
-          "background_color":"rgb(255,255,255)",
-          "font_color":"rgb(0,0,0)"
         },
-        "keywords":
-        {
-          "layout_class":"SimpleWordListLayout",
-          "layout_ratio":1.618,
-          "col_count":1,
-          "font_name":"sans-serif",
-          "font_size":10,
-          "border_width":3,
-          "row_spacing":1,
-          "col_spacing":14,
-          "background_color":"rgb(236,236,236)",
-          "font_color":"rgb(0,0,255)",
-          "title":"Keywords"
-        },
-        "builtins":
-        {
-          "layout_class":"SimpleWordTableLayout",
-          "layout_ratio":1.618,
-          "col_count":3,
-          "font_name":"sans-serif",
-          "font_size":10,
-          "border_width":3,
-          "row_spacing":1,
-          "col_spacing":14,
-          "background_color":"rgb(250,250,250)",
-          "font_color":"rgb(170,68,0)",
-          "row_alt_color":"rgb(0,0,0)",
-          "row_alt_transparency":0.05,
-          "title":"Builtins"
+        "lib_group": {
+          "arrangeable": {
+            "arrangeable_class": "ColumnArrangeable",
+            "column_count": 5
+          },
+          "links": {
+            "Binary_Data_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Binary Data Services"
+            },
+            "Built_in_Exceptions": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Built-in Exceptions"
+            },
+            "Built_in_Types": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Built-in Types"
+            },
+            "Concurrent_Execution": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Concurrent Execution"
+            },
+            "contextvars": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "contextvars"
+            },
+            "Cryptographic_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Cryptographic Services"
+            },
+            "Custom_Python_Interpreters": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Custom Python Interpreters"
+            },
+            "Data_Compression_and_Archiving": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Data Compression and Archiving"
+            },
+            "Data_Persistence": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Data Persistence"
+            },
+            "Data_Types": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Data Types"
+            },
+            "Debugging_and_Profiling": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Debugging and Profiling"
+            },
+            "Development_Tools": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Development Tools"
+            },
+            "File_Formats": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "File Formats"
+            },
+            "File_and_Directory_Access": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "File and Directory Access"
+            },
+            "Functional_Programming_Modules": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Functional Programming Modules"
+            },
+            "Generic_Operating_System_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Generic Operating System Services"
+            },
+            "Graphical_User_Interfaces_with_Tk": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Graphical User Interfaces with Tk"
+            },
+            "Importing_Modules": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Importing Modules"
+            },
+            "Internationalization": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Internationalization"
+            },
+            "Internet_Data_Handling": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Internet Data Handling"
+            },
+            "Internet_Protocols_and_Support": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Internet Protocols and Support"
+            },
+            "MS_Windows_Specific_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "MS Windows Specific Services"
+            },
+            "Multimedia_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Multimedia Services"
+            },
+            "Networking_and_Interprocess_Communication": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Networking and Interprocess Communication"
+            },
+            "Numeric_and_Mathematical_Modules": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Numeric and Mathematical Modules"
+            },
+            "Program_Frameworks": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Program Frameworks"
+            },
+            "Python_Language_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Python Language Services"
+            },
+            "Python_Runtime_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Python Runtime Services"
+            },
+            "Software_Packaging_and_Distribution": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Software Packaging and Distribution"
+            },
+            "Structured_Markup_Processing_Tools": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Structured Markup Processing Tools"
+            },
+            "Superseded_Modules": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Superseded Modules"
+            },
+            "Text_Processing_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Text Processing Services"
+            },
+            "Undocumented_Modules": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Undocumented Modules"
+            },
+            "Unix_Specific_Services": {
+              "layout_class": "SimpleWordListLayout",
+              "layout_ratio": 1.618,
+              "col_count": 1,
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "border_width": 3,
+              "row_spacing": 1,
+              "col_spacing": 14,
+              "background_color": "auto",
+              "font_color": "rgb(0,0,0)",
+              "title": "Unix Specific Services"
+            },
+            "third_party": {
+              "background_color": "rgb(250,250,250)",
+              "border_width": 3,
+              "col_count": 2,
+              "col_spacing": 14,
+              "flow_entries": false,
+              "font_color": "rgb(170,0,0)",
+              "font_name": "sans-serif",
+              "font_size": 10,
+              "layout_class": "SimpleWordTableLayout",
+              "row_alt_color": "rgb(0,0,0)",
+              "row_alt_transparency": 0.05,
+              "row_spacing": 1,
+              "title": "3rd Party Libs"
+            }
+          }
         }
       }
     }

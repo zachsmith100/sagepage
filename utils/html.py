@@ -42,7 +42,7 @@ class HTMLElement(BasicTree):
 
   def __str__(self):
     escaped = html.escape(self.text)
-    escaped = escaped.replace(' ', '&#160;')
+    escaped = escaped.replace(' ', '&#160;') # do not eat trailing/leading spaces
     return "<{0} {1}>\n{2}{3}\n</{0}>\n".format(self.name, ' '.join([str(self.attributes[name]) for name in self.attributes]), "\n".join([str(child) for child in self.children]), escaped)
 
   def __repr__(self):

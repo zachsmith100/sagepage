@@ -155,7 +155,6 @@ class EvenRectColumnFlow:
 
   def push_rect(self, rect, col_index=0):
     self.get_column(col_index).insert(0, rect)
-    print(rect)
     while self.should_wrap(col_index):
       last_rect = self.get_column(col_index).pop()
       self.push_rect(last_rect, col_index + 1)
@@ -205,7 +204,7 @@ class ColumnArrangeable(Arrangeable):
       child = self.children[identifier]
       child.arrange()
       child_size = child.get_allocated_size()
-      child_rects.extend(child.get_rects())
+      child_rects.append(Rect(child.identifier, 0, 0, child_size.width, child_size.height, 'blue'))
     self.add_rects(child_rects)
 
     self.index_columns()
@@ -235,7 +234,12 @@ class ColumnArrangeable(Arrangeable):
         cell_rect = column[row_index]
         cell_rect.x = x
         cell_rect.y = y
-        self.matrix.place_rect(x, y, cell_rect)        
+        if cell_rect.identifier in self.children:
+          child = self.children[cell_rect.identifier]
+          grid_coord = self.matrix.place_rect(x, y, cell_rect, False)
+          child.overlay_onto_matrix(grid_coord.col, grid_coord.row, self.matrix)
+        else:
+          self.matrix.place_rect(x, y, cell_rect)
         y = y + cell_rect.height
       x = x + self.column_widths[col_index]
 
@@ -421,16 +425,16 @@ class AreaMatrix:
       x = x + width
     return None
 
-  def place_rect(self, x, y, rect):
+  def place_rect(self, x, y, rect, allocate=True):
     origin_cell_index = self.get_cell_grid_coord_for_xy(0, 0, x, y)
 
     if origin_cell_index is None:
-      return False
+      return None
 
     origin_cell_xy = self.get_relative_cell_origin_xy(0, 0, origin_cell_index.col, origin_cell_index.row)
 
     if origin_cell_xy is None:
-      return False
+      return None
 
     if x - origin_cell_xy.x > 0:
       self.split_column(origin_cell_index.col, x - origin_cell_xy.x)
@@ -477,14 +481,15 @@ class AreaMatrix:
 
     # Mark
     ######
-    for col_index in range(origin_cell_index.col, split_col_index + 1):
-      for row_index in range(origin_cell_index.row, split_row_index + 1):
-        cell = self.rows[row_index][col_index]
-        cell.color = rect.get_color()
-        self.cell_rect_xref[cell.identifier] = rect.identifier
-        self.rects[rect.identifier] = rect
+    if allocate:
+      for col_index in range(origin_cell_index.col, split_col_index + 1):
+        for row_index in range(origin_cell_index.row, split_row_index + 1):
+          cell = self.rows[row_index][col_index]
+          cell.color = rect.get_color()
+          self.cell_rect_xref[cell.identifier] = rect.identifier
+          self.rects[rect.identifier] = rect
 
-    return True
+    return origin_cell_index
 
   def get_rects(self):
     self.update_rects_xy()

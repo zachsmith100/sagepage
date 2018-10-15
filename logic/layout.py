@@ -10,6 +10,7 @@ from utils.permutations import OptimizableRange
 from utils.permutations import ParamCombinationGenerator
 from utils.models import Size
 from utils.configurable import Configurable
+from random import randint
 
 #############
 # LayoutUtils
@@ -78,7 +79,13 @@ class TextExtents:
 # TextUtils
 ###########
 class TextUtils:
+  cache = {}
+
   def get_text_dimensions(font_name, font_size, bold=False, text=None):
+    key = font_name + '.' + str(font_size) + '.' + str(bold) + '.' + str(text)
+    if key in TextUtils.cache:
+      return TextUtils.cache[key]
+
     extents = TextExtents()
     WIDTH, HEIGHT = 1024, 1024
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, WIDTH, HEIGHT)
@@ -104,6 +111,7 @@ class TextUtils:
     extents.font_height = font_extents[2]
     extents.font_max_x_advance = font_extents[3]
     extents.font_max_y_advance = font_extents[4]
+    TextUtils.cache[key] = extents
     return extents
 
 ###########
@@ -122,6 +130,34 @@ class LinkEntry:
 
   def __repr__(self):
     return self.__str__()
+
+################
+# ColorGenerator
+################
+class ColorGenerator:
+  colors = None
+  next_color_id = 0
+
+  def init():
+    ColorGenerator.colors = []
+    for r in range(245,256,5):
+      for g in range(235,251,5):
+        for b in range(235,251,5):
+          ColorGenerator.colors.append(('rgb({0},{1},{2})'.format(r,g,b), r+g+b))
+    ColorGenerator.colors.sort(key=lambda c: c[1])
+
+  def next():
+    if ColorGenerator.colors is None:
+      ColorGenerator.init()
+    partition_index = int(len(ColorGenerator.colors)/2)
+    color_index = 0
+    if ColorGenerator.next_color_id % 2 :
+      color_index = randint(0,partition_index)
+    else:
+      color_index = randint(partition_index, len(ColorGenerator.colors)-1)
+    ColorGenerator.next_color_id = ColorGenerator.next_color_id + 1
+    return ColorGenerator.colors[color_index][0]
+
 
 ################
 # OptimizeLayout
@@ -163,6 +199,18 @@ class OptimizeLayout:
       if ratio_diff == 0 or new_ratio_diff < ratio_diff:
         ratio_diff = abs(ratio - new_ratio)
         selected_svg = layout_result
+
+      if ratio_diff < 0.15:
+        break
+
+      partition_diff = ratio - new_ratio
+
+      if partition_diff == 0:
+        break
+      elif partition_diff < 0:
+        generator.partition(True)
+      else:
+        generator.partition(False)
 
       values = generator.next()
 
@@ -234,7 +282,7 @@ class SimpleWordListLayout:
   def get_area_params(self, group):
     params = []
     if self.layout_ratio > 0:
-      params.append(OptimizableRange('col_count', 1, len(group), 1))
+      params.append(OptimizableRange('col_count', 1, len(group), 1, True))
     return params
 
   def get_header_rect(self):
@@ -279,6 +327,12 @@ class SimpleWordListLayout:
     if width < header_size.width:
       width = header_size.width
     return (width, height)
+
+  def get_background_color(self):
+    color = self.background_color
+    if self.background_color.lower() == 'auto':
+      color = ColorGenerator.next()
+    return color
 
   def get_svg(self, group_name, group):
     # Init Entries
@@ -335,7 +389,7 @@ class SimpleWordListLayout:
     bg_rect = HTMLElement('rect').set_attr('id', group_name).set_attr('width', str(layout_rect_size[0]))
     bg_rect.set_attr('x', str(x)).set_attr('y', str(y))
     bg_rect.set_attr('height', str(layout_rect_size[1]))
-    bg_rect.set_attr('style', HTMLStyleBuilder().set('fill', self.background_color))
+    bg_rect.set_attr('style', HTMLStyleBuilder().set('fill', self.get_background_color()))
     svg_group.add_child(bg_rect)
 
     # Output Title
@@ -417,7 +471,7 @@ class GlossaryLayout:
     params = []
     if self.layout_ratio > 0:
       entries = self.get_glossary_entries(group)
-      params.append(OptimizableRange('col_count', 1, int(len(entries) / 2), 1))
+      params.append(OptimizableRange('col_count', 1, int(len(entries) / 2), 1, True))
     return params
 
   def get_glossary_entries(self, group):
@@ -578,7 +632,7 @@ class SimpleWordTableLayout:
   def get_area_params(self, group):
     params = []
     if self.layout_ratio > 0:
-      params.append(OptimizableRange('col_count', 1, int(len(group) / 2), 1))
+      params.append(OptimizableRange('col_count', 1, int(len(group) / 2), 1, True))
     return params
 
   def get_header_rect(self):
@@ -619,6 +673,12 @@ class SimpleWordTableLayout:
         height = size[1]
     height = height + header_size.height + (2*self.border_width)
     return (width, height)
+
+  def get_background_color(self):
+    color = self.background_color
+    if self.background_color.lower() == 'auto':
+      color = ColorGenerator.next()
+    return color
 
   def get_svg(self, group_name, group):
     # Index Entries
@@ -683,7 +743,7 @@ class SimpleWordTableLayout:
     bg_rect = HTMLElement('rect').set_attr('id', group_name).set_attr('width', str(layout_rect_size[0]))
     bg_rect.set_attr('x', str(x)).set_attr('y', str(y))
     bg_rect.set_attr('height', str(layout_rect_size[1]))
-    bg_rect.set_attr('style', HTMLStyleBuilder().set('fill', self.background_color))
+    bg_rect.set_attr('style', HTMLStyleBuilder().set('fill', self.get_background_color()))
     svg_group.add_child(bg_rect)
 
     # Output Title
@@ -1103,7 +1163,7 @@ class CodeletLayout:
   def get_area_params(self, group):
     params = []
     if self.layout_ratio > 0:
-      params.append(OptimizableRange('col_count', 1, int(len(group)), 1))
+      params.append(OptimizableRange('col_count', 1, int(len(group)), 1, True))
     return params
 
   def get_text_rect(self, entry):

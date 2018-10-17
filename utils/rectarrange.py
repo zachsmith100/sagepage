@@ -5,6 +5,7 @@ from utils.svg import SVG
 from utils.models import GridCoord
 from utils.models import XYCoord
 
+#############
 # Arrangeable
 #############
 class Arrangeable:

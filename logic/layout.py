@@ -10,6 +10,7 @@ from utils.permutations import OptimizableRange
 from utils.permutations import ParamCombinationGenerator
 from utils.models import Size
 from utils.configurable import Configurable
+from utils.models import LinkEntry
 from random import randint
 
 #############
@@ -113,23 +114,6 @@ class TextUtils:
     extents.font_max_y_advance = font_extents[4]
     TextUtils.cache[key] = extents
     return extents
-
-###########
-# LinkEntry
-###########
-class LinkEntry:
-  def __init__(self, group, identifier, text, url):
-    self.group = group
-    self.identifier = identifier
-    self.text = text
-    self.url = url
-
-  def __str__(self):
-    return self.text
-    #return "{0}.{1}.{2} '{3}' url='{4}'".format(self.community, self.group, self.identifier, self.text, self.url)
-
-  def __repr__(self):
-    return self.__str__()
 
 ################
 # ColorGenerator

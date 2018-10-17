@@ -11,8 +11,12 @@ python3 link_python_glossary.py python_glossary.html > glossary.csv
 
 # Build Page
 ############
+python3 -m cProfile build_page.py ./python_cheat_sheet/config_2.json ./python_cheat_sheet/links2.csv ./python_cheat_sheet/svg/input.svg
+
 python3 build_page.py ./python_cheat_sheet/config.json ./python_cheat_sheet/links_complete.csv ./python_cheat_sheet/svg/input.svg
 
+# Link PDF
+##########
 python3 link_pdf.py ./python_cheat_sheet/links_complete.csv ./python_cheat_sheet/svg/input.svg ./python_cheat_sheet/pdf/input.pdf ./python_cheat_sheet/pdf/out.pdf 
 
 
